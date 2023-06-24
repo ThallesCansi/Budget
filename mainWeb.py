@@ -35,7 +35,7 @@ async def getRecuperar(request: Request):
 @app.get("/dashboard", response_class=HTMLResponse)
 async def getDashboard(request: Request):
     activeDash= "sidebar-active"
-    titulo = "Bom dia, Ricardo"
+    titulo = "Dashboard"
     return templates.TemplateResponse("dashboard.html", {"request": request, "titulo":titulo, "activeDash": activeDash})
 
 
