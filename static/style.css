@@ -1,0 +1,841 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+
+/* Variáveis do Projeto */
+:root {
+    /* Estilo das Cores  */
+    /* Cores Primárias */
+    --primaryColor-green: #56ab91;
+    --primaryColor-blue: #2b478b;
+
+    /* Gradientes */
+    --gradient-horizontal: linear-gradient(90deg, #2b478b 0%, #55ab91 100%);
+    --gradient-vertical: linear-gradient(180deg, #55ab91 0%, #2b478b 100%);
+
+    /* Cores Neutras */
+    --neutralColors-text: #212529;
+    --neutralColors-textGray: #343a40;
+    --neutralColors-600: #495057;
+    --neutralColors-500: #6c757d;
+    --neutralColors-400: #adb5bd;
+    --neutralColors-300: #ced4da;
+    --neutralColors-200: #dee2e6;
+    --neutralColors-100: #e9ecef;
+    --neutralColors-white: #ffffff;
+
+    /* Tons de Verde */
+    --greenAccent-800: #19332b;
+    --greenAccent-700: #2b5548;
+    --greenAccent-600: #3c7765;
+    --greenAccent-500: #4d9982;
+    --greenAccent-400: #66b39c;
+    --greenAccent-300: #88c4b2;
+    --greenAccent-200: #aad5c8;
+    --greenAccent-100: #cce5de;
+
+    /* Tons de Azul */
+    --blueAccent-800: #0c1529;
+    --blueAccent-700: #152345;
+    --blueAccent-600: #1e3161;
+    --blueAccent-500: #263f7d;
+    --blueAccent-400: #405996;
+    --blueAccent-300: #6a7ead;
+    --blueAccent-200: #95a3c5;
+    --blueAccent-100: #bfc7dc;
+
+    /* Categorias */
+    --categories-darkBlue: #076ebd;
+    --categories-blue: #42b5e7;
+    --categories-green: #12ae6c;
+    --categories-red: #f83215;
+    --categories-orange: #fea519;
+    --categories-pink: #fa4deb;
+    --categories-gray: #98a6af;
+
+    /* Menu de Navegação */
+    --navBar-gray: #e6ecf1;
+    --navBar-blue: #4d72cc;
+    --navBar-expense: #d76060;
+    --navBar-saving: #35aa3a;
+
+    --text-color: #212529;
+    --white-color: #ffffff;
+    --gray-color: #e6ecf1;
+
+    /* Estilo dos Efeitos */
+    /* Sombras Gerais */
+    --shadow-default-01: 0px 2px 6px rgba(33, 37, 41, 0.08);
+    /* Sombra dos Botões Padrões */
+    --buttonShadow-default-01: 0px 8px 8px rgba(33, 37, 41, 0.08);
+    --buttonShadow-default-02: 0px 8px 16px rgba(33, 37, 41, 0.17);
+}
+
+/* Padrão para todas as páginas de formulários */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    font-style: normal;
+    font-size: 12px;
+    color: var(--neutralColors-text);
+}
+
+body{
+    overflow-y: hidden;
+}
+
+.sidebar img{
+    cursor: pointer;
+}
+
+.sidebar-tab h1,
+.navbar h1 {
+    font-size: 3.3rem;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.sidebar-tab h4,
+.navbar h4 {
+    font-size: 1.6rem;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+/* Tamanho padrão de ícone padrão */
+.sidebar-tab i,
+.navbar i {
+    display: flex !important;
+    justify-content: center !important;
+    font-size: 25px;
+    height: 25px;
+    width: 25px;
+    margin: 25px;
+    font-weight: bold;
+    color: var(--gray-color);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    cursor: pointer;
+}
+
+.navbar {
+    height: 60px;
+    width: calc(100vw - 275px);
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    position: fixed; 
+    left: 275px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+    margin-right: 5px;
+}
+
+.profile-dep {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    margin-top: 0px;
+    margin-right: 5px;
+}
+
+.profile img{
+    width: 75px;
+    cursor: pointer;
+}
+
+.navbar h1{
+    margin-left: 25px;
+}
+
+.profile i:hover {
+    color: var(--text-color);
+}
+
+/*Menu lateral*/
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    padding: 25px 0 0 25px;
+    width: 275px;
+    height: 100vh;
+    background-color: var(--primaryColor-green);
+    position: fixed;
+    overflow-y: scroll;
+    bottom: -0px;
+}
+
+/* Abas da Barra Lateral */
+.sidebar-tab {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    margin: 25px 0;
+}
+
+.sidebar-tab a,
+.sidebar-tab h4 {
+    color: var(--gray-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+}
+
+.sidebar-tab:hover,
+.sidebar-tab:hover a,
+.sidebar-tab:hover h4 {
+    background: var(--white-color);
+    border-radius: 15px 0 0 15px;
+    color: var(--text-color);
+}
+
+.sidebar-tab:hover i{
+    color: var(--text-color);
+}
+
+
+/* Aba Ativda da Barra Lateral */
+.sidebar-active,
+.sidebar-active a,
+.sidebar-active h4 {
+    background: var(--white-color);
+    border-radius: 15px 0 0 15px;
+    color: var(--text-color) !important;
+}
+
+.sidebar-active i{
+    color: var(--text-color);
+}
+/* Estilo padrão dos ícones */
+.app-form i {
+    font-size: 20px;
+    height: 50px;
+    width: 50px;
+    color: var(--neutralColors-400);
+    cursor: pointer;
+}
+
+/* Estilo padrão para os campos */
+input,
+select {
+    color: var(--neutralColors-500);
+    width: 350px;
+    height: 50px;
+    background-color: var(--white-color);
+    border: var(--text-color);
+    box-shadow: var(--buttonShadow-default-02);
+    border-radius: 5px;
+    text-indent: 10px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 22px;
+}
+
+/* Estilo padrão do Título H1 */
+h1 {
+    font: normal 700 6.7rem/7.5rem "DM Sans";
+}
+
+/* Estilo padrão do Título H2 */
+h4 {
+    font: normal 700 3.2rem/4.2rem "DM Sans";
+}
+
+h5 {
+    font: normal 700 2.7rem/3.5rem "DM Sans";
+}
+
+h6 {
+    font: normal 700 2.3rem/3.2rem "DM Sans";
+}
+
+/* Estilo padrão para Corpo */
+p {
+    font: normal 400 2rem/3.5rem "DM Sans";
+}
+
+a{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--primaryColor-green);
+}
+
+a.voltar{
+    color: var(--white-color);
+}
+
+main {
+    position: relative;                    
+    height: calc(100vh - 120px); 
+    width: calc(100vw - 300px);
+    left: 300px;
+    margin-top: 50px;
+    overflow-y:scroll;
+}
+
+
+/*Login, cadastro e recuperar senha*/
+.container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+}
+
+.input-field {
+    margin-top: 0.1rem;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.container.login{
+    background-color: var(--neutralColors-white);
+}
+
+.container.login:before{
+    content: '';
+    position: absolute;
+    width: 125rem;
+    height: 160.3rem;
+    border-radius: 50%;
+    background: var(--primaryColor-green);
+    top: -10%;
+    right: 48%;
+    transform: translateY(-50%);
+    z-index: 6;
+    transition: 1.7s ease-in-out;
+}
+
+.forms-container-login{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.signin-signup{
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: 1fr;
+    z-index: 5;
+    transition: 1s 0.7s ease-in-out;
+}
+
+.signin-signup h1{
+    font-size: 3rem;
+}
+
+
+.signin-signup form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    transition: 0.3s 0.8s ease-in-out;
+}
+
+form.sign-in-form{
+    z-index: 2;
+}
+
+form.sign-up-form{
+    z-index: 1;
+    opacity: 0;
+}
+
+input.btn-form {
+    display: flex;
+    justify-content: center;
+    background-color: var(--primaryColor-green);
+    margin-top: 0.5rem;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    width: 350px;
+    height: 50px;
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+
+.password{
+    display: flex;
+    justify-content: space-between;
+}
+
+input.pw{
+    width: 165px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.input-field.pw p{
+    margin-left: 10px;
+}
+
+.termo p{
+    font-size: 1.55rem;
+}
+
+.icons{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+img.icon{
+    width: 4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.panels-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 1.25rem;
+}
+
+.content h1,
+.content p {
+    color: var(--neutralColors-white);
+    font-weight: 600;
+}
+
+.content h1{
+    font-size: 5rem;
+}
+
+.panel{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: center;  
+    justify-content: space-around;
+    z-index: 7;
+}
+
+.left-panel{
+    pointer-events: all;
+    display: block;
+    margin-right: 2.2rem;
+}
+
+.right-panel{
+    pointer-events: none;
+    display: block;
+    margin-right: 2.2rem;
+}
+
+.panel .content{
+    transition: .9s .6s ease-in-out;
+}
+
+button{
+    background-color: var(--neutralColors-white);
+    margin-top: 1.9rem;
+    border-radius: 5px;
+    color: var(--primaryColor-green);
+    width: 350px;
+    height: 50px;
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    border: none ;
+    cursor: pointer;
+}
+
+.right-panel .content{
+    transform: translateX(187.5rem);
+}
+
+.container.login.sign-up-mode:before{
+    transform: translate(100%, -50%);
+    right: 55%;
+}
+
+.container.login.sign-up-mode .left-panel .content{
+    transform: translateX(-187.5rem)
+}
+
+.container.login.sign-up-mode .right-panel .content{
+    transform: translateX(0rem)
+}
+
+.container.login.sign-up-mode .left-panel{
+    pointer-events: none;
+}
+
+.container.login.sign-up-mode .right-panel{
+    pointer-events: all;
+}
+
+.container.login.sign-up-mode .signin-signup{
+    left: 25%
+}
+
+.container.login.sign-up-mode form.sign-in-form{
+    z-index: 1;
+    opacity: 0;
+}
+
+.container.login.sign-up-mode form.sign-up-form{
+    z-index: 2;
+    opacity: 1;
+}
+
+/* Formulario de recuperar senha */
+
+.container.rec {
+    align-items: center;
+    background-color: var(--primaryColor-green);
+}
+
+.form-container-rec{
+    text-align: center;
+}
+
+.form-container-rec h1{
+    color: var(--neutralColors-white);
+    font-size: 5rem;
+}
+
+.form-rec{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 23rem;
+    background-color: var(--neutralColors-white);
+    padding: 1.2rem;
+    border-radius: 1.6rem;
+    box-shadow: 0rem 0.5rem 1rem rgba(33, 37, 41, 0.17);
+    margin-top: 1.6rem;
+    align-items: center;
+}
+
+/*Formulários do aplicativo*/
+.app-form {
+    padding-top: 50rem;
+    margin-top: 9rem;
+    height: 800px;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 50px;
+    gap: 16px;
+    position: absolute;
+    width: 900px;
+    background: var(--gray-color);
+    box-shadow: var(--buttonShadow-default-01);
+    border-radius: 25px;
+    display: none;
+    z-index: 1;
+
+    /* Alinhar ao centro da tela */
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.app-form .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 3rem;
+    cursor: pointer;
+}
+.form-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.form-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 35px;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0px;
+    gap: 35px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 92px;
+}
+
+.action {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-top: 25px;
+    padding-left: 15px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--neutralColors-500);
+    border-radius: 25px;
+}
+
+.confirm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 100px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.confirm i {
+    color: var(--neutralColors-white);
+    font-size: 50px;
+    width: 50px;
+    height: 50px;
+}
+
+#expense {
+    color: var(--navBar-expense);
+    font-weight: bold;
+    font-size: 3.2rem
+}
+
+#saving {
+    color: var(--navBar-saving);
+    font-weight: bold;
+    font-size: 3.2rem
+}
+
+#confirm-expense {
+    background-color: var(--navBar-expense);
+}
+
+#confirm-saving {
+    background-color: var(--navBar-saving);
+}
+
+/* Adicionar Dependentes */
+.identification {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 25px;
+    width: 350px;
+}
+
+.identification i {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background: var(--categories-gray);
+    border-radius: 15px;
+    cursor: default;
+    font-size: 50px;
+    color: var(--neutralColors-white);
+    width: 50px;
+    height: 50px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.identification h6 {
+    color: var(--neutralColors-400);
+    font-size: 1.7rem;
+}
+
+.load-photo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    width: 330px;
+    height: 55px;
+    background: var(--neutralColors-200);
+    box-shadow: var(--buttonShadow-default-02);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.load-photo i {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    color: var(--neutralColors-white);
+    background: var(--neutralColors-300);
+    border-radius: 50px;
+}
+
+.load-photo p {
+    color: var(--neutralColors-500);
+}
+
+.chevron {
+    background: transparent !important;
+    color: var(--neutralColors-500) !important;
+}
+
+.select-color {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 35px;
+    width: 280px;
+    background: var(--neutralColors-white);
+    box-shadow: var(--buttonShadow-default-02);
+    border-radius: 15px;
+}
+
+.balls-top,
+.balls-bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 15px;
+    gap: 15px;
+}
+
+.colors-ball {
+    /* width: 100px;
+    height: 100px; */
+    border-radius: 50px;
+}
+
+
+/*Dashboard*/
+
+.columns {
+    display: flex;
+    flex-direction: row;
+    /* margin-top: 50px; */
+    /* margin-left: 150px; */
+    align-items: flex-start;
+    gap: 35px;
+}
+
+.left-column.system{
+    align-items: flex-start;
+}
+
+.overviews{
+    display: flex;
+    gap: 35px;
+}
+
+.overview{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    justify-content: center;
+    padding: 10px;
+    width: 175px;
+    height: 175px;
+    border: 1px solid #212529;
+    border-radius: 25px;
+}
+
+.overview p{
+    font-size: 23px;
+}
+
+
+.dinheiro{
+    font-weight: 700;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+#saldo{
+    color: var(--navBar-blue)
+}
+
+#receitas{
+    color: var(--navBar-saving);
+}
+
+#despesas{
+    color: var(--navBar-expense)
+}
+
+.tipoRouD{
+    display: none;
+    flex-direction: column;
+}
+
+/* Configurações */
+
+.config{
+    width: 30rem;
+}
+
+.opcao{
+    cursor: pointer;
+    margin-bottom: 0.3rem;
+}
+
+a.opcao{
+    text-decoration: none;
+}
+
+
+.config h3:hover{
+    font-weight: bold;
+    color: var(--primaryColor-green);
+}
+
+

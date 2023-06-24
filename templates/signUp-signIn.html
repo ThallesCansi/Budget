@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/images/Logo.ico" />
+    <script src="https://kit.fontawesome.com/12a892a853.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Budget  |  Entrar</title>
+</head>
+<body>
+    <!-- div que contém todo o conteúdo -->
+    <div class="container login">
+        <!-- div que contem os formularios -->
+        <div class="forms-container-login">
+            <!-- div com os formulario de entrar e cadastro -->
+            <div class="signin-signup">
+                <!-- formulario para entrar -->
+                <form action="dashboard" class="sign-in-form">
+                    <img src="static/images/nameLogo.svg">
+                    <h1>Acesse sua conta</h1>
+                    <!-- icones para acesso -->
+                    <div class="icons">
+                        <a href="#">
+                            <img src="static/images/Google.png" alt="" class="icon"></a>
+                        <a href="#">
+                            <img src="static/images/Facebook.png" alt="" class="icon"></a>
+                        <a href="#">
+                            <img src="static/images/Microsoft.png" alt="" class="icon"></a>
+                    </div>
+                    <p>Ou</p>
+                    <!-- campos de entrada -->
+                    <div class="input-field">
+                        <p>Usuário</p>
+                        <input type="text" placeholder="">    
+                    </div>
+                    <div class="input-field">
+                        <p>Senha</p>
+                        <input type="password" placeholder=""> 
+                    </div>
+                    <a  href="recuperarSenha">Esqueceu a senha?</a>
+                    <input class="btn-form" type="submit" value="Entrar">
+                </form>
+                <!-- formulario de cadastro -->
+                <form action="" class="sign-up-form">
+                    <img src="static/images/nameLogo.svg">
+                    <h1>Cadastre sua conta</h1>
+                    <div class="icons">
+                        <a href="#"><img src="static/images/Google.png" alt="" class="icon"></a>
+                        <a href="#"><img src="static/images/Facebook.png" alt="" class="icon"></a>
+                        <a href="#"><img src="static/images/Microsoft.png" alt="" class="icon"></a>
+                    </div>
+                    <p>Ou</p>
+                    <!-- campos de entrada -->
+                    <div class="input-field">
+                        <p>Usuário</p>
+                        <input type="text" placeholder="Exemplo: João da Silva">     
+                    </div>
+                    <div class="input-field">
+                        <p>E-mail</p>
+                        <input type="email" placeholder="Exemplo: joao@email.com">   
+                    </div>
+                    <div class="password">
+                        <div class="input-field pw">
+                            <p>Senha</p>
+                            <input class="pw" type="password" placeholder="Abc123!"> 
+                        </div>
+                        <div class="input-field pw">
+                            <p>Confirmar</p>
+                            <input class="pw" type="password" placeholder=""> 
+                        </div>
+                    </div>
+                    <input class="btn-form" type="submit" value="Cadastre-se">
+                    <div class="termo">
+                        <!-- <input class="checkbox" type="checkbox"> -->
+                        <p>Li e concordo com os <a href="#">termos de uso</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panels-container" id="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h1>Novo por aqui?</h1>
+                    <p>Crie uma conta gratuita, fácil e segura e junte-se<br> aos usuários que estão economizando dinheiro e<br> planejando melhor seus gastos! </p>
+                    <button class="btn-animat" id="sign-up-btn">Cadastre-se</button>
+                </div>
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h1>Já é um de nós?</h1>
+                    <p>Que bom tê-lo de volta!  Acesse sua conta<br> rapidamente e continue aprimorando o controle<br> da sua vida financeira. </p>
+                    <button class="btn-animat" id="sign-in-btn">Acesse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static/scripts/signUp-signIn.js"></script>
+</body>
+</html>

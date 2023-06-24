@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<table class="table table-borderless table-lg">
+  <thead class="table-success">
+    <tr>
+      <th scope="col">Data</th>
+      <th scope="col">Dependente</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in transactions %}
+    <tr>
+      <td>{{t.date}}</td>
+      <td>{{t.idDependent}}</td>
+      <td>{{t.description}}</td>
+      <td>{{t.value}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td>Quantidade de Transações: {{qtdeTransacoes}}</td>
+    </tr>
+  </tbody>
+</table>
+  
+{% endblock %}
+

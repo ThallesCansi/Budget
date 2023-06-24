@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <link rel="stylesheet" href="style.css" /> -->
+        <!-- Título da janela -->
+        <title>Budget</title>
+        <!-- Ícone da janela -->
+        <link rel="shortcut icon" href="static/images/Logo.ico" type="image/x-icon" />
+        <scrip src="/static/scripts/popup.js"></scrip>
+        <!-- CSS -->
+        <link rel="stylesheet" href="/static/style.css" />
+
+        <!-- Ícones -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+        
+        <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" />
+        
+        <title>Budget</title>
+    </head>
+    <body >
+        <div class="navbar">
+                <h1>{{titulo}}</h1>
+                <div class="profile">
+                    <i class="fa-solid fa-bell"></i>
+                    <img src="static/images/avatar-circle-120x120.png" />
+                </div>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard"><img src="static/images/Cor=Branco.svg" alt="Budget Logo" /></a>
+            </div>
+
+            <div class={{activeDash}}>
+                <div class="sidebar-tab">
+                    <a href="/dashboard">
+                        <i class="fa-solid fa-chart-simple"></i>
+                        <h4>Dashboard</h4>
+                    </a>
+                </div>
+            </div>
+
+            <div class={{activeTran}}>
+                <div class="sidebar-tab">
+                    <a href="/transacoes">
+                        <i class="fa-solid fa-bars"></i>
+                        <h4>Transações</h4>
+                    </a>
+                </div>
+            </div>
+
+            <div class="{{activeCart}}">
+                <div class="sidebar-tab">
+                    <a href="/carteira">
+                        <i class="fa-solid fa-wallet"></i>
+                        <h4>Carteira</h4>
+                    </a>
+                </div>
+            </div>
+
+            <div class="{{activeMeta}}">
+                <div class="sidebar-tab">
+                    <a href="/metas">
+                        <i class="fa-solid fa-circle-dot"></i>
+                        <h4>Metas</h4>
+                    </a>
+                </div>
+            </div>
+
+            <div class="{{activeConfig}}">
+                <div class="sidebar-tab">
+                    <a href="/configuracoes">
+                        <i class="fa-solid fa-gear"></i>
+                        <h4>Configurações</h4>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sidebar-tab">
+                <a href="/signUp-signIn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <h4>Sair</h4>
+                </a>
+            </div>
+        </div>
+        <main class="">
+            {% block conteudo %}
+            {% endblock %}
+        </main>
+        {% block popup %}
+        {% endblock %}
+        {% block popup2 %}
+        {% endblock %}
+    </body>
+</html>

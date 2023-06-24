@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+
+{% block conteudo %}
+<div class="columns">
+    <div class="left-column system">
+        <select id="dashboard">
+            <option value="label" disabled selected> Escolha o mês </option>
+            <option value="janeiro">Janeiro</option>
+            <option value="fevereiro">Fevereiro</option>
+            <option value="março">Março</option>
+        </select>
+        <div class="overviews">
+            <div class="overview" id="saldo">
+                <img class= src=""">
+                <p class="dinheiro" id="saldo">R$ 4.429,07</p>
+                <p class="">saldo</p>
+            </div>
+            <div class="overview">
+                <img id="receitas" src="">
+                <p class="dinheiro" id="receitas">R$ 5.785,07</p>
+                <p class="">receitas</p>
+            </div>
+            <div class="overview">
+                <img src="">
+                <p class="dinheiro" id="despesas">R$ 1.356,00</p>
+                <p class="">despesas</p>
+            </div>
+        </div>
+
+        <img src="/static/images/Gráfico.svg">
+
+
+    </div>
+
+    <!-- Coluna Direita -->
+    <div class="right-column">
+        <div id="tipoRouD" class="tipoRouD">
+            <script src="static/scripts/popup.js"></script>
+            <a href="#" onclick="openPopupReceita()"><img src="static/images/Receita.svg"></a>
+            <a href="#" onclick="openPopupDespesa()"><img src="static/images/Despesa.svg"></a>
+        </div>
+        <a href="#" onclick="openPopupButton()"><img src="static/images/Adicionar.svg"></a>
+    </div>
+</div>
+{% endblock %}
+
+{% block popup %}
+<!-- Formulário do Aplicativo -->
+    <form id="app-form-receita" class="app-form" method="post" action="/cadastrarReceita"  target="_blank">
+        <!-- Cabeçalho do Formulário -->
+        <div class="form-header">
+            <span class="close" onclick="closePopupReceita()">&times;</span>
+            <h4 id="saving">Registrar Receita</h4>
+        </div>
+
+        <!-- Colunas do Formulário -->
+        <div class="form-columns">
+            <!-- Coluna Esquerda -->
+            <div class="left-column">
+                <!-- Descrição -->
+                <div class="field">
+                    <p>Descrição</p>
+                    <input
+                        type="text"
+                        placeholder="Exemplo: Vendi minha moto"
+                        style="font-size: 2rem"
+                        name="description"
+                    />
+                </div>
+
+                <!-- Valor -->
+                <div class="field">
+                        <p>Valor</p>
+                        <input
+                            id="saving"
+                            type="number"
+                            placeholder="R$ 0,00"
+                            style="font-size: 2rem"
+                            name="value"
+                        />
+                    </div>
+
+                    <!-- Conta -->
+                    <div class="field">
+                        <p>Conta</p>
+                        <select name="idConta">
+                            <option disabled selected>
+                                Escolha a sua conta
+                            </option>
+                            <option value="wallet">Minha Carteira</option>
+                            <option value="nubank">NuBank</option>
+                            <option value="inter">Inter</option>
+                        </select>
+                    </div>
+
+                    <!-- Membro -->
+                    <div class="field">
+                        <p>Adicionar Membro</p>
+                        <select name="idMembro">
+                            <option value="label" disabled selected>
+                                Escolha o membro
+                            </option>
+                            <option value="pai">Pai</option>
+                            <option value="filho">Filho</option>
+                            <option value="1">Irmão</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita -->
+                <div class="right-column">
+                    <!-- Data -->
+                    <div class="field">
+                        <p>Data</p>
+                        <input type="date" name="date"
+                            style="font-size: 2rem"/>
+                    </div>
+
+                    <!-- Categoria -->
+                    <div class="field">
+                        <p>Categoria</p>
+                        <select name="idCategoria">
+                            <option value="label" disabled selected>
+                                Escolha a categoria
+                            </option>
+                            <option value="transporte">Transporte</option>
+                            <option value="alimentacao">Alimentação</option>
+                            <option value="pagamentos">Pagamentos</option>
+                            <option value="educacao">Educação</option>
+                        </select>
+                    </div>
+
+                    <!-- Forma de Pagamento -->
+                    <div class="field">
+                        <p>Forma de Pagamento</p>
+                        <select name="payment">
+                            <option value="label" disabled selected>
+                                Escolha a forma de pagamento
+                            </option>
+                            <option value="money">Dinheiro</option>
+                            <option value="card">Cartão</option>
+                            <option value="pix">PIX</option>
+                        </select>
+                    </div>
+
+                    <!-- Ações -->
+                    <div class="actions">
+                        <div class="action">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                        </div>
+                        <div class="action">
+                            <i class="fa-solid fa-repeat"></i>
+                        </div>
+                        <div class="action">
+                            <i class="fa-solid fa-paperclip"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão do Formulário -->
+            <button id="confirm-saving" class="confirm" type="submit">
+                <i class="fa-solid fa-check"></i>
+            </button>
+        </form>
+<script src="static/scripts/popup.js"></script>
+{% endblock %}
+
+{% block popup2 %}
+        <!-- Formulário do Aplicativo -->
+        <form id="app-form-despesa" class="app-form" method="post" action="/cadastrarDespesa">
+            <!-- Cabeçalho do Formulário -->
+            <div class="form-header">
+                <span class="close" onclick="closePopupDespesa()">&times;</span>
+                <h4 id="expense">Registrar Despesa</h4>
+            </div>
+
+            <!-- Colunas do Formulário -->
+            <div class="form-columns">
+                <!-- Coluna Esquerda -->
+                <div class="left-column">
+                    <!-- Descrição -->
+                    <div class="field">
+                        <p>Descrição</p>
+                        <input
+                            type="text"
+                            placeholder="Exemplo: Roupa nova para viagem"
+                            style="font-size: 2rem"
+                        />
+                    </div>
+
+                    <!-- Valor -->
+                    <div class="field">
+                        <p>Valor</p>
+                        <input
+                            id="expense"
+                            type="number"
+                            placeholder="R$ 0,00"
+                            style="font-size: 2rem"
+                        />
+                    </div>
+
+                    <!-- Conta -->
+                    <div class="field">
+                        <p>Conta</p>
+                        <select>
+                            <option value="label" disabled selected>
+                                Escolha a sua conta
+                            </option>
+                            <option value="wallet">Minha Carteira</option>
+                            <option value="nubank">NuBank</option>
+                            <option value="inter">Inter</option>
+                        </select>
+                    </div>
+
+                    <!-- Membro -->
+                    <div class="field">
+                        <p>Adicionar Membro</p>
+                        <select>
+                            <option value="label" disabled selected>
+                                Escolha o membro
+                            </option>
+                            <option value="pai">Pai</option>
+                            <option value="filho">Filho</option>
+                            <option value="irmao">Irmão</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita -->
+                <div class="right-column">
+                    <!-- Data -->
+                    <div class="field">
+                        <p>Data</p>
+                        <input type="date"
+                        style="font-size: 2rem"/>
+                    </div>
+
+                    <!-- Categoria -->
+                    <div class="field">
+                        <p>Categoria</p>
+                        <select>
+                            <option value="label" disabled selected>
+                                Escolha a categoria
+                            </option>
+                            <option value="transporte">Transporte</option>
+                            <option value="alimentacao">Alimentação</option>
+                            <option value="pagamentos">Pagamentos</option>
+                            <option value="educacao">Educação</option>
+                        </select>
+                    </div>
+
+                    <!-- Forma de Pagamento -->
+                    <div class="field">
+                        <p>Forma de Pagamento</p>
+                        <select>
+                            <option value="label" disabled selected>
+                                Escolha a forma de pagamento
+                            </option>
+                            <option value="money">Dinheiro</option>
+                            <option value="card">Cartão</option>
+                            <option value="pix">PIX</option>
+                        </select>
+                    </div>
+
+                    <!-- Ações -->
+                    <div class="actions">
+                        <div class="action">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                        </div>
+                        <div class="action">
+                            <i class="fa-solid fa-repeat"></i>
+                        </div>
+                        <div class="action">
+                            <i class="fa-solid fa-paperclip"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão do Formulário -->
+            <button id="confirm-expense" class="confirm" type="submit">
+                <i class="fa-solid fa-check"></i>
+            </button>
+        </form>
+<script src="static/scripts/popup.js"></script>
+{% endblock %}
