@@ -7,7 +7,7 @@ print("3. Rodar Uvicorn")
 
 option = 5
 while option != 0:
-    option = int(input("Opção: "))
+    option = int(input("Options: "))
     if (option == 1 ):
         from mainTerminalTransaction import showMenu
         showMenu()
