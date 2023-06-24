@@ -43,7 +43,7 @@
                     <input class="btn-form" type="submit" value="Entrar">
                 </form>
                 <!-- formulario de cadastro -->
-                <form action="" class="sign-up-form">
+                <form method="post" action="/dashboard" class="sign-up-form">
                     <img src="static/images/nameLogo.svg">
                     <h1>Cadastre sua conta</h1>
                     <div class="icons">
@@ -55,16 +55,16 @@
                     <!-- campos de entrada -->
                     <div class="input-field">
                         <p>Usuário</p>
-                        <input type="text" placeholder="Exemplo: João da Silva">     
+                        <input name="name" type="text" placeholder="Exemplo: João da Silva">     
                     </div>
                     <div class="input-field">
                         <p>E-mail</p>
-                        <input type="email" placeholder="Exemplo: joao@email.com">   
+                        <input name="email" type="email" placeholder="Exemplo: joao@email.com">   
                     </div>
                     <div class="password">
                         <div class="input-field pw">
                             <p>Senha</p>
-                            <input class="pw" type="password" placeholder="Abc123!"> 
+                            <input name="password" class="pw" type="password" placeholder="Abc123!"> 
                         </div>
                         <div class="input-field pw">
                             <p>Confirmar</p>

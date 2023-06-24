@@ -11,11 +11,11 @@ class UserRepo:
             idUser INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             email TEXT NOT NULL,
-            birth TEXT NOT NULL,
+            birth TEXT,
             password TEXT NOT NULL,
-            phone TEXT NOT NULL,
-            state TEXT NOT NULL,
-            city TEXT NOT NULL)
+            phone TEXT,
+            state TEXT,
+            city TEXT)
         """
         conn = Database.createConnection()
         cursor = conn.cursor()

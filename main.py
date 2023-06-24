@@ -18,7 +18,7 @@ while option != 0:
         
     elif (option == 3):
         import os
-        os.system("uvicorn mainWeb:app --reload")
+        os.system("uvicorn mainWeb:app --reload --host=0.0.0.0 --port=5000")
         
     
 
