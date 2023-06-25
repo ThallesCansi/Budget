@@ -62,6 +62,7 @@
                 <div class="field">
                     <p>Descrição</p>
                     <input
+                        id="description"
                         type="text"
                         placeholder="Exemplo: Vendi minha moto"
                         style="font-size: 2rem"
@@ -84,7 +85,7 @@
                     <!-- Conta -->
                     <div class="field">
                         <p>Conta</p>
-                        <select name="idConta">
+                        <select id="conta" name="idConta">
                             <option disabled selected>
                                 Escolha a sua conta
                             </option>
@@ -94,12 +95,12 @@
                         </select>
                     </div>
 
-                    <!-- Membro -->
+                    <!-- Dependente -->
                     <div class="field">
-                        <p>Adicionar Membro</p>
-                        <select name="idMembro">
+                        <p>Adicionar Dependente</p>
+                        <select id="dependent" name="idMembro">
                             <option value="label" disabled selected>
-                                Escolha o membro
+                                Escolha o Dependente
                             </option>
                             <option value="pai">Pai</option>
                             <option value="filho">Filho</option>
@@ -113,14 +114,14 @@
                     <!-- Data -->
                     <div class="field">
                         <p>Data</p>
-                        <input type="date" name="date"
+                        <input type="date" name="date" id="date"
                             style="font-size: 2rem"/>
                     </div>
 
                     <!-- Categoria -->
                     <div class="field">
                         <p>Categoria</p>
-                        <select name="idCategoria">
+                        <select name="idCategoria" id="category">
                             <option value="label" disabled selected>
                                 Escolha a categoria
                             </option>
@@ -134,7 +135,7 @@
                     <!-- Forma de Pagamento -->
                     <div class="field">
                         <p>Forma de Pagamento</p>
-                        <select name="payment">
+                        <select name="payment" id="payment">
                             <option value="label" disabled selected>
                                 Escolha a forma de pagamento
                             </option>
@@ -160,16 +161,17 @@
             </div>
 
             <!-- Botão do Formulário -->
-            <button id="confirm-saving" class="confirm" type="submit">
+            <button id="confirm-saving" class="confirm" type="submit" >
                 <i class="fa-solid fa-check"></i>
             </button>
         </form>
 <script src="static/scripts/popup.js"></script>
+<script src="static/scripts/limparForm.js"></script>
 {% endblock %}
 
 {% block popup2 %}
         <!-- Formulário do Aplicativo -->
-        <form id="app-form-despesa" class="app-form" method="post" action="/cadastrarDespesa">
+        <form id="app-form-despesa" class="app-form" method="post" action="/cadastrarDespesa" >
             <!-- Cabeçalho do Formulário -->
             <div class="form-header">
                 <span class="close" onclick="closePopupDespesa()">&times;</span>
@@ -187,6 +189,7 @@
                             type="text"
                             placeholder="Exemplo: Roupa nova para viagem"
                             style="font-size: 2rem"
+                            name = "description"
                         />
                     </div>
 
@@ -198,13 +201,14 @@
                             type="number"
                             placeholder="R$ 0,00"
                             style="font-size: 2rem"
+                            name="value"
                         />
                     </div>
 
                     <!-- Conta -->
                     <div class="field">
                         <p>Conta</p>
-                        <select>
+                        <select name="idConta">
                             <option value="label" disabled selected>
                                 Escolha a sua conta
                             </option>
@@ -214,12 +218,12 @@
                         </select>
                     </div>
 
-                    <!-- Membro -->
+                    <!-- Dependente -->
                     <div class="field">
-                        <p>Adicionar Membro</p>
-                        <select>
+                        <p>Adicionar Dependente</p>
+                        <select name="idMembro">
                             <option value="label" disabled selected>
-                                Escolha o membro
+                                Escolha o Dependente
                             </option>
                             <option value="pai">Pai</option>
                             <option value="filho">Filho</option>
@@ -233,14 +237,14 @@
                     <!-- Data -->
                     <div class="field">
                         <p>Data</p>
-                        <input type="date"
+                        <input type="date" name="date"
                         style="font-size: 2rem"/>
                     </div>
 
                     <!-- Categoria -->
                     <div class="field">
                         <p>Categoria</p>
-                        <select>
+                        <select name="idCategoria">
                             <option value="label" disabled selected>
                                 Escolha a categoria
                             </option>
@@ -254,7 +258,7 @@
                     <!-- Forma de Pagamento -->
                     <div class="field">
                         <p>Forma de Pagamento</p>
-                        <select>
+                        <select name="payment">
                             <option value="label" disabled selected>
                                 Escolha a forma de pagamento
                             </option>

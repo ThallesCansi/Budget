@@ -1,6 +1,6 @@
 from typing import Annotated
-from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request, Form, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from User import User
@@ -76,15 +76,18 @@ async def getConfig(request: Request):
 
 # Formulários do dashboard
 @app.post("/cadastrarReceita")
-async def postCadastrarReceita(
+async def postCadastrarReceita(request: Request,
     description: Annotated[str, Form()], 
     value: Annotated[str, Form()], 
     idConta: Annotated[str, Form()],
     idMembro: Annotated[str, Form()],
     date: Annotated[str, Form()],
     idCategoria: Annotated[str, Form()],
-    payment: Annotated[str, Form()]):
-    TransactionRepo.insert(Transaction (2, 2, idCategoria, idConta, idMembro, description, date, value, payment))
+    payment: Annotated[str, Form()]): #não tem na tabela
+    TransactionRepo.createTable()
+    TransactionRepo.insert(Transaction (2, 2, idCategoria, idConta, idMembro, description, date, value, "Receita"))
+    return RedirectResponse("/transacoes", status_code=status.HTTP_303_SEE_OTHER)
+    
 
 @app.post("/cadastrarDespesa")
 async def postCadastrarDespesa(
@@ -94,8 +97,9 @@ async def postCadastrarDespesa(
     idMembro: Annotated[str, Form()],
     date: Annotated[str, Form()],
     idCategoria: Annotated[str, Form()],
-    payment: Annotated[str, Form()]):
-    TransactionRepo.insert(Transaction (2, 2, idCategoria, idConta, idMembro, description, date, value, payment))
+    payment: Annotated[str, Form()]): #não tem na tabela
+    TransactionRepo.insert(Transaction (2, 2, idCategoria, idConta, idMembro, description, date, value, "Despesa"))
+    return RedirectResponse("/transacoes", status_code=status.HTTP_303_SEE_OTHER)
 
 #formulários de configurações
 @app.post("/cadastrarDependente")
@@ -112,13 +116,13 @@ async def postCadastrarUsuario(
     UserRepo.insert(User(0, name, email, None, password, None, None, None))
 
 # Terminar o Banco de Cartão
-@app.post("/cadastrarCartao")
-async def postCadastrarCartao(
-    description: Annotated[str, Form()], 
-    value: Annotated[str, Form()], 
-    idConta: Annotated[str, Form()],
-    idMembro: Annotated[str, Form()],
-    date: Annotated[str, Form()],
-    idCategoria: Annotated[str, Form()],
-    payment: Annotated[str, Form()]):
-    TransactionRepo.insert(Transaction (2, 2, idCategoria, idConta, idMembro, description, date, value, payment))
+# @app.post("/cadastrarCartao")
+# async def postCadastrarCartao(
+#     description: Annotated[str, Form()], 
+#     value: Annotated[str, Form()], 
+#     idConta: Annotated[str, Form()],
+#     idMembro: Annotated[str, Form()],
+#     date: Annotated[str, Form()],
+#     idCategoria: Annotated[str, Form()],
+#     payment: Annotated[str, Form()]):
+#     TransactionRepo.insert(Transaction (2, 2, idCategoria, idConta, idMembro, description, date, value, payment))

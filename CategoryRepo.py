@@ -29,7 +29,7 @@ class CategoryRepo:
     def insert(cls, category: Category) -> Category:
         sql = """
                 INSERT INTO category (name, limitMoney, colorTag, icon, typeIorE)
-                VALUES (?, ?, ?, ?, ?)
+                VALUES ( ?, ?, ?, ?, ?)
               """
         conn = Database.createConnection()
         cursor = conn.cursor()

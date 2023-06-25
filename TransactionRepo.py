@@ -16,7 +16,7 @@ class TransactionRepo:
                 description TEXT,
                 date DATE,
                 value REAL,
-                typeIorE INTEGER,
+                typeIorE TEXT,
                 FOREIGN KEY(idUser) REFERENCES user(idUser),
                 FOREIGN KEY(idCategory) REFERENCES category(idCategory),
                 FOREIGN KEY(idAccount) REFERENCES account(idAccount),
@@ -33,12 +33,12 @@ class TransactionRepo:
     @classmethod
     def insert(cls, transaction: Transaction) -> Transaction:  
         sql = """
-                INSERT INTO transactions (idDependent, description, date, value)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO transactions (idDependent, description, date, value, typeIorE)
+                VALUES (?, ?, ?, ?, ?)
               """
         conn = Database.createConnection()
         cursor = conn.cursor()
-        result = cursor.execute (sql, (transaction.idDependent ,transaction.description, transaction.date, transaction.value))
+        result = cursor.execute (sql, (transaction.idDependent, transaction.description, transaction.date, transaction.value, transaction.typeIorE))
         if (result.rowcount > 0):
             transaction.idTransaction = result.lastrowid   
         conn.commit()
@@ -47,10 +47,10 @@ class TransactionRepo:
     
     # @classmethod
     # def update(cls, transaction: Transaction) -> Transaction:
-    #     sql = "UPDATE transactions WHERE idAccount=?"
+    #     sql = "UPDATE transactions WHERE idTransaction=?"
     #     conn = Database.createConnection()
     #     cursor = conn.cursor()
-    #     result = cursor.execute(sql, (transaction.description, transaction.date, transaction.value))
+    #     result = cursor.execute(sql, (transaction.idCategory, transaction.idAccount, transaction.idDependent, transaction.description, transaction.date, transaction.value))
     #     if (result.rowcount > 0):
     #         conn.commit()
     #         conn.close()
@@ -59,19 +59,19 @@ class TransactionRepo:
     #         conn.close()
     #         return None
     
-    # @classmethod
-    # def delete(cls, idAccount: int) -> bool:
-    #     sql="DELETE FROM transactions WHERE idAccount=?"
-    #     conn = Database.createConnection()
-    #     cursor = conn.cursor()
-    #     result = cursor.execute(sql, (idAccount, ))
-    #     if (result.rowcount > 0):
-    #         conn.commit()
-    #         conn.close()
-    #         return True
-    #     else:
-    #         conn.close()
-    #         return False
+    @classmethod
+    def delete(cls, idTransaction: int) -> bool:
+        sql="DELETE FROM transactions WHERE idTransaction=?"
+        conn = Database.createConnection()
+        cursor = conn.cursor()
+        result = cursor.execute(sql, (idTransaction, ))
+        if (result.rowcount > 0):
+            conn.commit()
+            conn.close()
+            return True
+        else:
+            conn.close()
+            return False
 
     @classmethod
     def getAll(cls) ->List[Transaction]:
@@ -84,14 +84,14 @@ class TransactionRepo:
         conn.close()
         return objects
 
-    # @classmethod
-    # def getOne(cls, idAccount: int) -> Transaction:
-    #     sql = "SELECT idAccount FROM transactions WHERE idAccount=?"
-    #     conn = Database.createConnection()
-    #     cursor = conn.cursor()
-    #     result = cursor.execute(sql, (idAccount, )).fetchone()
-    #     object = Transaction(*result)
-    #     conn.commit()
-    #     conn.close()
-    #     return object
+    @classmethod
+    def getOne(cls, idTransaction: int) -> Transaction:
+        sql = "SELECT description FROM transactions WHERE idTransaction=?"
+        conn = Database.createConnection()
+        cursor = conn.cursor()
+        result = cursor.execute(sql, (idTransaction, )).fetchone()
+        object = Transaction(*result)
+        conn.commit()
+        conn.close()
+        return object
 

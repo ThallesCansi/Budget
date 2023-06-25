@@ -22,10 +22,10 @@ def showMenu():
 def showTransactionTable(transactions: List[Transaction]):
     print("TRANSACTIONS".center(19, "-"))
     print("-"*19)
-    print("DESCRIPTION".center(6), "VALUE".ljust(12))
+    print("ID".center(6),"DESCRIPTION".center(6), "VALUE".ljust(12))
     print("-"*19)
     for t in transactions:
-        print(f"{str(t.description).zfill(2).center(6)} {str(t.value).ljust(12)}")
+        print(f"{str(t.idTransaction).zfill(2).center(6)}{str(t.description).zfill(2).center(6)} {str(t.value).ljust(12)}")
 
 def insertTransaction():
     print("TRANSACTION INSERTION".center(19, "-"))
