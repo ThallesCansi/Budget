@@ -1,29 +1,52 @@
 {% extends "base.html" %}
 
 {% block conteudo %}
-<table class="table table-borderless table-lg">
-  <thead class="table-success">
-    <tr>
-      <th scope="col">Data</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Valor</th>
-      <th scope="col">Tipo</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for t in transactions %}
-    <tr>
-      <td>{{t.date}}</td>
-      <td>{{t.description}}</td>
-      <td>{{t.value}}</td>
-      <td>{{t.typeIorE}}</td>
-    </tr>
-    {% endfor %}
-    <tr>
-        <td>Quantidade de Transações: {{qtdeTransacoes}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="transacao">
+    <div>
+        <table id="transacao-table"class="table table-borderless table-lg">
+          <thead class="table-success">
+            <tr>
+              <th scope="col">Data</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in transactions %}
+            <tr>
+              <td>{{t.date}}</td>
+              <td>{{t.description}}</td>
+              <td>{{t.value}}</td>
+              <td>{{t.typeIorE}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>Quantidade de Transações: {{qtdeTransacoes}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    <div>
+         <div class="overviews transacao">
+            <div class="overview" id="saldo">
+                <img class= src=""">
+                <p class="dinheiro" id="saldo">R$ 4.429,07</p>
+                <p class="">saldo</p>
+            </div>
+            <div class="overview">
+                <img id="receitas" src="">
+                <p class="dinheiro" id="receitas">R$ 5.785,07</p>
+                <p class="">receitas</p>
+            </div>
+            <div class="overview">
+                <img src="">
+                <p class="dinheiro" id="despesas">R$ 1.356,00</p>
+                <p class="">despesas</p>
+            </div>
+        </div>
+    </div>
+</div>
   
 {% endblock %}
 

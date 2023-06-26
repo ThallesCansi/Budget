@@ -35,6 +35,10 @@
 
     <!-- Coluna Direita -->
     <div class="right-column">
+        <div class="suas-despesas">
+            <h3>suas despesas</h3>
+        </div>
+        
         <div id="tipoRouD" class="tipoRouD">
             <script src="static/scripts/popup.js"></script>
             <a href="#" onclick="openPopupReceita()"><img src="static/images/Receita.svg"></a>
@@ -47,7 +51,7 @@
 
 {% block popup %}
 <!-- Formulário do Aplicativo -->
-    <form id="app-form-receita" class="app-form" method="post" action="/cadastrarReceita"  target="_blank">
+    <form style="height:725px "id="app-form-receita" class="app-form" method="post" action="/cadastrarReceita">
         <!-- Cabeçalho do Formulário -->
         <div class="form-header">
             <span class="close" onclick="closePopupReceita()">&times;</span>
@@ -171,7 +175,7 @@
 
 {% block popup2 %}
         <!-- Formulário do Aplicativo -->
-        <form id="app-form-despesa" class="app-form" method="post" action="/cadastrarDespesa" >
+        <form style="height:725px"id="app-form-despesa" class="app-form" method="post" action="/cadastrarDespesa" >
             <!-- Cabeçalho do Formulário -->
             <div class="form-header">
                 <span class="close" onclick="closePopupDespesa()">&times;</span>

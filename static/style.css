@@ -63,7 +63,7 @@
 
     /* Estilo dos Efeitos */
     /* Sombras Gerais */
-    --shadow-default-01: 0px 2px 6px rgba(33, 37, 41, 0.08);
+    --shadow-default-01: 0px 2px 6px rgba(33, 37, 41, 0.3);
     /* Sombra dos Botões Padrões */
     --buttonShadow-default-01: 0px 8px 8px rgba(33, 37, 41, 0.08);
     --buttonShadow-default-02: 0px 8px 16px rgba(33, 37, 41, 0.17);
@@ -148,6 +148,7 @@ body{
 .profile img{
     width: 75px;
     cursor: pointer;
+    margin-right: 2rem;
 }
 
 .navbar h1{
@@ -556,7 +557,7 @@ button{
     z-index: 1;
 
     /* Alinhar ao centro da tela */
-    top: 40%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -794,7 +795,6 @@ button{
     font-size: 23px;
 }
 
-
 .dinheiro{
     font-weight: 700;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -817,6 +817,167 @@ button{
     flex-direction: column;
 }
 
+/* Transações */
+
+.transacao{
+    display: flex;
+    justify-content: space-between;
+}
+
+.overviews.transacao{
+    display: flex;
+    flex-direction: column;
+    margin-right: 2rem;
+}
+
+#transacao-table{
+    width: 75rem;
+}
+/* Carteira */
+
+.cartoes{
+    display: flex;
+}
+
+.cartao{
+    display: flex;
+    align-items: center;
+}
+
+.cartao h3{
+    margin-left: 1rem;
+}
+
+.selecionar{
+    width: calc(100vw - 45rem);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button-content{
+    display: flex;
+    background-color: var(--white-color);
+    width: 34rem;
+    height: 4rem;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--buttonShadow-default-02);
+    border-radius: 3rem;
+}
+.cartoes button{
+    background-color: var(--primaryColor-green);
+    color: var(--white-color);
+    width: 17rem;
+    height: 4rem;
+    border-radius: 3rem;
+    font-size: 1.5rem;
+    /* position: absolute;
+    left: 52rem; */
+}
+
+
+button.fechada{
+    background-color: transparent;
+    border: 0;
+    color: var(--neutralColors-500);
+    text-shadow: 0 0 0;
+    font-weight: normal;
+    width: 17rem;
+}
+
+.boxes{
+    display: flex;
+}
+
+.box{
+    width: 25rem;
+    height: 19rem;
+    flex-shrink: 0;
+    border-radius: 25px;
+    background: var(--white-color);
+    box-shadow: var(--shadow-default-01);
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+    margin-right: 2rem;
+    margin-top: 6rem;
+}
+
+.box.novo{
+    justify-content: center;
+    align-items: center;
+}
+
+.box input{
+    width: 22rem;
+}
+
+.cartao-descricao{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+.cartao-descricao img{
+    margin-left: 1rem;
+    margin-top: -0.5rem;
+}
+
+.cartao-descricao h3{
+    color: var(--neutralColors-500);
+    font-weight: bold;
+}
+
+.box p{
+    color: var(--neutralColors-500);
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    margin-bottom: 0;
+}
+
+.cartao-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.cartao-valor{
+    text-align: right;
+    margin-right: 1rem;
+}
+
+.cartao-info p, .cartao-grafico p{
+    font-size: 1rem;
+    margin-top: -1rem;
+}
+
+#parcial-vermelho{
+    color: var(--navBar-expense);
+}
+
+.grafico-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.percentual-cartao{
+    margin-right: 1rem;
+}
+
+.cartao-grafico img{
+    width: 24rem;
+    height: 3rem;
+    margin-left: 0.5rem;
+    margin-top: -1rem;
+}
+
+.edit-excl{
+    margin-right: 1.5rem;
+}
+
+.edit-excl img{
+    cursor: pointer;
+}
+
 /* Configurações */
 
 .config{
@@ -831,7 +992,6 @@ button{
 a.opcao{
     text-decoration: none;
 }
-
 
 .config h3:hover{
     font-weight: bold;
