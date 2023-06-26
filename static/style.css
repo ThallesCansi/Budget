@@ -785,8 +785,8 @@ button{
     gap: 15px;
     justify-content: center;
     padding: 10px;
-    width: 175px;
-    height: 175px;
+    width: 150px;
+    height: 150px;
     border: 1px solid #212529;
     border-radius: 25px;
 }
@@ -812,9 +812,32 @@ button{
     color: var(--navBar-expense)
 }
 
+.box.transacao{
+    margin-top: 0.5rem;
+    height: 4rem;
+    width: 17rem;
+    border-radius: 5px;
+}
+
+.suas-despesas h3, .suas-despesas p{
+    margin-left: 1rem;
+}
+
+.suas-despesas h3{
+    font-weight: 600;
+}
+
+.suas-despesas p{
+    font-size: 1rem;
+    margin-top: -1.5rem;
+    margin-bottom: -1rem;
+}
+
+
 .tipoRouD{
     display: none;
     flex-direction: column;
+    margin-right: 3rem;
 }
 
 /* Transações */
@@ -831,7 +854,7 @@ button{
 }
 
 #transacao-table{
-    width: 75rem;
+    width: calc(100vw - 50rem);
 }
 /* Carteira */
 

@@ -11,9 +11,9 @@ class CategoryRepo:
                 idCategory INTEGER PRIMARY KEY AUTOINCREMENT,
                 idUser INTEGER,
                 name TEXT NOT NULL,
-                limitMoney DECIMAL NOT NULL,
-                colorTag TEXT NOT NULL,
-                icon BLOB NOT NULL,
+                limitMoney DECIMAL,
+                colorTag TEXT,
+                icon BLOB,
                 typeIorE BINARY NOT NULL,
                 FOREIGN KEY(idUser) REFERENCES user(idUser)
             )

@@ -2,6 +2,7 @@
 
 
 {% block conteudo %}
+
 <div class="columns">
     <div class="left-column system">
         <select id="dashboard">
@@ -37,15 +38,31 @@
     <div class="right-column">
         <div class="suas-despesas">
             <h3>suas despesas</h3>
+            <p>últimos 15 dias</p>
+            <div class="box transacao"></div>
+            <div class="box transacao"></div>
+            <div class="box transacao"></div>
+            <div class="box transacao"></div>
         </div>
-        
+        <div class="suas-despesas">
+            <h3>transações recentes</h3>
+            <p>receitas e despesas</p>
+            <div class="box transacao"></div>
+            <div class="box transacao"></div>
+            <div class="box transacao"></div>
+            <div class="box transacao"></div>
+        </div>
+    </div>
+
+    <div >     
+        <a class="add-transacao" href="#" onclick="openPopupButton()"><img src="static/images/Adicionar.svg"></a>
         <div id="tipoRouD" class="tipoRouD">
             <script src="static/scripts/popup.js"></script>
-            <a href="#" onclick="openPopupReceita()"><img src="static/images/Receita.svg"></a>
-            <a href="#" onclick="openPopupDespesa()"><img src="static/images/Despesa.svg"></a>
+            <a  href="#" onclick="openPopupReceita()"><img src="static/images/Receita.svg"></a>
+            <a  href="#" onclick="openPopupDespesa()"><img src="static/images/Despesa.svg"></a>
         </div>
-        <a href="#" onclick="openPopupButton()"><img src="static/images/Adicionar.svg"></a>
     </div>
+
 </div>
 {% endblock %}
 
@@ -109,6 +126,7 @@
                             <option value="pai">Pai</option>
                             <option value="filho">Filho</option>
                             <option value="1">Irmão</option>
+                            <option value="nenhum">Nenhum</option>
                         </select>
                     </div>
                 </div>
