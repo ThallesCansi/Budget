@@ -98,7 +98,7 @@ async def postCadastrarDespesa(
     date: Annotated[str, Form()],
     idCategoria: Annotated[str, Form()],
     payment: Annotated[str, Form()]): #não tem na tabela
-    TransactionRepo.insert(Transaction (2, 2, idCategoria, idConta, idMembro, description, date, value, "Despesa"))
+    TransactionRepo.insert(Transaction(2, 2, idCategoria, idConta, idMembro, description, date, value, "Despesa"))
     return RedirectResponse("/transacoes", status_code=status.HTTP_303_SEE_OTHER)
 
 #formulários de configurações
@@ -107,6 +107,10 @@ async def postCadastrarDependente(
     name: Annotated[str, Form()],
     description: Annotated[str, Form()]):
     DependentRepo.insert(Dependent (1, 1, name, description, "red"))
+
+@app.get("/dependentes", response_class=HTMLResponse)
+async def getDependente(request: Request):
+    return templates.TemplateResponse("configuracoes.html", {"request": request})
 
 @app.post("/dashboard")
 async def postCadastrarUsuario( 

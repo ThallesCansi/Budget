@@ -1,6 +1,145 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block conteudo %}
 
+<div class="cartoes">
+    <div class="cartao">
+        <img src="static/images/cartao.svg">
+        <h3>minhas metas</h3>
+    </div>
+    <div class="selecionar">
+        <div class="button-content">
+            <button class="aberta">Metas abertas</button>
+            <button class="fechada">Metas fechadas</button> 
+        </div>
+    </div>
+</div>
 
+<div class="boxes">  
+    <div class="box novo">
+        <input onclick="openPopup()" type="button" class="btn-form" value="nova meta"  >    
+    </div>
+    
+    <div class="box meta">
+        <div class="cartao-descricao">
+            <img src="static/images/Banco do Brasil.svg">
+            <h3> Nova viagem em novembro</h3>
+        </div>
+        <p id="final-meta">Data final da meta</p>
+        <div class="cartao-grafico">
+            <div class="grafico-info">
+                <p id="data-meta">13 de dezembro de 2023 </p>
+                <p class="percentual-cartao">25% </p>
+            </div>
+            <img src="static/images/grafico-meta.png">
+            <p>R$500,00 de R$2.000,00</p>
+        </div>
+        <div class="edit-excl meta">
+            <img class="edit" src="static/images/edit.svg">
+            <img src="static/images/excluir.svg">
+        </div>
+    </div>
 
-{% block conteudo %}
+<script src="static/scripts/popup.js"></script>
+
+    <!-- Coluna Direita -->
+    <div class="right-column"></div>
+</div> 
+
+{% endblock %} 
+
+{% block popup %}
+<!-- Formulário do Aplicativo -->
+ <form style="height:750px "id="app-form" class="app-form" method="post" actio="/cadastrarMeta">
+    <!-- Cabeçalho do Formulário -->
+    <div class="form-header">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h1>Adicionar Nova Meta</h1>
+    </div>
+
+    <!-- Colunas do Formulário -->
+    <div class="form-columns">
+        <!-- Coluna Esquerda -->
+        <div class="left-column">
+            <!-- Perfil -->
+            <div class="field">
+            <!-- Nome da Meta -->
+                <p>Nome da Meta</p>
+                <input
+                    style="font-size: 2rem"
+                    type="text"
+                    placeholder="Exemplo: Carro novo"
+                />
+            </div>
+
+            <!-- Valor da Meta -->
+            <div class="field">
+                <p>Valor da Meta</p>
+                <input 
+                    style="font-size: 2rem"
+                    id="saving"
+                    type="number"
+                    placeholder="R$ 0,00"
+                />
+            </div>
+                  
+            <!-- Valor Inicial da Meta -->
+            <div class="field">
+                <p>Valor Inicial da Meta</p>
+                <input 
+                    style="font-size: 2rem"
+                    id="saving"
+                    type="number"
+                    placeholder="R$ 0,00"
+                />
+            </div>
+          
+            <!-- Categoria -->
+            <div class="field">
+                <p>Categoria</p>
+                <select>
+                    <option value="label" disabled selected>
+                        Escolha a categoria
+                    </option>
+                    <option value="transporte">Transporte</option>
+                    <option value="alimentacao">Alimentação</option>
+                    <option value="pagamentos">Pagamentos</option>
+                    <option value="educacao">Educação</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Coluna Direita -->
+        <div class="right-column">
+                  
+            <!-- Data -->
+            <div class="field">
+                <p>Data</p>
+                <input type="date"
+                    style="font-size: 2rem"
+                />
+            </div>
+                  
+            <!-- Descrição -->
+            <div class="field">
+                <p>Descrição</p>
+                <input
+                    style="font-size: 2rem"
+                    type="text"
+                    placeholder="Descrição da Meta"
+                />
+            </div>
+                  
+            <!-- Cores -->
+            <div class="select-color">
+                <div class="balls-top">
+                    <i style="background: var(--categories-pink);" class="colors-ball"></i>
+                    <i style="background: var(--categories-orange);" class="colors-ball"></i>
+                    <i style="background: var(--categories-darkBlue);" class="colors-ball"></i>
+                    <i style="background: var(--categories-red);" class="colors-ball"></i>
+                 </div>
+            </div>
+        </div>
+    </div>
+     <!-- Botão do Formulário -->
+    <input class="btn-form" type="submit" value="Adicionar Nova Meta">
+</form>
 {% endblock %}

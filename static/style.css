@@ -562,6 +562,10 @@ button{
     transform: translate(-50%, -50%);
 }
 
+.app-form h1{
+    font-weight: bold;
+}
+
 .app-form .close {
     position: absolute;
     top: 10px;
@@ -1000,6 +1004,32 @@ button.fechada{
 .edit-excl img{
     cursor: pointer;
 }
+/* Metas */
+
+.box.meta h3{
+    font-size: 1.5rem;
+    margin-right: 2.3rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+#final-meta{
+    font-weight: bold;
+}
+
+#data-meta{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.edit-excl.meta{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.edit{
+    margin-right: 0.8rem;
+}
 
 /* Configurações */
 
@@ -1019,6 +1049,10 @@ a.opcao{
 .config h3:hover{
     font-weight: bold;
     color: var(--primaryColor-green);
+}
+
+.dependentes{
+    
 }
 
 

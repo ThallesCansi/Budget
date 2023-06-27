@@ -1,64 +1,71 @@
 {% extends "base.html" %} {% block conteudo %}
-<div class="config">
-    <a class="opcao">
-        <i></i>
-        <div class="descricao">
-            <h3>Seu Perfil</h3>
-            <h6>Detalhes sobre suas informações pessoais</h6>
-            <hr />
+<div class="columns">
+    <div class="left-column system">
+        <div class="config">
+            <a class="opcao">
+                <i></i>
+                <div class="descricao">
+                    <h3>Seu Perfil</h3>
+                    <h6>Detalhes sobre suas informações pessoais</h6>
+                    <hr />
+                </div>
+            </a>
+            <a class="opcao">
+                <i></i>
+                <div class="descricao">
+                    <h3>Segurança</h3>
+                    <h6>Detalhes a proteção de dados</h6>
+                    <hr />
+                </div>
+            </a>
+            <a class="opcao">
+                <i></i>
+                <div class="descricao">
+                    <h3>Minhas Contas</h3>
+                    <h6>Detalhes sobre suas conexões e contas bancárias</h6>
+                    <hr />
+                </div>
+            </a>
+            <a class="opcao">
+                <i></i>
+                <div class="descricao">
+                    <h3>Categorias</h3>
+                    <h6>Adicione e gerencia suas categorias</h6>
+                    <hr />
+                </div>
+            </a>
+            <a href="#" onclick="openPopup()" class="opcao">
+                <i></i>
+                <div class="descricao">
+                    <h3>Dependentes</h3>
+                    <h6>Gerencie os dependentes da sua conta</h6>
+                    <hr />
+                </div>
+            </a>
+        
+            <a class="opcao">
+                <i></i>
+                <div class="descricao">
+                    <h3>Ajuda</h3>
+                    <h6>Está perdido? Venha, vamos te ajudar</h6>
+                    <hr />
+                </div>
+            </a>
+            <a class="opcao">
+                <i></i>
+                <div class="descricao">
+                    <h3>Sobre</h3>
+                    <h6>Conheça um pouco mais sobre nós</h6>
+                    <hr />
+                </div>
+            </a>
         </div>
-    </a>
-    <a class="opcao">
-        <i></i>
-        <div class="descricao">
-            <h3>Segurança</h3>
-            <h6>Detalhes a proteção de dados</h6>
-            <hr />
-        </div>
-    </a>
-    <a class="opcao">
-        <i></i>
-        <div class="descricao">
-            <h3>Minhas Contas</h3>
-            <h6>Detalhes sobre suas conexões e contas bancárias</h6>
-            <hr />
-        </div>
-    </a>
-    <a class="opcao">
-        <i></i>
-        <div class="descricao">
-            <h3>Categorias</h3>
-            <h6>Adicione e gerencia suas categorias</h6>
-            <hr />
-        </div>
-    </a>
-    <a href="#" onclick="openPopup()" class="opcao">
-        <i></i>
-        <div class="descricao">
-            <h3>Dependentes</h3>
-            <h6>Gerencie os dependentes da sua conta</h6>
-            <hr />
-        </div>
-    </a>
-
-    <a class="opcao">
-        <i></i>
-        <div class="descricao">
-            <h3>Ajuda</h3>
-            <h6>Está perdido? Venha, vamos te ajudar</h6>
-            <hr />
-        </div>
-    </a>
-    <a class="opcao">
-        <i></i>
-        <div class="descricao">
-            <h3>Sobre</h3>
-            <h6>Conheça um pouco mais sobre nós</h6>
-            <hr />
-        </div>
-    </a>
-</div>
-<script src="static/scripts/popup.js"></script>
+        <script src="static/scripts/popup.js"></script>
+    </div>
+    <div class="right-column">
+        {% block dependente %}
+        {% endblock}
+    </div>
 
 {% endblock %} {% block popup %}
 <!-- Formulário do Aplicativo -->
