@@ -777,6 +777,14 @@ button{
     align-items: flex-start;
 }
 
+.simbolo-situacao{
+    margin-top: 2rem;
+}
+
+.simbolo-situacao.saldo{
+    
+}
+
 .overviews{
     display: flex;
     gap: 35px;
@@ -786,7 +794,7 @@ button{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
+    gap: 5px;
     justify-content: center;
     padding: 10px;
     width: 150px;
@@ -873,6 +881,7 @@ button{
 
 .cartao h3{
     margin-left: 1rem;
+    font-weight: bold;
 }
 
 .selecionar{
@@ -981,6 +990,10 @@ button.fechada{
     color: var(--navBar-expense);
 }
 
+p.situacao-cartao{
+    font-weight: bold;
+}
+
 .grafico-info{
     display: flex;
     justify-content: space-between;
@@ -1008,8 +1021,8 @@ button.fechada{
 
 .box.meta h3{
     font-size: 1.5rem;
-    margin-right: 2.3rem;
-    margin-top: 0.5rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
     margin-bottom: 2rem;
 }
 

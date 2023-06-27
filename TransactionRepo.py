@@ -2,6 +2,7 @@ from typing import List
 from Database import Database
 from Transaction import Transaction
 
+
 class TransactionRepo:
     @classmethod
     def createTable(cls):
@@ -29,22 +30,23 @@ class TransactionRepo:
         conn.commit()
         conn.close()
         return tableCreated
-    
+
     @classmethod
-    def insert(cls, transaction: Transaction) -> Transaction:  
+    def insert(cls, transaction: Transaction) -> Transaction:
         sql = """
-                INSERT INTO transactions (idDependent, description, date, value, typeIorE)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO transactions (idCategory, idDependent, description, date, value, typeIorE)
+                VALUES (?, ?, ?, ?, ?, ?)
               """
         conn = Database.createConnection()
         cursor = conn.cursor()
-        result = cursor.execute (sql, (transaction.idDependent, transaction.description, transaction.date, transaction.value, transaction.typeIorE))
+        result = cursor.execute(sql, (transaction.idCategory, transaction.idDependent,
+                                transaction.description, transaction.date, transaction.value, transaction.typeIorE))
         if (result.rowcount > 0):
-            transaction.idTransaction = result.lastrowid   
+            transaction.idTransaction = result.lastrowid
         conn.commit()
         conn.close()
         return transaction
-    
+
     # @classmethod
     # def update(cls, transaction: Transaction) -> Transaction:
     #     sql = "UPDATE transactions WHERE idTransaction=?"
@@ -58,10 +60,10 @@ class TransactionRepo:
     #     else:
     #         conn.close()
     #         return None
-    
+
     @classmethod
     def delete(cls, idTransaction: int) -> bool:
-        sql="DELETE FROM transactions WHERE idTransaction=?"
+        sql = "DELETE FROM transactions WHERE idTransaction=?"
         conn = Database.createConnection()
         cursor = conn.cursor()
         result = cursor.execute(sql, (idTransaction, ))
@@ -74,7 +76,7 @@ class TransactionRepo:
             return False
 
     @classmethod
-    def getAll(cls) ->List[Transaction]:
+    def getAll(cls) -> List[Transaction]:
         sql = "SELECT t.idTransaction, t.idUser, c.name, t.idAccount, d.name, t.description, t.date, t.value, t.typeIorE FROM transactions t INNER JOIN dependent d ON d.idDependent = t.idDependent INNER JOIN category c ON c.idCategory = t.idCategory"
         conn = Database.createConnection()
         cursor = conn.cursor()
@@ -94,4 +96,3 @@ class TransactionRepo:
         conn.commit()
         conn.close()
         return object
-
