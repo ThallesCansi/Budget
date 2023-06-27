@@ -777,16 +777,9 @@ button{
     align-items: flex-start;
 }
 
-.simbolo-situacao{
-    margin-top: 2rem;
-}
-
-.simbolo-situacao.saldo{
-    
-}
-
 .overviews{
     display: flex;
+    flex-direction: row;
     gap: 35px;
 }
 
@@ -797,7 +790,7 @@ button{
     gap: 5px;
     justify-content: center;
     padding: 10px;
-    width: 150px;
+    width: auto;
     height: 150px;
     border: 1px solid #212529;
     border-radius: 25px;
@@ -853,6 +846,24 @@ button{
 }
 
 /* Transações */
+
+.popupExcluir{
+    display: flex;
+    margin-top: 2rem;
+}
+
+.popupExcluir button{
+    width: 10rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    background-color: var(--primaryColor-green);
+    color: var(--white-color);
+    border-radius: 5px;
+}
+
+#cancelarExcluir{
+    background-color: var(--navBar-expense);
+}
 
 .transacao{
     display: flex;

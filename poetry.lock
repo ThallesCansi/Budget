@@ -103,6 +103,14 @@ tests-no-zope = ["hypothesis", "pympler", "pytest (>=4.3.0)", "pytest-xdist", "c
 tests_no_zope = ["hypothesis", "pympler", "pytest (>=4.3.0)", "pytest-xdist", "cloudpickle", "mypy (>=0.971,<0.990)", "pytest-mypy-plugins"]
 
 [[package]]
+name = "babel"
+version = "2.12.1"
+description = "Internationalization utilities"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "certifi"
 version = "2022.12.7"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -661,7 +669,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "8c64570eb640beb7c58348a2a09d2e4d1509f89e2dc5b995fa35cf43933ad784"
+content-hash = "50a5db1a79870338c23273581df6022ebc6d988f4ab062aa19988b7e41483a15"
 
 [metadata.files]
 aiohttp = []
@@ -671,6 +679,7 @@ argon2-cffi = []
 argon2-cffi-bindings = []
 async-timeout = []
 attrs = []
+babel = []
 certifi = []
 cffi = []
 charset-normalizer = []

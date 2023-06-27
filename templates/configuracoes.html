@@ -26,7 +26,7 @@
                     <hr />
                 </div>
             </a>
-            <a class="opcao">
+            <a href="#" onclick="openPopupCategoria()" class="opcao">
                 <i></i>
                 <div class="descricao">
                     <h3>Categorias</h3>
@@ -63,12 +63,13 @@
         <script src="static/scripts/popup.js"></script>
     </div>
     <div class="right-column">
-        
+        {% block right%}
+        {% endblock %}
     </div>
 
 {% endblock %} {% block popup %}
 <!-- Formulário do Aplicativo -->
-<form id="app-form" class="app-form" method="post" action="/cadastrarDependente">
+<form style= "height:675px" id="app-form" class="app-form" method="post" action="/cadastrarDependente">
     <!-- Cabeçalho do Formulário -->
     <div class="form-header">
         <span class="close" onclick="closePopup()">&times;</span>
@@ -103,11 +104,6 @@
                 />
             </div>
 
-            <!-- Data de nascimento -->
-            <div class="field">
-                <p>Data de nascimento</p>
-                <input name="date" ="date" style="font-size: 2rem" />
-            </div>
 
             <!-- Grau de Relacionamento -->
             <div class="field">
@@ -176,4 +172,63 @@
     <!-- Botão do Formulário -->
     <input class="btn-form" type="submit" value="Adicionar Dependente" />
 </form>
+{% endblock %}
+{% block popup2 %}
+        <form class="app-form" style="height: auto" id="app-form-categoria" method="post" action="/cadastrarCategoria">
+            <div class="form-header">
+                <span class="close" onclick="closePopupCategoria()">&times;</span>
+                    <h1>Gerenciar Categorias</h1>
+                    <p>
+                         Personalize suas próprias categorias
+                 </p>
+    </div>
+            <!-- Colunas do Formulário -->
+            <div class="form-columns">
+                <!-- Coluna Esquerda -->
+
+                    
+                <div class="left-column">
+
+                    <!-- Nome da Categoria -->
+                    <div class="field">
+                        <p>Nome da Categoria</p>
+                        <input name="name" type="text" placeholder="Exemplo: Estudos" style="font-size: 2rem"/>
+                    </div>
+
+                     <!-- Limite de Despesa - AJEITAR COR DO PLACEHOLDER (CINZA) -->
+                    <div class="field">
+                        <p>Limite de Despesa</p>
+                        <input 
+                          id="saving"
+                          type="number"
+                          placeholder="R$ 0,00"
+                          style="font-size: 2rem"
+                          />
+                    </div>
+
+                    <!-- Cores -->
+                    <div class="select-color">
+                        <div class="balls-top">
+                            <i style="background: var(--categories-pink);" class="colors-ball"></i>
+                            <i style="background: var(--categories-green);" class="colors-ball"></i>
+                            <i style="background: var(--categories-darkBlue);" class="colors-ball"></i>
+                          <!--  <i style="background: var(--categories-grey);" class="colors-ball"></i> ADICIONAR NO CSS -->
+                        </div>
+                        <div class="balls-bottom">
+                            <i style="background: var(--categories-orange);" class="colors-ball"></i>
+                            <i style="background: var(--categories-blue);" class="colors-ball"></i>
+                            <i style="background: var(--categories-red);" class="colors-ball"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita -->
+                <div class="right-column">
+
+                </div>
+            </div>
+
+            <!-- Botão do Formulário -->
+            <input class="btn-form" type="submit" value="Criar Categoria">
+        </form>
 {% endblock %}

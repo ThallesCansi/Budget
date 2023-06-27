@@ -9,20 +9,21 @@
             <option value="março">Março</option>
         </select>
         <div class="overviews">
-            <div class="overview" id="saldo">
-                <img class= src="">
-                <p class="dinheiro" id="saldo">R$ 4.429,07</p>
-                <p class="">saldo</p>
-            </div>
+    
             <div class="overview">
                 <img id="receitas" src="" />
-                <p class="dinheiro" id="receitas">R$ 5.785,07</p>
+                <p class="dinheiro" id="receitas">{{receita}}</p>
                 <p class="">receitas</p>
             </div>
             <div class="overview">
                 <img src="" />
-                <p class="dinheiro" id="despesas">R$ 1.356,00</p>
+                <p class="dinheiro" id="despesas">{{despesa}}</p>
                 <p class="">despesas</p>
+            </div>
+            <div class="overview" id="saldo">
+                <img class= src="">
+                <p class="dinheiro" id="saldo">{{saldo}}</p>
+                <p class="">saldo</p>
             </div>
         </div>
 

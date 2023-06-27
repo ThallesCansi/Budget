@@ -44,7 +44,6 @@ def insertUser():
     else:
         print("User could not be inserted.")
 
-
 def processOption(option):
     replit.clear()
     if (option == 1):

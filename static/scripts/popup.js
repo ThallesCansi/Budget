@@ -13,6 +13,16 @@ function openPopupDespesa() {
     popup.style.display = 'flex';
 }
 
+function openPopupCategoria() {
+    var popup = document.getElementById('app-form-categoria');
+    popup.style.display = 'flex';
+}
+
+function openPopupExcluir() {
+    var popup = document.getElementById('app-form-excluir');
+    popup.style.display = 'flex';
+}
+
 var count = 0
 function openPopupButton() {
     if (count == 0) {
@@ -38,5 +48,15 @@ function closePopupReceita() {
 
 function closePopupDespesa() {
     var popup = document.getElementById('app-form-despesa');
+    popup.style.display = 'none';
+}
+
+function closePopupCategoria() {
+    var popup = document.getElementById('app-form-categoria');
+    popup.style.display = 'none';
+}
+
+function closePopupExcluir() {
+    var popup = document.getElementById('app-form-excluir');
     popup.style.display = 'none';
 }
