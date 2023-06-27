@@ -13,6 +13,11 @@ function openPopupDespesa() {
     popup.style.display = 'flex';
 }
 
+function openPopupConta() {
+    var popup = document.getElementById('app-form-conta');
+    popup.style.display = 'flex';
+}
+
 function openPopupCategoria() {
     var popup = document.getElementById('app-form-categoria');
     popup.style.display = 'flex';
@@ -48,6 +53,11 @@ function closePopupReceita() {
 
 function closePopupDespesa() {
     var popup = document.getElementById('app-form-despesa');
+    popup.style.display = 'none';
+}
+
+function closePopupConta() {
+    var popup = document.getElementById('app-form-conta');
     popup.style.display = 'none';
 }
 

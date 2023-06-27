@@ -18,7 +18,7 @@
                     <hr />
                 </div>
             </a>
-            <a class="opcao">
+            <a href="#" onclick="openPopupConta()" class="opcao">
                 <i></i>
                 <div class="descricao">
                     <h3>Minhas Contas</h3>
@@ -230,5 +230,60 @@
 
             <!-- Botão do Formulário -->
             <input class="btn-form" type="submit" value="Criar Categoria">
+        </form>
+{% endblock %}
+
+{% block popup3 %}
+<form class="app-form" style="height: auto" id="app-form-conta" method="post" action="/cadastrarConta">
+            <div class="form-header">
+                <span class="close" onclick="closePopupConta()">&times;</span>
+                    <h1>Gerenciar Contas</h1>
+                    <p>
+                         Personalize suas conexões e contas bancárias 
+                 </p>
+    </div>
+            <!-- Colunas do Formulário -->
+            <div class="form-columns">
+                <!-- Coluna Esquerda -->
+
+                    
+                <div class="left-column">
+
+                    <!-- Nome da Categoria -->
+                    <div class="field">
+                        <p>Título</p>
+                        <input name="title" type="text" placeholder="Nubank" style="font-size: 2rem"/>
+                    </div>
+
+                     <!-- Limite de Despesa - AJEITAR COR DO PLACEHOLDER (CINZA) -->
+                    <div class="field">
+                        <p>Saldo</p>
+                        <input 
+                          name = "balance"
+                          id="saving"
+                          type="number"
+                          placeholder="R$ 0,00"
+                          style="font-size: 2rem"
+                          />
+                    </div>
+                    <div class="field">
+                        <p>Metas</p>
+                        <select id="meta" name="goal">
+                            <option disabled selected>Escolha a sua conta</option>
+                            <option value="viagem">Nova viagem em novembro </option>
+                            <option value="carro">Carro novo</option>
+                            <option value="celular">Celular novo</option>
+                    </select>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita -->
+                <div class="right-column">
+
+                </div>
+            </div>
+
+            <!-- Botão do Formulário -->
+            <input class="btn-form" type="submit" value="Adicionar Conta">
         </form>
 {% endblock %}

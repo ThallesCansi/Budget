@@ -77,7 +77,7 @@ class TransactionRepo:
 
     @classmethod
     def getAll(cls) -> List[Transaction]:
-        sql = "SELECT t.idTransaction, t.idUser, c.name, t.idAccount, d.name, t.description, t.date, t.value, t.typeIorE FROM transactions t INNER JOIN dependent d ON d.idDependent = t.idDependent INNER JOIN category c ON c.idCategory = t.idCategory"
+        sql = "SELECT t.idTransaction, t.idUser, c.name, t.idAccount, d.name, t.description, t.date, t.value, t.typeIorE FROM transactions t INNER JOIN dependent d ON d.idDependent = t.idDependent INNER JOIN category c ON c.idCategory = t.idCategory INNER JOIN account a ON a.idAccount = t.idAccount"
         conn = Database.createConnection()
         cursor = conn.cursor()
         result = cursor.execute(sql).fetchall()

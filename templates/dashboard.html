@@ -111,12 +111,14 @@
             <!-- Conta -->
             <div class="field">
                 <p>Conta</p>
-                <select id="conta" name="idConta">
+                <select id="account" name="idAccount">
                     <option disabled selected>Escolha a sua conta</option>
-                    <option value="wallet">Minha Carteira</option>
-                    <option value="nubank">NuBank</option>
-                    <option value="inter">Inter</option>
+                    {% for a in account %}
+                        <option value="{{a.idAccount}}">{{a.title}}</option>
+                    {% endfor %}
                 </select>
+
+                
             </div>
 
             <!-- Dependente -->
@@ -240,13 +242,11 @@
             <!-- Conta -->
             <div class="field">
                 <p>Conta</p>
-                <select name="idConta">
-                    <option value="label" disabled selected>
-                        Escolha a sua conta
-                    </option>
-                    <option value="wallet">Minha Carteira</option>
-                    <option value="nubank">NuBank</option>
-                    <option value="inter">Inter</option>
+                <select id="account" name="idAccount">
+                    <option disabled selected>Escolha a sua conta</option>
+                    {% for a in account %}
+                        <option value="{{a.idAccount}}">{{a.title}}</option>
+                    {% endfor %}
                 </select>
             </div>
 

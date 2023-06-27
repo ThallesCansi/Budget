@@ -11,6 +11,8 @@ from TransactionRepo import TransactionRepo
 from Transaction import Transaction
 from DependentRepo import DependentRepo
 from Dependent import Dependent
+from AccountRepo import AccountRepo
+from Account import Account
 from datetime import datetime
 from babel.numbers import format_currency
 
@@ -67,8 +69,10 @@ async def getDashboard(request: Request):
     dependentsDb = DependentRepo.getAll()
     
     categoryDb = CategoryRepo.getAll()
+
+    accountDb = AccountRepo.getAll()
     
-    return templates.TemplateResponse("dashboard.html", {"request": request, "titulo": titulo, "activeDash": activeDash, "dependents": dependentsDb, "categories": categoryDb, "saldo": saldo, "receita": receita, "despesa": despesa})
+    return templates.TemplateResponse("dashboard.html", {"request": request, "titulo": titulo, "activeDash": activeDash, "dependents": dependentsDb, "categories": categoryDb, "account": accountDb, "saldo": saldo, "receita": receita, "despesa": despesa})
 
 # rota para transações
 
@@ -82,19 +86,14 @@ async def getTransacoes(request: Request):
 
     qtdeTransacoes = len(TransactionDb)
 
-
-    
     receita = 0
     despesa = 0
     for t in TransactionDb:
-
-        
         date_string = t.date
         date_object = datetime.strptime(date_string,"%Y-%m-%d" )
         date_formated = date_object.strftime("%d/%m/%Y")
         t.date = date_formated
 
-        
         if t.typeIorE == "Receita":
             receita += t.value
             t.value = format_currency(t.value, 'BRL', locale='pt_BR')
@@ -143,13 +142,13 @@ async def getConfig(request: Request):
 async def postCadastrarReceita(request: Request,
                                description: Annotated[str, Form()],
                                value: Annotated[str, Form()],
-                               idConta: Annotated[str, Form()],
+                               idAccount: Annotated[str, Form()],
                                idMembro: Annotated[str, Form()],
                                date: Annotated[str, Form()],
                                idCategoria: Annotated[str, Form()],
                                payment: Annotated[str, Form()]):  # não tem na tabela
     TransactionRepo.createTable()
-    TransactionRepo.insert(Transaction(0, 1, idCategoria, idConta, idMembro, description, date, value, "Receita"))
+    TransactionRepo.insert(Transaction(0, 1, idCategoria, idAccount, idMembro, description, date, value, "Receita"))
     return RedirectResponse("/transacoes", status_code=status.HTTP_303_SEE_OTHER)
 
 
@@ -157,13 +156,13 @@ async def postCadastrarReceita(request: Request,
 async def postCadastrarDespesa(request: Request,
                                description: Annotated[str, Form()],
                                value: Annotated[str, Form()],
-                               idConta: Annotated[str, Form()],
+                               idAccount: Annotated[str, Form()],
                                idMembro: Annotated[str, Form()],
                                date: Annotated[str, Form()],
                                idCategoria: Annotated[str, Form()],
                                payment: Annotated[str, Form()]):  # não tem na tabela
     TransactionRepo.createTable()
-    TransactionRepo.insert(Transaction(0, 1, idCategoria, idConta, idMembro, description, date, value, "Despesa"))
+    TransactionRepo.insert(Transaction(0, 1, idCategoria, idAccount, idMembro, description, date, value, "Despesa"))
     return RedirectResponse("/transacoes", status_code=status.HTTP_303_SEE_OTHER)
 
 # formulários de configurações
@@ -199,14 +198,12 @@ async def postCadastrarUsuario(
         password: Annotated[str, Form()]):
     UserRepo.insert(User(0, name, email, None, password, None, None, None))
 
-# Terminar o Banco de Cartão
-# @app.post("/cadastrarCartao")
-# async def postCadastrarCartao(
-#     description: Annotated[str, Form()],
-#     value: Annotated[str, Form()],
-#     idConta: Annotated[str, Form()],
-#     idMembro: Annotated[str, Form()],
-#     date: Annotated[str, Form()],
-#     idCategoria: Annotated[str, Form()],
-#     payment: Annotated[str, Form()]):
-#     TransactionRepo.insert(Transaction (2, 2, idCategoria, idConta, idMembro, description, date, value, payment))
+
+@app.post("/cadastrarConta")
+async def postCadastrarCartao(
+    title: Annotated[str, Form()],
+    balance: Annotated[str, Form()],
+    goal: Annotated[str, Form()]):
+    AccountRepo.createTable()
+    AccountRepo.insert(Account (0, 1, title, balance, goal))
+    return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
