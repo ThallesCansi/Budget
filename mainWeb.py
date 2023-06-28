@@ -188,6 +188,3 @@ async def postCadastrarCartao(title: Annotated[str, Form()],
     AccountRepo.createTable()
     AccountRepo.insert(Account(0, 1, title, balance, goal))
     return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
-
-
-
