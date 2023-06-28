@@ -167,10 +167,14 @@ body{
     padding: 2.1rem 0 0 2.1rem;
     width: 23rem;
     height: 100vh;
-    background-color: var(--primaryColor-green);
+    background-color: var(--primaryColor-blue);
     position: fixed;
     overflow-y: scroll;
     bottom: -0rem;
+}
+
+.logo-img {
+    width: 18rem;
 }
 
 /* Abas da Barra Lateral */
@@ -311,7 +315,7 @@ main {
     width: 125rem;
     height: 160.3rem;
     border-radius: 50%;
-    background: var(--primaryColor-green);
+    background: var(--primaryColor-blue);
     top: -10%;
     right: 48%;
     transform: translateY(-50%);
@@ -1148,4 +1152,9 @@ h3.list-categoria{
 
 .box.transacao.add-categoria{
     justify-content: space-between;
+}
+
+#listaAmostra{
+    overflow-y: auto;
+    height: 42rem;
 }

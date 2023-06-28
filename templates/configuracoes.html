@@ -224,7 +224,7 @@
 
                 <!-- Coluna Direita -->
                 <div class="right-column">
-                    <div class="suas-despesas" >
+                    <div id="listaAmostra" class="suas-despesas" >
                         <h3 class="list-categoria"> Suas Categorias</h3>
                         {% for c in categories %}
                             <div  class="box transacao ">
@@ -287,7 +287,7 @@
 
                 <!-- Coluna Direita -->
                 <div class="right-column">
-                    <div class="suas-despesas" >
+                    <div class="suas-despesas" id="listaAmostra" >
                         <h3 class="list-categoria"> Minhas Contas</h3>
                         {% for a in account %}
                             <div  class="box transacao ">
@@ -297,7 +297,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Botão do Formulário -->
             <input class="btn-form" type="submit" value="Adicionar Conta">
         </form>
