@@ -224,7 +224,24 @@
 
                 <!-- Coluna Direita -->
                 <div class="right-column">
-
+                    <div class="suas-despesas" >
+                        <h3 class="list-categoria"> Suas Categorias</h3>
+                        {% for c in categories %}
+                            <div  class="box transacao add-categoria">
+                                <div>
+                                    <h3>{{c.name}}</h3>
+                                </div>
+                                <div class="edit-excl">
+                                    <form  method="post">
+                                        <button class="reset-Button" name="" value="" type="submit"><img src="static/images/edit.svg"></button>                        
+                                    </form>
+                                    <form method="post">
+                                        <button class="reset-Button" name="" value="" type="submit"><img src="static/images/excluir.svg"></button>                        
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
 

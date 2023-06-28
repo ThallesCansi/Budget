@@ -35,18 +35,36 @@
         <div class="suas-despesas">
             <h3>suas despesas</h3>
             <p>últimos 15 dias</p>
-            <div class="box transacao"></div>
-            <div class="box transacao"></div>
-            <div class="box transacao"></div>
-            <div class="box transacao"></div>
+            {% for despesa in lista_despesa %}
+                <a  style="text-decoration: none" href="/transacoes"><div  class="box transacao">
+                    <h3>{{despesa}}</h3>
+                </div></a>
+            {% endfor %}
         </div>
         <div class="suas-despesas">
             <h3>transações recentes</h3>
             <p>receitas e despesas</p>
-            <div class="box transacao"></div>
-            <div class="box transacao"></div>
-            <div class="box transacao"></div>
-            <div class="box transacao"></div>
+            {% for t in transactions %}
+                {% if t.typeIorE == 'Despesa' %}
+                <a style="text-decoration: none" href="/transacoes"><div class="box transacao recente">
+                    <div>
+                        <p style="color:#d76060" >{{t.typeIorE}}</p>
+                    </div>
+                    <div>
+                        <p style="color:#d76060" >{{t.value}}</p>
+                    </div>
+                </div></a>
+                {% else %}
+                <a style="text-decoration: none" href="/transacoes"><div  class="box transacao recente">
+                    <div>
+                        <p style="color:#35aa3a" >{{t.typeIorE}}</p>
+                    </div>
+                    <div>
+                        <p style="color:#35aa3a" >{{t.value}}</p>
+                    </div>
+                </div></a>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 

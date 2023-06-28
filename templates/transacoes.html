@@ -3,8 +3,9 @@
 {% block conteudo %}
 <div class="transacao">
     <div>
-        <table id="transacao-table"class="table table-borderless table-lg">
-          <thead class="table-success">
+        <table id="transacao-table" class="table table-hover align-middle">
+          <caption>Quantidade de Transações: {{qtdeTransacoes}}</caption>
+          <thead class="table-primary">
             <tr>
               <th scope="col">Tipo</th>
               <th scope="col">Data</th>
@@ -16,9 +17,13 @@
               <th scope="col">Ações</th>   
             </tr>
           </thead>
-          <tbody>
+          <tbody class="table-group-divider">
             {% for t in transactions %}
-            <tr>
+              {% if t.typeIorE == 'Receita' %}
+            <tr class="table-success">
+              {% else %}
+            <tr class="table-danger">
+              {% endif %}
               <td>{{t.typeIorE}}</td>
               <td>{{t.date}}</td>
               <td>{{t.idCategory}}</td>
@@ -28,31 +33,16 @@
               <td>{{t.idDependent}}</td>
               <td>
                   <div class="edit-excl">
-                      <a><img src="static/images/edit.svg"></a>
-                      <a href=""onclick="openPopupExcluir()"><img src="static/images/excluir.svg"></a>
-                  </div></td> 
-                <div
-                    style="width: auto; height: auto"
-                    id="app-form-excluir"
-                    class="app-form"
-                >
-                    <!-- Cabeçalho do Formulário -->
-                    <div class="form-header">
-                        <h1>Deseja realmente excluir?</h1>
-                        <div class="popupExcluir">
-                            <button onclick="closePopupExcluir()" id="cancelarExcluir" >Cancelar</button>
-                            <form action="/excluirTransacao" method="post">
-                                <button value="{{t.idTransaction}}" type="submit">Excluir</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                      <form action="/excluirTransacao" method="post">
+                        <button class="reset-Button" name="idTransaction" value="{{t.idTransaction}}" type="submit" onclick="openPopupExcluir()"><img src="static/images/edit.svg"></button>                        
+                      </form>
+                      <form action="/excluirTransacao" method="post">
+                        <button class="reset-Button" name="idTransaction" value="{{t.idTransaction}}" type="submit" onclick="openPopupExcluir()"><img src="static/images/excluir.svg"></button>                        
+                      </form>
+                  </div></td>
             </tr>
               
             {% endfor %}
-            <tr>
-                <td>Quantidade de Transações: {{qtdeTransacoes}}</td>
-            </tr>
           </tbody>
         </table>
     </div>
@@ -78,23 +68,3 @@
 </div>
 <script src="static/scripts/popup.js"></script>
 {% endblock %}
-
-<!-- {% block popup %}
-<div
-    style="width: auto; height: auto"
-    id="app-form-excluir"
-    class="app-form"
->
-    
-    <div class="form-header">
-        <h1>Deseja realmente excluir?</h1>
-        <div class="popupExcluir">
-            <button onclick="closePopupExcluir()" id="cancelarExcluir" >Cancelar</button>
-            <form action="/excluirTransacao" method="post">
-                <button value="" type="submit">Excluir</button>
-            </form>
-        </div>
-    </div>
-</div>
-{% endblock %} -->
-

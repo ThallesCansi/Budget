@@ -34,12 +34,12 @@ class TransactionRepo:
     @classmethod
     def insert(cls, transaction: Transaction) -> Transaction:
         sql = """
-                INSERT INTO transactions (idCategory, idDependent, description, date, value, typeIorE)
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO transactions (idCategory, idDependent, idAccount, description, date, value, typeIorE)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
               """
         conn = Database.createConnection()
         cursor = conn.cursor()
-        result = cursor.execute(sql, (transaction.idCategory, transaction.idDependent,
+        result = cursor.execute(sql, (transaction.idCategory, transaction.idDependent, transaction.idAccount,
                                 transaction.description, transaction.date, transaction.value, transaction.typeIorE))
         if (result.rowcount > 0):
             transaction.idTransaction = result.lastrowid
@@ -77,7 +77,7 @@ class TransactionRepo:
 
     @classmethod
     def getAll(cls) -> List[Transaction]:
-        sql = "SELECT t.idTransaction, t.idUser, c.name, t.idAccount, d.name, t.description, t.date, t.value, t.typeIorE FROM transactions t INNER JOIN dependent d ON d.idDependent = t.idDependent INNER JOIN category c ON c.idCategory = t.idCategory INNER JOIN account a ON a.idAccount = t.idAccount"
+        sql = "SELECT t.idTransaction, t.idUser, c.name, a.title, d.name, t.description, t.date, t.value, t.typeIorE FROM transactions t INNER JOIN dependent d ON d.idDependent = t.idDependent INNER JOIN category c ON c.idCategory = t.idCategory INNER JOIN account a ON a.idAccount = t.idAccount"
         conn = Database.createConnection()
         cursor = conn.cursor()
         result = cursor.execute(sql).fetchall()

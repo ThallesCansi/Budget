@@ -53,14 +53,19 @@ async def getDashboard(request: Request):
     titulo = "Bom dia, Ricardo"
 
     TransactionDb = TransactionRepo.getAll()
-
+    
     receita = 0
     despesa = 0
+    lista_categoria_despesa = []
     for t in TransactionDb:
         if t.typeIorE == "Receita":
             receita += t.value
+            t.value = format_currency(t.value, 'BRL', locale='pt_BR')
         else:
             despesa += t.value
+            lista_categoria_despesa.append(t.idCategory)
+            t.value = format_currency(t.value, 'BRL', locale='pt_BR')
+            
     saldo = receita - despesa
     receita = format_currency(receita, 'BRL', locale='pt_BR')
     saldo = format_currency(saldo, 'BRL', locale='pt_BR')
@@ -72,7 +77,7 @@ async def getDashboard(request: Request):
 
     accountDb = AccountRepo.getAll()
     
-    return templates.TemplateResponse("dashboard.html", {"request": request, "titulo": titulo, "activeDash": activeDash, "dependents": dependentsDb, "categories": categoryDb, "account": accountDb, "saldo": saldo, "receita": receita, "despesa": despesa})
+    return templates.TemplateResponse("dashboard.html", {"request": request, "titulo": titulo, "activeDash": activeDash, "transactions": TransactionDb, "dependents": dependentsDb, "categories": categoryDb, "account": accountDb,  "saldo": saldo, "receita": receita, "despesa": despesa, "lista_despesa": lista_categoria_despesa})
 
 # rota para transações
 
@@ -133,7 +138,10 @@ async def getMetas(request: Request):
 async def getConfig(request: Request):
     activeConfig = "sidebar-active"
     titulo = "Configurações"
-    return templates.TemplateResponse("configuracoes.html", {"request": request, "titulo": titulo, "activeConfig": activeConfig})
+
+    categoryDb = CategoryRepo.getAll()
+    
+    return templates.TemplateResponse("configuracoes.html", {"request": request, "titulo": titulo, "activeConfig": activeConfig, "categories": categoryDb})
 
 # Formulários do dashboard
 
@@ -174,8 +182,9 @@ async def postCadastrarDependente(
     DependentRepo.insert(Dependent(0, 1, name, description, "red"))
     return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
 
-@app.delete("/trasacoes/{idTransaction}")
-async def getExcluirTransacao(idTransaction: int):
+@app.post("/excluirTransacao")
+async def getExcluirTransacao(
+    idTransaction: Annotated[str, Form()]):
     TransactionRepo.delete(idTransaction)
     return RedirectResponse("/transacoes", status_code=status.HTTP_303_SEE_OTHER)
 
@@ -205,5 +214,5 @@ async def postCadastrarCartao(
     balance: Annotated[str, Form()],
     goal: Annotated[str, Form()]):
     AccountRepo.createTable()
-    AccountRepo.insert(Account (0, 1, title, balance, goal))
+    AccountRepo.insert(Account(0, 1, title, balance, goal))
     return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)

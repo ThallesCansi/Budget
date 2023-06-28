@@ -68,7 +68,7 @@ class AccountRepo:
 
     @classmethod
     def getAll(cls) ->List[Account]:
-        sql = "SELECT idAccount, idUser, title, balance, goal FROM account"
+        sql = "SELECT idAccount, idUser, title, balance, goal FROM account a"
         conn = Database.createConnection()
         cursor = conn.cursor()
         result = cursor.execute(sql).fetchall()
