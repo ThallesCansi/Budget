@@ -517,7 +517,7 @@ button{
 
 .container.rec {
     align-items: center;
-    background-color: var(--primaryColor-green);
+    background-color: var(--primaryColor-blue);
 }
 
 .form-container-rec{
