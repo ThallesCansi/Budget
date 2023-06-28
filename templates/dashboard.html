@@ -32,39 +32,41 @@
 
     <!-- Coluna Direita -->
     <div class="right-column">
-        <div class="suas-despesas">
-            <h3>suas despesas</h3>
-            <p>últimos 15 dias</p>
-            {% for despesa in lista_despesa %}
-                <a  style="text-decoration: none" href="/transacoes"><div  class="box transacao">
-                    <h3>{{despesa}}</h3>
-                </div></a>
-            {% endfor %}
-        </div>
-        <div class="suas-despesas">
-            <h3>transações recentes</h3>
-            <p>receitas e despesas</p>
-            {% for t in transactions %}
-                {% if t.typeIorE == 'Despesa' %}
-                <a style="text-decoration: none" href="/transacoes"><div class="box transacao recente">
-                    <div>
-                        <p style="color:#d76060" >{{t.typeIorE}}</p>
-                    </div>
-                    <div>
-                        <p style="color:#d76060" >{{t.value}}</p>
-                    </div>
-                </div></a>
-                {% else %}
-                <a style="text-decoration: none" href="/transacoes"><div  class="box transacao recente">
-                    <div>
-                        <p style="color:#35aa3a" >{{t.typeIorE}}</p>
-                    </div>
-                    <div>
-                        <p style="color:#35aa3a" >{{t.value}}</p>
-                    </div>
-                </div></a>
-                {% endif %}
-            {% endfor %}
+        <div class="dinamic-scroll">
+            <div class="suas-despesas">
+                <h3>suas despesas</h3>
+                <p>últimos 15 dias</p>
+                {% for despesa in lista_despesa %}
+                    <a  style="text-decoration: none" href="/transacoes"><div  class="box transacao">
+                        <h3>{{despesa}}</h3>
+                    </div></a>
+                {% endfor %}
+            </div>
+            <div class="suas-despesas">
+                <h3>transações recentes</h3>
+                <p>receitas e despesas</p>
+                {% for t in transactions %}
+                    {% if t.typeIorE == 'Despesa' %}
+                    <a style="text-decoration: none" href="/transacoes"><div class="box transacao recente">
+                        <div>
+                            <p style="color:#d76060" >{{t.typeIorE}}</p>
+                        </div>
+                        <div>
+                            <p style="color:#d76060" >{{t.value}}</p>
+                        </div>
+                    </div></a>
+                    {% else %}
+                    <a style="text-decoration: none" href="/transacoes"><div  class="box transacao recente">
+                        <div>
+                            <p style="color:#35aa3a" >{{t.typeIorE}}</p>
+                        </div>
+                        <div>
+                            <p style="color:#35aa3a" >{{t.value}}</p>
+                        </div>
+                    </div></a>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 
@@ -86,7 +88,6 @@
 {% endblock %} {% block popup %}
 <!-- Formulário do Aplicativo -->
 <form
-    style="height: 725px"
     id="app-form-receita"
     class="app-form"
     method="post"
@@ -218,7 +219,6 @@
 {% endblock %} {% block popup2 %}
 <!-- Formulário do Aplicativo -->
 <form
-    style="height: 725px"
     id="app-form-despesa"
     class="app-form"
     method="post"

@@ -69,7 +69,7 @@
 
 {% endblock %} {% block popup %}
 <!-- Formulário do Aplicativo -->
-<form style= "height:675px" id="app-form" class="app-form" method="post" action="/cadastrarDependente">
+<form id="app-form" class="app-form" method="post" action="/cadastrarDependente">
     <!-- Cabeçalho do Formulário -->
     <div class="form-header">
         <span class="close" onclick="closePopup()">&times;</span>
@@ -174,7 +174,7 @@
 </form>
 {% endblock %}
 {% block popup2 %}
-        <form class="app-form" style="height: auto" id="app-form-categoria" method="post" action="/cadastrarCategoria">
+        <form class="app-form"  id="app-form-categoria" method="post" action="/cadastrarCategoria">
             <div class="form-header">
                 <span class="close" onclick="closePopupCategoria()">&times;</span>
                     <h1>Gerenciar Categorias</h1>
@@ -227,18 +227,8 @@
                     <div class="suas-despesas" >
                         <h3 class="list-categoria"> Suas Categorias</h3>
                         {% for c in categories %}
-                            <div  class="box transacao add-categoria">
-                                <div>
-                                    <h3>{{c.name}}</h3>
-                                </div>
-                                <div class="edit-excl">
-                                    <form  method="post">
-                                        <button class="reset-Button" name="" value="" type="submit"><img src="static/images/edit.svg"></button>                        
-                                    </form>
-                                    <form method="post">
-                                        <button class="reset-Button" name="" value="" type="submit"><img src="static/images/excluir.svg"></button>                        
-                                    </form>
-                                </div>
+                            <div  class="box transacao ">
+                                <h3>{{c.name}}</h3>
                             </div>
                         {% endfor %}
                     </div>
@@ -251,7 +241,7 @@
 {% endblock %}
 
 {% block popup3 %}
-<form class="app-form" style="height: auto" id="app-form-conta" method="post" action="/cadastrarConta">
+<form class="app-form"  id="app-form-conta" method="post" action="/cadastrarConta">
             <div class="form-header">
                 <span class="close" onclick="closePopupConta()">&times;</span>
                     <h1>Gerenciar Contas</h1>
@@ -290,13 +280,21 @@
                             <option value="viagem">Nova viagem em novembro </option>
                             <option value="carro">Carro novo</option>
                             <option value="celular">Celular novo</option>
+                            <option value="nenhuma">Nenhuma</option>
                     </select>
                     </div>
                 </div>
 
                 <!-- Coluna Direita -->
                 <div class="right-column">
-
+                    <div class="suas-despesas" >
+                        <h3 class="list-categoria"> Minhas Contas</h3>
+                        {% for a in account %}
+                            <div  class="box transacao ">
+                                <h3>{{a.title}}</h3>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
 

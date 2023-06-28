@@ -1,6 +1,6 @@
 from typing import List
-from Database import Database
-from Account import Account
+from Repositorio.Database import Database
+from Repositorio.Account.Account import Account
 
 class AccountRepo:
     @classmethod

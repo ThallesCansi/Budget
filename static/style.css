@@ -281,7 +281,7 @@ main {
     width: calc(100vw - 25rem);
     left: 25rem;
     margin-top: 4.2rem;
-    overflow-y:scroll;
+    overflow-y:auto;
 }
 
 
@@ -851,6 +851,15 @@ button{
 
 .suas-despesas h3, .suas-despesas p{
     margin-left: 1rem;
+}
+
+.dinamic-scroll{
+    overflow-y: auto;
+    height: 40rem;
+}
+
+.suas-despesas{
+    margin-bottom: 2rem;
 }
 
 .suas-despesas h3{

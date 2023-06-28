@@ -1,6 +1,6 @@
 from typing import List
-from Database import Database
-from Transaction import Transaction
+from Repositorio.Database import Database
+from Repositorio.Transaction.Transaction import Transaction
 
 
 class TransactionRepo:

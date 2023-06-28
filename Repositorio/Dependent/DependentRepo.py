@@ -1,6 +1,6 @@
 from typing import List
-from Database import Database
-from Dependent import Dependent
+from Repositorio.Database import Database
+from Repositorio.Dependent.Dependent import Dependent
 
 class DependentRepo:
     @classmethod

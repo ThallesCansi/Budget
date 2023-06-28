@@ -1,6 +1,6 @@
 from typing import List
-from Database import Database
-from Category import Category
+from Repositorio.Database import Database
+from Repositorio.Category.Category import Category
 
 class CategoryRepo:
     @classmethod

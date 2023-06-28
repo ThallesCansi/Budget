@@ -1,6 +1,6 @@
 from typing import List
-from Database import Database
-from User import User
+from Repositorio.Database import Database
+from Repositorio.User.User import User
 
 
 class UserRepo:
