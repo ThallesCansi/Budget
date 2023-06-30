@@ -114,6 +114,17 @@ async def postExcluirTransacao(idTransaction: Annotated[str, Form()]):
     TransactionRepo.delete(idTransaction)
     return RedirectResponse("/transacoes", status_code=status.HTTP_303_SEE_OTHER)
 
+#Excluir Categoria
+@app.post("/excluirCategoria")
+async def postExcluirCategoria(idCategory: Annotated[str, Form()]):
+    CategoryRepo.delete(idCategory)
+    return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
+
+#Excluir Conta
+@app.post("/excluirConta")
+async def postExcluirCategoria(idAccount: Annotated[str, Form()]):
+    AccountRepo.delete(idAccount)
+    return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
 
 # rota para carteira
 @app.get("/carteira", response_class=HTMLResponse)
@@ -136,6 +147,7 @@ async def getConfig(request: Request):
     titulo = "Configurações"
 
     categoryDb = CategoryRepo.getAll()
+
     accountDb = AccountRepo.getAll()
     
     return templates.TemplateResponse("configuracoes.html", {"request": request, "titulo": titulo, "activeConfig": activeConfig, "categories": categoryDb, "account": accountDb})
