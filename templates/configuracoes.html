@@ -229,6 +229,14 @@
                         {% for c in categories %}
                             <div  class="box transacao ">
                                 <h3>{{c.name}}</h3>
+                                <div class="edit-excl">
+                                    <form action="/excluirCategoria" method="post">
+                                      <button class="reset-Button" name="idCategory" value="{{c.idCategory}}" type="submit" onclick="openPopupExcluir()"><img src="static/images/edit.svg"></button>                        
+                                    </form>
+                                    <form action="/excluirCategoria" method="post">
+                                      <button class="reset-Button" name="idCategory" value="{{c.idCategory}}" type="submit" onclick="openPopupExcluir()"><img src="static/images/excluir.svg"></button>                        
+                                    </form>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
@@ -292,6 +300,14 @@
                         {% for a in account %}
                             <div  class="box transacao ">
                                 <h3>{{a.title}}</h3>
+                                <div class="edit-excl">
+                                    <form action="/excluirConta" method="post">
+                                    <button class="reset-Button" name="idAccount" value="{{a.idAccount}}" type="submit" onclick="openPopupExcluir()"><img src="static/images/edit.svg"></button>                        
+                                    </form>
+                                    <form action="/excluirConta" method="post">
+                                    <button class="reset-Button" name="idAccount" value="{{a.idAccount}}" type="submit" onclick="openPopupExcluir()"><img src="static/images/excluir.svg"></button>                        
+                                    </form>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
