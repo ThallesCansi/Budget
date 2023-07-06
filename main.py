@@ -1,15 +1,35 @@
-print("Options Menu")
-print("-"*30)
-print("1. https://aplicacaoweb.budgetapp.repl.co/signUp-signIn")
+import fastapi as _fastapi
+import fastapi.security as _security
+
+import sqlalchemy.orm as _orm
+
+import services as _services
+import schemas as _schemas
+
+app = _fastapi.FastAPI()
 
 
-option = 5
-while option != 0:
-    option = int(input("Options: "))
-    if (option == 1):
-        import os
-<<<<<<< HEAD
-        os.system("uvicorn mainWeb:app --reload")
-=======
-        os.system("uvicorn mainWeb:app --reload ")
->>>>>>> b608de8f364dadbc036b468eef6fe38efb750943
+@app.post("/api/users")
+async def create_user(user: _schemas.UserCreate, db: _orm.Session = _fastapi.Depends(_services.get_db)):
+    db_user = await _services.get_user_by_email(user.email, db)
+    if db_user:
+        raise _fastapi.HTTPException(
+            status_code=400, detail="Email already in use")
+
+    return await _services.create_user(user, db)
+
+
+@app.post("/api/token")
+async def generate_token(form_data: _security.OAuth2PasswordRequestForm = _fastapi.Depends(), db: _orm.Session = _fastapi.Depends(_services.get_db), ):
+    user = await _services.authenticate_user(form_data.username, form_data.password, db)
+
+    if not user:
+        raise _fastapi.HTTPException(
+            status_code=401, detail="Invalid Credentials")
+
+    return await _services.create_token(user)
+
+
+@app.get("/api/users/me", response_model=_schemas.User)
+async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
+    return user
