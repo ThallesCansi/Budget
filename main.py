@@ -1,5 +1,7 @@
+import time
 from typing import List
 import fastapi as _fastapi
+from fastapi.middleware.cors import CORSMiddleware
 import fastapi.security as _security
 
 import sqlalchemy.orm as _orm
@@ -8,6 +10,19 @@ import services as _services
 import schemas as _schemas
 
 app = _fastapi.FastAPI()
+
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/api/users")
@@ -75,7 +90,7 @@ async def delete_lead(
         db: _orm.Session = _fastapi.Depends(_services.get_db),
 ):
     await _services.delete_lead(lead_id, user, db)
-    return {"message", "Successfully Deleted"}
+    return {"message": "Successfully Deleted"}
 
 
 @app.put("/api/leads/{lead_id}", status_code=204)
@@ -86,4 +101,9 @@ async def update_lead(
         db: _orm.Session = _fastapi.Depends(_services.get_db),
 ):
     await _services.update_lead(lead_id, lead, user, db)
-    return {"message", "Successfully Updated"}
+    return {"message": "Successfully Updated"}
+
+
+@app.get("/api")
+async def root():
+    return {"message": "Awesome Leads Manager"}
