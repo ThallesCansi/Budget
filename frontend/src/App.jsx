@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Header from "./components/Header";
+import { UserContext } from "./context/UserContext";
 
 const App = () => {
     const [message, setMessage] = useState("");
+    const [token] = useContext(UserContext);
 
     const getWelcomeMessage = async () => {
         const requestOptions = {
@@ -11,14 +17,17 @@ const App = () => {
             },
         };
 
-        const response = await fetch("http://localhost:8000/api", requestOptions);
+        const response = await fetch(
+            "http://localhost:8000/api",
+            requestOptions
+        );
         const data = await response.json();
 
         if (!response.ok) {
-            console.log("Something messed up")
+            console.log("Something messed up");
         } else {
             setMessage(data.message);
-            console.log(data)
+            console.log(data);
         }
     };
 
@@ -27,9 +36,23 @@ const App = () => {
     }, []);
 
     return (
-        <div>
-            <h1>{ message }</h1>
-        </div>
+        <>
+            <Header title={message} />
+            <div className="columns">
+                <div className="column"></div>
+                <div className="column m-5 is-two-thirds">
+                    {!token ? (
+                        <div className="columns">
+                            <Register />
+                            <Login />
+                        </div>
+                    ) : (
+                        <p>Table</p>
+                    )}
+                </div>
+                <div className="column"></div>
+            </div>
+        </>
     );
 };
 
