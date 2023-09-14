@@ -1,0 +1,333 @@
+/* Variáveis do Projeto */
+:root {
+    /* Estilo das Cores  */
+    /* Cores Primárias */
+    --primaryColor-green: #56ab91;
+    --primaryColor-blue: #2b478b;    
+
+    /* Gradientes */
+    --gradient-horizontal: linear-gradient(90deg, #2b478b 0%, #55ab91 100%);
+    --gradient-vertical: linear-gradient(180deg, #55ab91 0%, #2b478b 100%);
+
+    /* Cores Neutras */
+    --neutralColors-text: #212529;
+    --neutralColors-textGray: #343a40;
+    --neutralColors-600: #495057;
+    --neutralColors-500: #6c757d;
+    --neutralColors-400: #adb5bd;
+    --neutralColors-300: #ced4da;
+    --neutralColors-200: #dee2e6;
+    --neutralColors-100: #e9ecef;
+    --neutralColors-white: #ffffff;
+
+    /* Tons de Verde */
+    --greenAccent-800: #19332b;
+    --greenAccent-700: #2b5548;
+    --greenAccent-600: #3c7765;
+    --greenAccent-500: #4d9982;
+    --greenAccent-400: #66b39c;
+    --greenAccent-300: #88c4b2;
+    --greenAccent-200: #aad5c8;
+    --greenAccent-100: #cce5de;
+
+    /* Tons de Azul */
+    --blueAccent-800: #0c1529;
+    --blueAccent-700: #152345;
+    --blueAccent-600: #1e3161;
+    --blueAccent-500: #263f7d;
+    --blueAccent-400: #405996;
+    --blueAccent-300: #6a7ead;
+    --blueAccent-200: #95a3c5;
+    --blueAccent-100: #bfc7dc;
+
+    /* Categorias */
+    --categories-darkBlue: #076ebd;
+    --categories-blue: #42b5e7;
+    --categories-green: #12ae6c;
+    --categories-red: #f83215;
+    --categories-orange: #fea519;
+    --categories-pink: #fa4deb;
+    --categories-gray: #98a6af;
+
+    /* Menu de Navegação */
+    --navBar-gray: #e6ecf1;
+    --navBar-blue: #4d72cc;
+    --navBar-expense: #d76060;
+    --navBar-saving: #35aa3a;
+
+    --text-color: #212529;
+    --white-color: #ffffff;
+    --gray-color: #e6ecf1;
+
+    /* Estilo dos Efeitos */
+    /* Sombras Gerais */
+    --shadow-default-01: 0px 2px 6px rgba(33, 37, 41, 0.3);
+    /* Sombra dos Botões Padrões */
+    --buttonShadow-default-01: 0px 8px 8px rgba(33, 37, 41, 0.08);
+    --buttonShadow-default-02: 0px 8px 16px rgba(33, 37, 41, 0.17);
+}
+
+#app-form-receita{
+    width: 5000000px;
+}
+
+#active{
+    background-color: white;
+}
+
+#active:hover,
+#active:hover span,
+#active:hover i{
+    background-color: white !important;
+}
+#active a{
+    color: black; 
+}
+
+#active i{
+    color: black !important; 
+}
+
+.nav-item a{
+    color: white;
+}
+
+#profile i:hover{
+    cursor: pointer
+}
+
+.nav-item:hover,
+.nav-item:hover span,
+.nav-item:hover i{
+    background-color: #fff !important;
+    color: black !important;
+}
+
+::placeholder{
+    color: #98a6af;
+}
+
+/* Login  e Cadastro */
+/* .container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+}
+
+.input-field {
+    margin-top: 0.1rem;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.container.login{
+    background-color: var(--neutralColors-white);
+}
+
+.container.login:before{
+    content: '';
+    position: absolute;
+    width: 125rem;
+    height: 160.3rem;
+    border-radius: 50%;
+    background: var(--primaryColor-blue);
+    top: -10%;
+    right: 48%;
+    transform: translateY(-50%);
+    z-index: 6;
+    transition: 1.7s ease-in-out;
+}
+
+.forms-container-login{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.signin-signup{
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: 1fr;
+    z-index: 5;
+    transition: 1s 0.7s ease-in-out;
+}
+
+.signin-signup h1{
+    font-size: 3rem;
+}
+
+
+.signin-signup form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    transition: 0.3s 0.8s ease-in-out;
+}
+
+form.sign-in-form{
+    z-index: 2;
+}
+
+form.sign-up-form{
+    z-index: 1;
+    opacity: 0;
+}
+
+input.btn-form {
+    display: flex;
+    justify-content: center;
+    background-color: var(--primaryColor-green);
+    margin-top: 0.5rem;
+    outline: none;
+    border: none;
+    border-radius: 0.42rem;
+    color: #fff;
+    width: 29rem;
+    height: 4.2rem;
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+
+.password{
+    display: flex;
+    justify-content: space-between;
+}
+
+input.pw{
+    width: 13.75rem;
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
+}
+
+.input-field.pw p{
+    margin-left: 0.8rem;
+}
+
+.termo p{
+    font-size: 1.55rem;
+}
+
+.icons{
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+img.icon{
+    width: 4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.panels-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 1.25rem;
+}
+
+.content h1,
+.content p {
+    color: var(--neutralColors-white);
+    font-weight: 600;
+}
+
+.content h1{
+    font-size: 5rem;
+}
+
+.panel{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: center;  
+    justify-content: space-around;
+    z-index: 7;
+}
+
+.left-panel{
+    pointer-events: all;
+    display: block;
+    margin-right: 2.2rem;
+}
+
+.right-panel{
+    pointer-events: none;
+    display: block;
+    margin-right: 2.2rem;
+}
+
+.panel .content{
+    transition: .9s .6s ease-in-out;
+}
+
+button{
+    background-color: var(--neutralColors-white);
+    margin-top: 1.9rem;
+    border-radius: 0.42rem;
+    color: var(--primaryColor-green);
+    width: 29rem;
+    height: 4.2rem;
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    border: none ;
+    cursor: pointer;
+}
+
+.right-panel .content{
+    transform: translateX(187.5rem);
+}
+
+.container.login.sign-up-mode:before{
+    transform: translate(100%, -50%);
+    right: 55%;
+}
+
+.container.login.sign-up-mode .left-panel .content{
+    transform: translateX(-187.5rem)
+}
+
+.container.login.sign-up-mode .right-panel .content{
+    transform: translateX(0rem)
+}
+
+.container.login.sign-up-mode .left-panel{
+    pointer-events: none;
+}
+
+.container.login.sign-up-mode .right-panel{
+    pointer-events: all;
+}
+
+.container.login.sign-up-mode .signin-signup{
+    left: 25%
+}
+
+.container.login.sign-up-mode form.sign-in-form{
+    z-index: 1;
+    opacity: 0;
+}
+
+.container.login.sign-up-mode form.sign-up-form{
+    z-index: 2;
+    opacity: 1;
+}
+ */

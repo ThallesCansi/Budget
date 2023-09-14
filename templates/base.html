@@ -1,229 +1,184 @@
-<!DOCTYPE html>
+.<!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- Título da janela -->
-        <title>Budget</title>
-        <!-- Ícone da janela -->
-        <link
-            rel="shortcut icon"
-            href="static/images/Logo.ico"
-            type="image/x-icon"
-        />
-        <!-- CSS -->
-        <link rel="stylesheet" href="/static/style.css" />
 
-        <!-- BootStrap -->
-        <link
-            rel="stylesheet"
-            href="../static/bootstrap/css/bootstrap.min.css"
-        />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="shortcut icon" href="/static/img/Logo.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/css/estilo.css">
+    <link rel="stylesheet" href="/static/lib/meu_bootstrap.css">
+    <link rel="stylesheet" href="/static/lib/bootstrap-icons/font/bootstrap-icons.min.css">
+    <script src="/static/js/popup.js"></script>
+    <title>Budget</title>
+</head>
 
-        <!-- Ícones -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        />
-
-        <!-- Scripts -->
-        <scrip src="/static/scripts/popup.js"></scrip>
-    </head>
-    <body>
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+<body class="bg-white">
+    {% block popup %}
+    {% endblock %}
+    <div class="container-fluid top-0">
+        <div class="row">
+            <aside class="position-fixed p-lg-0 text-bg-primary col-md-1 p-0 col-lg-3  vh-100 d-lg-inline d-md-inline d-none top-0">
+                <a class="text-decoration-none " href="#">
+                    <div class="p-3" id="logo">
+                        <img class="img-fluid w-lg-25" src="/static/img/Moeda.svg" alt="Budget Logo">
+                        <img class="img-fluid w-50 d-lg-inline d-none" src="/static/img/Budget.svg" alt="Budget Logo">
+                    </div>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                <ul class="nav flex-column">
+                    <li class="nav-item p-2 my-2" id={{activeDash}}>
+                        <a class="nav-link fw-bold fs-4"  href="/dashboard">
+                            <i class="bi bi-pie-chart-fill text-center"></i>
+                            <span class="d-lg-inline d-none">Dashboard</span>   
+                        </a>
+                    </li>
+                    <li class="nav-item  p-2 mb-2" id={{activeTran}}>
+                        <a class="nav-link fw-bold fs-4" href="/transacoes">
+                            <i class="bi bi-list"></i>
+                            <span class="d-lg-inline d-none">Transações</span>   
+                        </a>
+                    </li>
+                    <li class="nav-item  p-2 mb-2" id={{activeCart}}>
+                        <a class="nav-link fw-bold fs-4"  href="/carteira">
+                            <i class="bi bi-wallet"></i>
+                            <span class="d-lg-inline d-none">Carteira</span>   
+                        </a>
+                    </li>
+                    <li class="nav-item  p-2 mb-2">
+                        <a class="nav-link fw-bold fs-4"  href="#">
+                            <i class="bi bi-stop-circle-fill"></i>
+                            <span class="d-lg-inline d-none">Metas</span>   
+                        </a>
+                    </li>
+                    <li class="nav-item  p-2 mb-2">
+                        <a class="nav-link  fw-bold fs-4" href="#">
+                            <i class="bi bi-gear-fill"></i>
+                            <span class="d-lg-inline d-none">Configurações</span>   
+                        </a>
+                    </li>
+                    <li class="nav-item  p-2 mb-2">
+                        <a class="nav-link  fw-bold fs-4"  href="#">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span class="d-lg-inline d-none">Sair</span>   
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <div class="expandir d-sm-none d-inline">
+                <button class="navbar-toggler text-primary text-start" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <i class="bi bi-list fs-4"></i>
+                    <span class="fs-4">Menu</span>
+                </button>
+                <div class="offcanvas offcanvas-start bg-primary text-white" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <a class="text-decoration-none " href="#">
+                            <div class="p-3" id="logo">
+                                <img class="img-fluid w-lg-25" src="/static/img/Moeda.svg" alt="Budget Logo">
+                                <img class="img-fluid w-50" src="/static/img/Budget.svg" alt="Budget Logo">
+                            </div>
+                        </a>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="background-color: white;"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="nav flex-column">
+                            <li class="nav-item py-2 my-2" id={{activeDash}}>
+                                <a class="nav-link fw-bold fs-4"  href="/dashboard">
+                                    <i class="bi bi-pie-chart-fill"></i>
+                                    <span class="">Dashboard</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2" id={{activeTran}}>
+                                <a class="nav-link fw-bold fs-4" href="/transacoes">
+                                    <i class="bi bi-list"></i>
+                                    <span class="">Transações</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2">
+                                <a class="nav-link fw-bold fs-4"  href="#">
+                                    <i class="bi bi-wallet"></i>
+                                    <span class="">Carteira</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2">
+                                <a class="nav-link fw-bold fs-4"  href="#">
+                                    <i class="bi bi-stop-circle-fill"></i>
+                                    <span class="">Metas</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2">
+                                <a class="nav-link  fw-bold fs-4" href="#">
+                                    <i class="bi bi-gear-fill"></i>
+                                    <span class="">Configurações</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2">
+                                <a class="nav-link  fw-bold fs-4"  href="#">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span class="">Sair</span>   
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
+            </div>
+            <div class="col-lg-9 offset-lg-3 col-md-11 offset-md-1  col-12 ">
+                <div class="row bg-white">
+                    <header class=" w-100 d-flex align-items-center justify-content-between top-0">
+                        <div class="">
+                            <h1 class="">{{titulo}}</h1>
+                        </div>
+                        <div id="profile" class="fs-4 align-items-center justify-content-center">
+                            <i class="bi bi-bell-fill fs-4"></i>
+                            <img  class="img-fluid ms-1 w-50"src="static/img/avatar-circle-120x120.png" alt="foto perfil"/>
+                        </div>
+                    </header>
                 </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
+                <div class="row">
+                    <main class="container-fluid mt-3">
+                        {% block conteudo %}
+                        {% endblock %}
+                    </main>
+                    
+                    <footer class=" col-12 text-bg-primary d-md-none d-none d-sm-inline position-fixed bottom-0 start-50 translate-middle-x p-0">
+                        
+                        <ul class="nav flex-row justify-content-around">
+                            <li class="nav-item p-sm-1 ms-sm-1" id={{activeDash}}>
+                                <a class="nav-link fw-bold fs-4"  href="/dashboard">
+                                    <i class="bi bi-pie-chart-fill text-center"></i>  
+                                </a>
+                            </li>
+                            <li class="nav-item  p-sm-1 ms-sm-1" id={{activeTran}}>
+                                <a class="nav-link fw-bold fs-4" href="/transacoes">
+                                    <i class="bi bi-list"></i>  
+                                </a>
+                            </li>
+                            <li class="nav-item p-sm-1 ms-sm-1">
+                                <a class="nav-link fw-bold fs-4"  href="#">
+                                    <i class="bi bi-wallet"></i>  
+                                </a>
+                            </li>
+                            <li class="nav-item  p-sm-1 ms-sm-1">
+                                <a class="nav-link fw-bold fs-4"  href="#">
+                                    <i class="bi bi-stop-circle-fill"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item  p-sm-1 ms-sm-1">
+                                <a class="nav-link  fw-bold fs-4" href="#">
+                                    <i class="bi bi-gear-fill"></i>  
+                                </a>
+                            </li>
+                            <li class="nav-item p-sm-1 ms-sm-1">
+                                <a class="nav-link  fw-bold fs-4"  href="#">
+                                    <i class="bi bi-box-arrow-right"></i> 
+                                </a>
+                            </li>
+                        </ul>
+                    </footer>
                 </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
-
-        </ul>
-        <div class="navbar">
-            <h1>{{titulo}}</h1>
-            <div class="profile">
-                <i class="fa-solid fa-bell"></i>
-                <img src="static/images/avatar-circle-120x120.png" />
-            </div>
+            <div>
         </div>
-        <!-- <div class="sidebar">
-            <div class="sidebar-header">
-                <a href="dashboard"
-                    ><img
-                        class="logo-img"
-                        src="static/images/Logo.svg"
-                        alt="Budget Logo"
-                /></a>
-            </div>
+    </div>
+    <script src="/static/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
 
-            <div class="{{activeDash}}">
-                <div class="sidebar-tab">
-                    <a href="/dashboard">
-                        <i class="fa-solid fa-chart-simple"></i>
-                        <h4>Dashboard</h4>
-                    </a>
-                </div>
-            </div>
-
-            <div class="{{activeTran}}">
-                <div class="sidebar-tab">
-                    <a href="/transacoes">
-                        <i class="fa-solid fa-bars"></i>
-                        <h4>Transações</h4>
-                    </a>
-                </div>
-            </div>
-
-            <div class="{{activeCart}}">
-                <div class="sidebar-tab">
-                    <a href="/carteira">
-                        <i class="fa-solid fa-wallet"></i>
-                        <h4>Carteira</h4>
-                    </a>
-                </div>
-            </div>
-
-            <div class="{{activeMeta}}">
-                <div class="sidebar-tab">
-                    <a href="/metas">
-                        <i class="fa-solid fa-circle-dot"></i>
-                        <h4>Metas</h4>
-                    </a>
-                </div>
-            </div>
-
-            <div class="{{activeConfig}}">
-                <div class="sidebar-tab">
-                    <a href="/configuracoes">
-                        <i class="fa-solid fa-gear"></i>
-                        <h4>Configurações</h4>
-                    </a>
-                </div>
-            </div>
-
-            <div class="sidebar-tab">
-                <a href="/signUp-signIn">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <h4>Sair</h4>
-                </a>
-            </div>
-        </div> -->
-        <main class="">{% block conteudo %} {% endblock %}</main>
-        {% block popup %} {% endblock %} {% block popup2 %} {% endblock %} {%
-        block popup3 %} {% endblock %}
-    </body>
 </html>
