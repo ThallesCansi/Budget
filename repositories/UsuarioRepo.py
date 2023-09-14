@@ -1,7 +1,7 @@
 from typing import List
 
 from models.Usuario import Usuario
-from utils.Database import Database
+from util.Database import Database
 
 
 class UsuarioRepo:

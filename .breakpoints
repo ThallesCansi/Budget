@@ -1,19 +1,11 @@
 {
   "files": {
-    "AccountRepo.py": [
+    "models/Usuario.py": [
       {
-        "id": "6e34157d-7941-4b57-8d3f-060f65a87d7b",
-        "line": 17,
-        "version": 13,
-        "index": 487
-      }
-    ],
-    "mainWeb.py": [
-      {
-        "id": "d37de65f-d0d4-41f8-8219-0fc5191f0668",
-        "line": 96,
-        "version": 3422,
-        "index": 3881
+        "id": "51d6c281-0058-4a99-bc73-41a1505a6683",
+        "line": 1,
+        "version": 318,
+        "index": 0
       }
     ]
   }

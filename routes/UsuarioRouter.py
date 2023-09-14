@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 
 from models.Usuario import Usuario
 from repositories.UsuarioRepo import UsuarioRepo
-from utils.templateFilters import formatarData
+from util.templateFilters import formatarData
 
 router = APIRouter()
 

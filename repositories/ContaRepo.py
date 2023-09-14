@@ -1,6 +1,6 @@
 from typing import List
 
-from utils.Database import Database
+from util.Database import Database
 from models.Conta import Conta
 
 

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.templating import Jinja2Templates
 
-from utils.templateFilters import formatarData
+from util.templateFilters import formatarData
 
 
 router = APIRouter()
