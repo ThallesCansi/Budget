@@ -1,36 +1,69 @@
-from datetime import datetime
 from typing import Annotated
-# from babel.numbers import format_currency
 from fastapi import FastAPI, Form, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+import uvicorn
 
 from repositories.ContaRepo import ContaRepo
 from repositories.UsuarioRepo import UsuarioRepo
-# from Repositorio.Account.AccountRepo import AccountRepo
-# from Repositorio.Category.Category import Category
-# from Repositorio.Category.CategoryRepo import CategoryRepo
-# from Repositorio.Dependent.Dependent import Dependent
-# from Repositorio.Dependent.DependentRepo import DependentRepo
-# from Repositorio.Transaction.Transaction import Transaction
-# from Repositorio.Transaction.TransactionRepo import TransactionRepo
-# from Repositorio.User.User import User
-# from Repositorio.User.UserRepo import UserRepo
 
 from routes.MainRouter import router as mainRouter
 from routes.UsuarioRouter import router as UsuarioRouter
 
+
 UsuarioRepo.criarTabela()
 
-# habilita a aplicação a responder por resquisições HTTP
-app = FastAPI()
+description = """
+# BudgetApp - Realizando o controle de suas finanças. 💸
 
-# monta um diretório para servir arquivos estáticos via HTTP
+## Usuário
+
+Esta sessão é responsável por realizar todos os controles que envolve os usuários do sistema.
+
+- Inserir novos usuários
+- Consultar todos os usuários
+- Consultar os dados de um único usuário
+- Alterar os dados de um usuário
+- Excluir algum usuário
+- Excluir todos os usuários
+"""
+
+contact = {
+    "name": "Thalles Cansi",
+    "e-mail": "thalles_cansi@hotmail.com",
+}
+
+license = {
+    "name": "Apache 2.0",
+    "identifier": "MIT",
+}
+
+tags_metadata = [
+    {
+        "name": "Usuário",
+        "description": "Operações com os Usuários",
+    },
+]
+
+app = FastAPI(
+    title="BudgetApp",
+    description=description,
+    version="2.0.0",
+    contact=contact,
+    license_info=license,
+    openapi_tags=tags_metadata,
+)
+
 app.mount("/static", StaticFiles(directory="static", html=True), name="static")
 
 app.include_router(mainRouter)
 app.include_router(UsuarioRouter)
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True)
+
+# Vai sumir tudo que está daqui pra baixo.
 
 # monta um diretório para servir de templates de páginas
 templates = Jinja2Templates(directory="templates")
