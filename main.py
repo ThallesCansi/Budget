@@ -15,7 +15,7 @@ from routes.UsuarioRouter import router as UsuarioRouter
 UsuarioRepo.criarTabela()
 
 description = """
-# BudgetApp - Realizando o controle de suas finanças. 💸
+# Budget - Realizando o controle de suas finanças. 💸
 
 ## Usuário
 
@@ -27,6 +27,14 @@ Esta sessão é responsável por realizar todos os controles que envolve os usu�
 - Alterar os dados de um usuário
 - Excluir algum usuário
 - Excluir todos os usuários
+
+## Categoria *Não implementado*
+
+## Conta *Não implementado*
+
+## Dependente *Não implementado*
+
+## Transação *Não implementado*
 """
 
 contact = {
@@ -47,7 +55,7 @@ tags_metadata = [
 ]
 
 app = FastAPI(
-    title="BudgetApp",
+    title="Budget",
     description=description,
     version="2.0.0",
     contact=contact,
