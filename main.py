@@ -111,9 +111,9 @@ async def getHome(request: Request):
     )
 
 
-@app.get("/formCartao", response_class=HTMLResponse)
+@app.get("/formDependente", response_class=HTMLResponse)
 async def getHome(request: Request):
-    return templates.TemplateResponse("formCartao.html", {"request": request})
+    return templates.TemplateResponse("formDependente.html", {"request": request})
 
 
 @app.get("/formMeta", response_class=HTMLResponse)
@@ -295,24 +295,22 @@ async def getCarteira(request: Request):
 #     })
 
 
-# # rota para configurações
-# @app.get("/configuracoes", response_class=HTMLResponse)
-# async def getConfig(request: Request):
-#     activeConfig = "sidebar-active"
-#     titulo = "Configurações"
+# rota para configurações
+@app.get("/configuracoes", response_class=HTMLResponse)
+async def getConfig(request: Request):
+    activeConfig = "active"
+    titulo = "Configurações"
 
-#     categoryDb = CategoryRepo.getAll()
+    # categoryDb = CategoryRepo.getAll()
 
-#     accountDb = AccountRepo.getAll()
+    # accountDb = AccountRepo.getAll()
 
-#     return templates.TemplateResponse(
-#         "configuracoes.html", {
-#             "request": request,
-#             "titulo": titulo,
-#             "activeConfig": activeConfig,
-#             "categories": categoryDb,
-#             "account": accountDb
-#         })
+    return templates.TemplateResponse(
+        "configuracoes.html", {
+            "request": request,
+            "titulo": titulo,
+            "activeConfig": activeConfig
+        })
 
 
 # # Formulários do dashboard
