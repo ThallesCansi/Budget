@@ -15,7 +15,7 @@ class UsuarioRepo:
                 senha TEXT NOT NULL
             )
                 """
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         tableCreated = cursor.execute(sql).rowcount > 0
         conn.commit()
@@ -28,7 +28,7 @@ class UsuarioRepo:
                 INSERT INTO usuario (nome, senha)
                 VALUES (?, ?)
               """
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql, (usuario.nome, usuario.senha))
         if result.rowcount > 0:
@@ -40,7 +40,7 @@ class UsuarioRepo:
     @classmethod
     def alterar(cls, usuario: Usuario) -> Usuario:
         sql = "UPDATE usuario SET nome=?, senha=? WHERE id=?"
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql, (usuario.nome, usuario.senha, usuario.id))
         if result.rowcount > 0:
@@ -54,7 +54,7 @@ class UsuarioRepo:
     @classmethod
     def excluir(cls, id: int) -> bool:
         sql = "DELETE FROM usuario WHERE id=?"
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql, (id,))
         if result.rowcount > 0:
@@ -82,7 +82,7 @@ class UsuarioRepo:
     @classmethod
     def obterTodos(cls) -> List[Usuario]:
         sql = "SELECT id, nome, senha FROM usuario"
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql).fetchall()
         objects = [Usuario(*x) for x in result]
@@ -93,7 +93,7 @@ class UsuarioRepo:
     @classmethod
     def obterPorId(cls, id: int) -> Usuario:
         sql = "SELECT id, nome, senha FROM usuario WHERE id=?"
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql, (id,)).fetchone()
         object = Usuario(*result)

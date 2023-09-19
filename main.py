@@ -7,14 +7,17 @@ import uvicorn
 
 from repositories.ContaRepo import ContaRepo
 from repositories.UsuarioRepo import UsuarioRepo
+from repositories.CategoriaRepo import CategoriaRepo
 
 from routes.MainRouter import router as mainRouter
 from routes.UsuarioRouter import router as UsuarioRouter
 from routes.ContaRouter import router as ContaRouter
+from routes.CategoriaRouter import router as CategoriaRouter
 
 
 UsuarioRepo.criarTabela()
 ContaRepo.criarTabela()
+CategoriaRepo.criarTabela()
 
 description = """
 # Budget - Realizando o controle de suas finanças. 💸
@@ -30,16 +33,23 @@ Esta sessão é responsável por realizar todos os controles que envolve os usu�
 - Excluir algum usuário
 - Excluir todos os usuários
 
-## Conta *Não implementado*
+## Conta
 
 - Inserir novas contas
 - Consultar todos as contas
 - Consultar os dados de uma única conta
-- Alterar os dados de uma conta *Está retornando um erro*
+- Alterar os dados de uma conta *Está retornando um erro mas funciona*
 - Excluir alguma conta
 - Excluir todas as contas
 
-## Categoria *Não implementado*
+## Categoria
+
+- Inserir novas categorias
+- Consultar todos as categorias
+- Consultar os dados de uma única categoria
+- Alterar os dados de uma categorias
+- Excluir alguma categoria
+- Excluir todas as categorias
 
 ## Dependente *Não implementado*
 
@@ -65,6 +75,10 @@ tags_metadata = [
         "name": "Conta",
         "description": "Operações com as Contas",
     },
+    {
+        "name": "Categoria",
+        "description": "Operações com as Categorias",
+    },
 ]
 
 app = FastAPI(
@@ -81,6 +95,7 @@ app.mount("/static", StaticFiles(directory="static", html=True), name="static")
 app.include_router(mainRouter)
 app.include_router(UsuarioRouter)
 app.include_router(ContaRouter)
+app.include_router(CategoriaRouter)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)
@@ -306,11 +321,9 @@ async def getConfig(request: Request):
     # accountDb = AccountRepo.getAll()
 
     return templates.TemplateResponse(
-        "configuracoes.html", {
-            "request": request,
-            "titulo": titulo,
-            "activeConfig": activeConfig
-        })
+        "configuracoes.html",
+        {"request": request, "titulo": titulo, "activeConfig": activeConfig},
+    )
 
 
 # # Formulários do dashboard

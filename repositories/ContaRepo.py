@@ -18,7 +18,7 @@ class ContaRepo:
                 FOREIGN KEY(usuario) REFERENCES user(usuario)
             )
                 """
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         tableCreated = cursor.execute(sql).rowcount > 0
         conn.commit()
@@ -31,7 +31,7 @@ class ContaRepo:
                 INSERT INTO conta (titulo, saldo, meta)
                 VALUES (?, ?, ?)
               """
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql, (conta.titulo, conta.saldo, conta.meta))
         if result.rowcount > 0:
@@ -43,7 +43,7 @@ class ContaRepo:
     @classmethod
     def alterar(cls, conta: Conta) -> Conta:
         sql = "UPDATE conta SET titulo=?, saldo=?, meta=? WHERE idConta=?"
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(
             sql, (conta.titulo, conta.saldo, conta.meta, conta.idConta)
@@ -59,7 +59,7 @@ class ContaRepo:
     @classmethod
     def excluir(cls, idConta: int) -> bool:
         sql = "DELETE FROM conta WHERE idconta=?"
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql, (idConta,))
         if result.rowcount > 0:
@@ -87,7 +87,7 @@ class ContaRepo:
     @classmethod
     def obterTodos(cls) -> List[Conta]:
         sql = "SELECT idConta, usuario, titulo, saldo, meta FROM conta"
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql).fetchall()
         objects = [Conta(*x) for x in result]
@@ -98,7 +98,7 @@ class ContaRepo:
     @classmethod
     def obterPorId(cls, idconta: int) -> Conta:
         sql = "SELECT idConta, usuario, titulo, saldo, meta FROM conta WHERE idConta=?"
-        conn = Database.createConnection()
+        conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql, (idconta,)).fetchone()
         object = Conta(*result)

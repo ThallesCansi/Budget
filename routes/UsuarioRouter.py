@@ -54,7 +54,7 @@ async def getUsuario(id: int = Path(...)):
 
 
 @router.put(
-    "/atualizarUsuario",
+    "/atualizarusuario",
     tags=["Usuário"],
     summary="Atualizar usuário",
     response_class=JSONResponse,
