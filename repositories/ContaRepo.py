@@ -20,7 +20,7 @@ class ContaRepo:
                 """
         conn = Database.createConnection()
         cursor = conn.cursor()
-        tableCreated = (cursor.execute(sql).rowcount > 0)
+        tableCreated = cursor.execute(sql).rowcount > 0
         conn.commit()
         conn.close()
         return tableCreated
@@ -33,22 +33,22 @@ class ContaRepo:
               """
         conn = Database.createConnection()
         cursor = conn.cursor()
-        result = cursor.execute(
-            sql, (conta.titulo, conta.saldo, conta.meta))
-        if (result.rowcount > 0):
+        result = cursor.execute(sql, (conta.titulo, conta.saldo, conta.meta))
+        if result.rowcount > 0:
             conta.idConta = result.lastrowid
         conn.commit()
         conn.close()
         return conta
 
     @classmethod
-    def atualizar(cls, conta: Conta) -> Conta:
+    def alterar(cls, conta: Conta) -> Conta:
         sql = "UPDATE conta SET titulo=?, saldo=?, meta=? WHERE idConta=?"
         conn = Database.createConnection()
         cursor = conn.cursor()
         result = cursor.execute(
-            sql, (conta.titulo, conta.saldo, conta.meta, conta.idConta))
-        if (result.rowcount > 0):
+            sql, (conta.titulo, conta.saldo, conta.meta, conta.idConta)
+        )
+        if result.rowcount > 0:
             conn.commit()
             conn.close()
             return conta
@@ -61,8 +61,8 @@ class ContaRepo:
         sql = "DELETE FROM conta WHERE idconta=?"
         conn = Database.createConnection()
         cursor = conn.cursor()
-        result = cursor.execute(sql, (idConta, ))
-        if (result.rowcount > 0):
+        result = cursor.execute(sql, (idConta,))
+        if result.rowcount > 0:
             conn.commit()
             conn.close()
             return True
@@ -71,8 +71,22 @@ class ContaRepo:
             return False
 
     @classmethod
-    def getAll(cls) -> List[Conta]:
-        sql = "SELECT idConta, usuario, titulo, salado, meta FROM conta"
+    def limparTabela(cls) -> bool:
+        sql = "DELETE FROM conta"
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        resultado = cursor.execute(sql)
+        if resultado.rowcount > 0:
+            conexao.commit()
+            conexao.close()
+            return True
+        else:
+            conexao.close()
+            return False
+
+    @classmethod
+    def obterTodos(cls) -> List[Conta]:
+        sql = "SELECT idConta, usuario, titulo, saldo, meta FROM conta"
         conn = Database.createConnection()
         cursor = conn.cursor()
         result = cursor.execute(sql).fetchall()
@@ -82,11 +96,11 @@ class ContaRepo:
         return objects
 
     @classmethod
-    def getOne(cls, idconta: int) -> Conta:
-        sql = "SELECT idConta, usuario, titulo, salado, meta FROM conta WHERE idConta=?"
+    def obterPorId(cls, idconta: int) -> Conta:
+        sql = "SELECT idConta, usuario, titulo, saldo, meta FROM conta WHERE idConta=?"
         conn = Database.createConnection()
         cursor = conn.cursor()
-        result = cursor.execute(sql, (idconta, )).fetchone()
+        result = cursor.execute(sql, (idconta,)).fetchone()
         object = Conta(*result)
         conn.commit()
         conn.close()

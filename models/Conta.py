@@ -1,11 +1,12 @@
-from pydantic import BaseModel
+from dataclasses import dataclass
 
 from models.Usuario import Usuario
 
 
-class Conta(BaseModel):
+@dataclass
+class Conta:
     idConta: int
     usuario: Usuario
     titulo: str
     saldo: float
-    meta: str
+    meta: str | None = None

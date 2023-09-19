@@ -10,9 +10,11 @@ from repositories.UsuarioRepo import UsuarioRepo
 
 from routes.MainRouter import router as mainRouter
 from routes.UsuarioRouter import router as UsuarioRouter
+from routes.ContaRouter import router as ContaRouter
 
 
 UsuarioRepo.criarTabela()
+ContaRepo.criarTabela()
 
 description = """
 # Budget - Realizando o controle de suas finanças. 💸
@@ -28,9 +30,16 @@ Esta sessão é responsável por realizar todos os controles que envolve os usu�
 - Excluir algum usuário
 - Excluir todos os usuários
 
-## Categoria *Não implementado*
-
 ## Conta *Não implementado*
+
+- Inserir novas contas
+- Consultar todos as contas
+- Consultar os dados de uma única conta
+- Alterar os dados de uma conta *Está retornando um erro*
+- Excluir alguma conta
+- Excluir todas as contas
+
+## Categoria *Não implementado*
 
 ## Dependente *Não implementado*
 
@@ -52,6 +61,10 @@ tags_metadata = [
         "name": "Usuário",
         "description": "Operações com os Usuários",
     },
+    {
+        "name": "Conta",
+        "description": "Operações com as Contas",
+    },
 ]
 
 app = FastAPI(
@@ -67,48 +80,60 @@ app.mount("/static", StaticFiles(directory="static", html=True), name="static")
 
 app.include_router(mainRouter)
 app.include_router(UsuarioRouter)
+app.include_router(ContaRouter)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)
 
-# Vai sumir tudo que está daqui pra baixo.
+# ! Vai sumir tudo que está daqui pra baixo.
 
 # monta um diretório para servir de templates de páginas
 templates = Jinja2Templates(directory="templates")
+
 
 @app.get("/formReceita", response_class=HTMLResponse)
 async def getHome(request: Request):
     activeDash = "active"
     titulo = "Formulário"
-    return templates.TemplateResponse("formReceita.html", {"request": request, "activeDash": activeDash, "titulo": titulo})
+    return templates.TemplateResponse(
+        "formReceita.html",
+        {"request": request, "activeDash": activeDash, "titulo": titulo},
+    )
+
 
 @app.get("/formDespesa", response_class=HTMLResponse)
 async def getHome(request: Request):
     activeDash = "active"
     titulo = "Formulário"
-    return templates.TemplateResponse("formDespesa.html", {"request": request, "activeDash": activeDash, "titulo": titulo})
+    return templates.TemplateResponse(
+        "formDespesa.html",
+        {"request": request, "activeDash": activeDash, "titulo": titulo},
+    )
+
 
 @app.get("/formCartao", response_class=HTMLResponse)
 async def getHome(request: Request):
     return templates.TemplateResponse("formCartao.html", {"request": request})
 
+
 @app.get("/formMeta", response_class=HTMLResponse)
 async def getHome(request: Request):
     return templates.TemplateResponse("formMeta.html", {"request": request})
-    
+
+
 @app.get("/base", response_class=HTMLResponse)
 async def getHome(request: Request):
     return templates.TemplateResponse("base.html", {"request": request})
 
 
 @app.post("/criarConta", response_class=HTMLResponse)
-async def postCriarConta(titulo: Annotated[str, Form()],
-                         saldo: Annotated[str, Form()],
-                         meta: Annotated[str, Form()]):
+async def postCriarConta(
+    titulo: Annotated[str, Form()],
+    saldo: Annotated[str, Form()],
+    meta: Annotated[str, Form()],
+):
     ContaRepo.inserir(titulo, saldo, meta)
-    return RedirectResponse(
-        status_code=status.HTTP_303_SEE_OTHER)
-
+    return RedirectResponse(status_code=status.HTTP_303_SEE_OTHER)
 
 
 # # rota para login e cadastro
@@ -162,7 +187,8 @@ async def getDashboard(request: Request):
     # despesa = format_currency(despesa, 'BRL', locale='pt_BR')
 
     return templates.TemplateResponse(
-        "dashboard.html", {
+        "dashboard.html",
+        {
             "request": request,
             "titulo": titulo,
             "activeDash": activeDash,
@@ -174,7 +200,8 @@ async def getDashboard(request: Request):
             # "receita": receita,
             # "despesa": despesa,
             # "lista_despesa": lista_categoria_despesa
-        })
+        },
+    )
 
 
 # rota para transações
@@ -207,7 +234,8 @@ async def getTransacoes(request: Request):
     # despesa = format_currency(despesa, 'BRL', locale='pt_BR')
 
     return templates.TemplateResponse(
-        "transacoes.html", {
+        "transacoes.html",
+        {
             "request": request,
             "titulo": titulo,
             "activeTran": activeTran,
@@ -216,7 +244,8 @@ async def getTransacoes(request: Request):
             # "receita": receita,
             # "despesa": despesa,
             # "saldo": saldo
-        })
+        },
+    )
 
 
 # #Excluir transação
@@ -248,11 +277,10 @@ async def getTransacoes(request: Request):
 async def getCarteira(request: Request):
     activeCart = "active"
     titulo = "Carteira"
-    return templates.TemplateResponse("carteira.html", {
-        "request": request,
-        "titulo": titulo,
-        "activeCart": activeCart
-    })
+    return templates.TemplateResponse(
+        "carteira.html",
+        {"request": request, "titulo": titulo, "activeCart": activeCart},
+    )
 
 
 # # rota para metas
