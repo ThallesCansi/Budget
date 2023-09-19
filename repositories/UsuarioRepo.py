@@ -38,7 +38,7 @@ class UsuarioRepo:
         return usuario
 
     @classmethod
-    def atualizar(cls, usuario: Usuario) -> Usuario:
+    def alterar(cls, usuario: Usuario) -> Usuario:
         sql = "UPDATE usuario SET nome=?, senha=? WHERE id=?"
         conn = Database.createConnection()
         cursor = conn.cursor()
@@ -66,7 +66,21 @@ class UsuarioRepo:
             return False
 
     @classmethod
-    def getAll(cls) -> List[Usuario]:
+    def limparTabela(cls) -> bool:
+        sql = "DELETE FROM usuario"
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        resultado = cursor.execute(sql)
+        if resultado.rowcount > 0:
+            conexao.commit()
+            conexao.close()
+            return True
+        else:
+            conexao.close()
+            return False
+
+    @classmethod
+    def obterTodos(cls) -> List[Usuario]:
         sql = "SELECT id, nome, senha FROM usuario"
         conn = Database.createConnection()
         cursor = conn.cursor()
@@ -77,7 +91,7 @@ class UsuarioRepo:
         return objects
 
     @classmethod
-    def getOne(cls, id: int) -> Usuario:
+    def obterPorId(cls, id: int) -> Usuario:
         sql = "SELECT id, nome, senha FROM usuario WHERE id=?"
         conn = Database.createConnection()
         cursor = conn.cursor()
