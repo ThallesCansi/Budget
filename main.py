@@ -88,9 +88,9 @@ async def getHome(request: Request):
     titulo = "Formulário"
     return templates.TemplateResponse("formDespesa.html", {"request": request, "activeDash": activeDash, "titulo": titulo})
 
-@app.get("/formCartao", response_class=HTMLResponse)
+@app.get("/formDependente", response_class=HTMLResponse)
 async def getHome(request: Request):
-    return templates.TemplateResponse("formCartao.html", {"request": request})
+    return templates.TemplateResponse("formDependente.html", {"request": request})
 
 @app.get("/formMeta", response_class=HTMLResponse)
 async def getHome(request: Request):
