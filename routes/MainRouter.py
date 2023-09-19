@@ -1,6 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
-
 from util.templateFilters import formatarData
 
 
@@ -14,6 +13,22 @@ async def startup_event():
     templates.env.filters["date"] = formatarData
 
 
-@router.get("/")
-async def root():
-    return "<h1>Hello, FastAPI.</h1>"
+@router.get("/dashboard")
+async def getIndex(request: Request):
+    titulo = "Bom dia, Thalles"
+    activeDash = "active"
+    return templates.TemplateResponse(
+        "dashboard.html", { "request": request,
+                            "titulo": titulo,
+                             "activeDash": activeDash, }
+    )
+
+@router.get("/configuracoes")
+async def getIndex(request: Request):
+    titulo = "Configurações"
+    activeConfig = "active"
+    return templates.TemplateResponse(
+        "configuracoes.html", { "request": request,
+                            "titulo": titulo,
+                             "activeConfig": activeConfig, }
+    )
