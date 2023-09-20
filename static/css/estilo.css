@@ -71,25 +71,22 @@
     width: 5000000px;
 }
 
-#active{
-    background-color: white;
-}
-
-#active:hover,
-#active:hover span,
-#active:hover i{
+.active,
+.active span,
+.active a,
+.active i{
     background-color: white !important;
-}
-#active a{
-    color: black; 
+    color: black !important;
 }
 
-#active i{
-    color: black !important; 
+.active:hover,
+.active:hover span,
+.active:hover i{
+    background-color: white !important;
 }
 
 .nav-item a{
-    color: white;
+    color: white !important;
 }
 
 #profile i:hover{
@@ -109,6 +106,7 @@
 
 .menu-configuracoes:hover {
   color: var(--primaryColor-green) !important;
+  font-weight: bold !important;
 }
 
 /* Login  e Cadastro */

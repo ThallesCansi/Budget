@@ -14,8 +14,6 @@
 </head>
 
 <body class="bg-white">
-    {% block popup %}
-    {% endblock %}
     <div class="container-fluid top-0">
         <div class="row">
             <aside class="position-fixed p-lg-0 text-bg-primary col-md-1 p-0 col-lg-3  vh-100 d-lg-inline d-md-inline d-none top-0">
@@ -26,31 +24,31 @@
                     </div>
                 </a>
                 <ul class="nav flex-column">
-                    <li class="nav-item p-2 my-2" id={{activeDash}}>
+                    <li class="nav-item p-2 my-2 {{ 'active' if (pagina == '/dashboard') }}">
                         <a class="nav-link fw-bold fs-4"  href="/dashboard">
                             <i class="bi bi-pie-chart-fill text-center"></i>
                             <span class="d-lg-inline d-none">Dashboard</span>   
                         </a>
                     </li>
-                    <li class="nav-item  p-2 mb-2" id={{activeTran}}>
+                    <li class="nav-item  p-2 mb-2" >
                         <a class="nav-link fw-bold fs-4" href="/transacoes">
                             <i class="bi bi-list"></i>
                             <span class="d-lg-inline d-none">Transações</span>   
                         </a>
                     </li>
-                    <li class="nav-item  p-2 mb-2" id={{activeCart}}>
+                    <li class="nav-item  p-2 mb-2" >
                         <a class="nav-link fw-bold fs-4"  href="/carteira">
                             <i class="bi bi-wallet"></i>
                             <span class="d-lg-inline d-none">Carteira</span>   
                         </a>
                     </li>
-                    <li class="nav-item  p-2 mb-2" id={{activeMeta}}>
+                    <li class="nav-item  p-2 mb-2" >
                         <a class="nav-link fw-bold fs-4"  href="/metas">
                             <i class="bi bi-stop-circle-fill"></i>
                             <span class="d-lg-inline d-none">Metas</span>   
                         </a>
                     </li>
-                    <li class="nav-item  p-2 mb-2" id={{activeConfig}}>
+                    <li class="nav-item  p-2 mb-2  {{ 'active' if (pagina == '/configuracoes') }}">
                         <a class="nav-link  fw-bold fs-4" href="/configuracoes">
                             <i class="bi bi-gear-fill"></i>
                             <span class="d-lg-inline d-none">Configurações</span>   
@@ -81,31 +79,31 @@
                     </div>
                     <div class="offcanvas-body">
                         <ul class="nav flex-column">
-                            <li class="nav-item py-2 my-2" id={{activeDash}}>
+                            <li class="nav-item py-2 my-2  {{ 'active' if (pagina == '/dashboard') }}" >
                                 <a class="nav-link fw-bold fs-4"  href="/dashboard">
                                     <i class="bi bi-pie-chart-fill"></i>
                                     <span class="">Dashboard</span>   
                                 </a>
                             </li>
-                            <li class="nav-item  py-2 mb-2" id={{activeTran}}>
+                            <li class="nav-item  py-2 mb-2" >
                                 <a class="nav-link fw-bold fs-4" href="/transacoes">
                                     <i class="bi bi-list"></i>
                                     <span class="">Transações</span>   
                                 </a>
                             </li>
-                            <li class="nav-item  py-2 mb-2" id={{activeCart}}>
+                            <li class="nav-item  py-2 mb-2" >
                                 <a class="nav-link fw-bold fs-4"  href="/carteira">
                                     <i class="bi bi-wallet"></i>
                                     <span class="">Carteira</span>   
                                 </a>
                             </li>
-                            <li class="nav-item  py-2 mb-2" id={{activeMeta}}>
+                            <li class="nav-item  py-2 mb-2">
                                 <a class="nav-link fw-bold fs-4"  href="/metas">
                                     <i class="bi bi-stop-circle-fill"></i>
                                     <span class="">Metas</span>   
                                 </a>
                             </li>
-                            <li class="nav-item  py-2 mb-2" id={{activeConfig}}>
+                            <li class="nav-item  py-2 mb-2 {{ 'active' if (pagina == '/configuracoes') }}" >
                                 <a class="nav-link  fw-bold fs-4" href="/configuracoes">
                                     <i class="bi bi-gear-fill"></i>
                                     <span class="">Configurações</span>   
@@ -132,8 +130,65 @@
                             <img  class="img-fluid ms-1 w-50"src="static/img/avatar-circle-120x120.png" alt="foto perfil"/>
                         </div>
                     </header>
+                    <div class="expandir d-sm-none d-inline">
+                <button class="navbar-toggler text-primary text-start" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <i class="bi bi-list fs-4"></i>
+                    <span class="fs-4">Menu</span>
+                </button>
+                <div class="offcanvas offcanvas-start bg-primary text-white" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <a class="text-decoration-none " href="#">
+                            <div class="p-3" id="logo">
+                                <img class="img-fluid w-lg-25" src="/static/img/Moeda.svg" alt="Budget Logo">
+                                <img class="img-fluid w-50" src="/static/img/Budget.svg" alt="Budget Logo">
+                            </div>
+                        </a>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="background-color: white;"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="nav flex-column">
+                            <li class="nav-item py-2 my-2  {{ 'active' if (pagina == '/dashboard') }}" >
+                                <a class="nav-link fw-bold fs-4"  href="/dashboard">
+                                    <i class="bi bi-pie-chart-fill"></i>
+                                    <span class="">Dashboard</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2" >
+                                <a class="nav-link fw-bold fs-4" href="/transacoes">
+                                    <i class="bi bi-list"></i>
+                                    <span class="">Transações</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2" >
+                                <a class="nav-link fw-bold fs-4"  href="/carteira">
+                                    <i class="bi bi-wallet"></i>
+                                    <span class="">Carteira</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2">
+                                <a class="nav-link fw-bold fs-4"  href="/metas">
+                                    <i class="bi bi-stop-circle-fill"></i>
+                                    <span class="">Metas</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2 {{ 'active' if (pagina == '/configuracoes') }}" >
+                                <a class="nav-link  fw-bold fs-4" href="/configuracoes">
+                                    <i class="bi bi-gear-fill"></i>
+                                    <span class="">Configurações</span>   
+                                </a>
+                            </li>
+                            <li class="nav-item  py-2 mb-2">
+                                <a class="nav-link  fw-bold fs-4"  href="/signUp-signIn">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span class="">Sair</span>   
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="row">
+            </div>
+                </div>
+                <div class="row mt-5">
                     <main class="container-fluid mt-3">
                         {% block conteudo %}
                         {% endblock %}
@@ -142,27 +197,27 @@
                     <footer class=" col-12 text-bg-primary d-md-none d-none d-sm-inline position-fixed bottom-0 start-50 translate-middle-x p-0">
                         
                         <ul class="nav flex-row justify-content-around">
-                            <li class="nav-item p-sm-1 ms-sm-1" id={{activeDash}}>
+                            <li class="nav-item p-sm-1 ms-sm-1  {{ 'active' if (pagina == '/dashboard') }}" >
                                 <a class="nav-link fw-bold fs-4"  href="/dashboard">
                                     <i class="bi bi-pie-chart-fill text-center"></i>  
                                 </a>
                             </li>
-                            <li class="nav-item  p-sm-1 ms-sm-1" id={{activeTran}}>
+                            <li class="nav-item  p-sm-1 ms-sm-1">
                                 <a class="nav-link fw-bold fs-4" href="/transacoes">
                                     <i class="bi bi-list"></i>  
                                 </a>
                             </li>
-                            <li class="nav-item p-sm-1 ms-sm-1" id={{activeCart}}>
+                            <li class="nav-item p-sm-1 ms-sm-1" >
                                 <a class="nav-link fw-bold fs-4"  href="/carteira">
                                     <i class="bi bi-wallet"></i>  
                                 </a>
                             </li>
-                            <li class="nav-item  p-sm-1 ms-sm-1" id={{activeMeta}}>
+                            <li class="nav-item  p-sm-1 ms-sm-1" >
                                 <a class="nav-link fw-bold fs-4"  href="/metas">
                                     <i class="bi bi-stop-circle-fill"></i>
                                 </a>
                             </li>
-                            <li class="nav-item  p-sm-1 ms-sm-1" id={{activeConfig}}>
+                            <li class="nav-item  p-sm-1 ms-sm-1 {{ 'active' if (pagina == '/configuracoes') }}">
                                 <a class="nav-link  fw-bold fs-4" href="/configuracoes">
                                     <i class="bi bi-gear-fill"></i>  
                                 </a>

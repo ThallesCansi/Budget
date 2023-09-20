@@ -16,21 +16,22 @@ async def startup_event():
 @router.get("/dashboard")
 async def getIndex(request: Request):
     titulo = "Bom dia, Thalles"
-    activeDash = "active"
+    pagina = "/dashboard"
     return templates.TemplateResponse(
         "dashboard.html", { "request": request,
                             "titulo": titulo,
-                             "activeDash": activeDash, }
+                            "pagina": pagina,
+                          }
     )
 
 @router.get("/configuracoes")
 async def getIndex(request: Request):
     titulo = "Configurações"
-    activeConfig = "active"
+    pagina = "/configuracoes"
     return templates.TemplateResponse(
         "configuracoes.html", { "request": request,
                             "titulo": titulo,
-                             "activeConfig": activeConfig, }
+                             "pagina": pagina, }
     )
 
 @router.get("/formCategoria")
