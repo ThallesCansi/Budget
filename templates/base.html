@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="shortcut icon" href="/static/img/Logo.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/static/css/estilo.css">
+    <link rel="shortcut icon" href="/static/img/Logo.ico" type="image/x-icon" />    
     <link rel="stylesheet" href="/static/lib/meu_bootstrap.css">
+    <link rel="stylesheet" href="/static/css/estilo.css">
     <link rel="stylesheet" href="/static/lib/bootstrap-icons/font/bootstrap-icons.min.css">
     <script src="/static/js/popup.js"></script>
     <title>Budget</title>
@@ -122,8 +122,8 @@
                 </div>
             </div>
             <div class="col-lg-9 offset-lg-3 col-md-11 offset-md-1  col-12 ">
-                <div class="row bg-white">
-                    <header class=" w-100 d-flex align-items-center justify-content-between top-0">
+                <div class="row bg-white" style="position: fixed; top: 0; z-index:100;">
+                    <header class="w-100 d-flex align-items-center justify-content-between top-0">
                         <div class="">
                             <h1 class="">{{titulo}}</h1>
                         </div>
@@ -179,6 +179,9 @@
         </div>
     </div>
     <script src="/static/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+      //escrever javascript para redimensionar cabeçalho
+    </script>
 </body>
 
 </html>

@@ -107,6 +107,10 @@
     color: #98a6af;
 }
 
+.menu-configuracoes:hover {
+  color: var(--primaryColor-green) !important;
+}
+
 /* Login  e Cadastro */
 /* .container {
     position: relative;
