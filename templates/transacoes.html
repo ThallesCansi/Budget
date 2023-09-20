@@ -1,25 +1,36 @@
 {% extends "base.html" %} {% block conteudo %}
 <!-- Tabela copiada do arquivo "Aplicação Web" -->
+<!-- Modificar cor dos itens-->
 <div class="row">
-    <div class="col-9 p-4 bg-warning">
-     <table id="transacao-table" class="table table-hover align-middle table-sm">
+    <div class="col-9 p-4">
+     <table id="transacao-table" class="table align-middle table-sm" >
               <caption>Quantidade de Transações: {{qtdeTransacoes}}</caption>
-              <thead class="table-secondary">
-                <tr>
-                  <th scope="col">Tipo</th>
-                  <th scope="col">Data</th>
-                  <th scope="col">Categoria</th>
-                  <th scope="col">Descrição</th>
-                  <th scope="col">Conta</th>
-                  <th scope="col">Valor</th>
-                  <th scope="col">Dependente</th>
-                  <th scope="col">Ações</th>   
+              <thead class="table-secondary" >
+                <tr class="" >
+                  <th scope="col" class="text-white">Situação</th>
+                  <th scope="col" class="text-white">Data</th>
+                  <th scope="col" class="text-white">Categoria</th>
+                  <th scope="col" class="text-white">Descrição</th>
+                  <th scope="col" class="text-white">Conta</th>
+                  <th scope="col" class="text-white">Valor</th>
+                  <th scope="col" class="text-white">Dependente</th>
+                  <th scope="col" class="text-white">Ações</th>
                 </tr>
               </thead>
-              <tbody class="table-group-divider">
-                  <tr class="table-success">
-                      <td><i class="bi bi-trash-fill"></i>teste</td>
+                <tbody class="text-">
+                  <tr>
+                      <td>Conteudo</td>
+                      <td>Conteudo</td>
+                      <td>Conteudo</td>
+                      <td>Conteudo</td>
+                      <td>Conteudo</td>
+                      <td>Conteudo</td>
+                      <td>Conteudo</td>
+                      <td><i class="bi bi-pencil-square mx-2" ></i><i class="bi bi-trash mx-2"></i><i class="bi bi-paperclip"></i></td>
+            
+                      
                   </tr>
+                </tbody>
                  <!-- {% for t in transactions %}
                  {% if t.typeIorE == 'Receita' %}
                  <tr class="table-success">
@@ -48,7 +59,7 @@
               </tbody>
             </table>
         </div>
-    <div class="col-3 p-5  bg-danger">
+    <div class="col-3 p-5">
         <div class= "mb-5 d-flex flex-column">
             <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3" style= "width: auto; height: 9rem;">
                 <img id="receitas" src="" />

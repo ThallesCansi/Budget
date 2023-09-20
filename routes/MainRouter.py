@@ -24,8 +24,19 @@ async def getIndex(request: Request):
                           }
     )
 
+@router.get("/transacoes")
+async def getTrans(request: Request):
+    titulo = "Transações"
+    pagina = "/transacoes"
+    return templates.TemplateResponse(
+        "transacoes.html", { "request": request,
+                            "titulo": titulo,
+                            "pagina": pagina,
+                          }
+    )
+
 @router.get("/configuracoes")
-async def getIndex(request: Request):
+async def getConfig(request: Request):
     titulo = "Configurações"
     pagina = "/configuracoes"
     return templates.TemplateResponse(

@@ -1941,9 +1941,9 @@ progress {
 
 .table-secondary {
   --bs-table-color: #000;
-  --bs-table-bg: #ddeee9;
+  --bs-table-bg: #56ab91;
   --bs-table-border-color: #c7d6d2;
-  --bs-table-striped-bg: #d2e2dd;
+  --bs-table-striped-bg: #56ab91;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #c7d6d2;
   --bs-table-active-color: #000;
