@@ -32,3 +32,13 @@ async def getIndex(request: Request):
                             "titulo": titulo,
                              "activeConfig": activeConfig, }
     )
+
+@router.get("/formCategoria")
+async def getIndex(request: Request):
+    titulo = "Conta"
+    activeConfig = "active"
+    return templates.TemplateResponse(
+        "formCategoria.html", { "request": request,
+                            "titulo": titulo,
+                             "activeConfig": activeConfig, }
+    )

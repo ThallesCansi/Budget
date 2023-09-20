@@ -1,6 +1,6 @@
 from typing import Optional
-from fastapi import APIRouter, Form, Path
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Form, Path, Request, status
+from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from models.Conta import Conta
 from models.Usuario import Usuario
@@ -20,27 +20,27 @@ async def startup_event():
 
 
 @router.post(
-    "/novaconta",
+    "/formConta",
     tags=["Conta"],
     summary="Nova conta",
-    response_class=JSONResponse,
+    response_class=HTMLResponse,
 )
 async def postNovaConta(
     titulo: str = Form(), saldo: float = Form(), meta: str | None = Form(None)
 ):
     ContaRepo.inserir(Conta(0, Usuario, titulo, saldo, meta))
-    return {"titulo": titulo, "saldo": saldo, "meta": meta}
+    return RedirectResponse("/formConta", status_code=status.HTTP_303_SEE_OTHER)
 
 
 @router.get(
-    "/contas",
+    "/formConta",
     tags=["Conta"],
     summary="Consultar contas",
-    response_class=JSONResponse,
+    response_class=HTMLResponse,
 )
-async def getContas():
+async def getContas(request: Request):
     contas = ContaRepo.obterTodos()
-    return {"contas": contas}
+    return templates.TemplateResponse("formConta.html", {"request": request, "contas": contas,})
 
 
 @router.get(
@@ -71,14 +71,14 @@ async def putAtualizarConta(
 
 
 @router.delete(
-    "/excluirconta",
+    "/excluirConta",
     tags=["Conta"],
     summary="Excluir conta",
-    response_class=JSONResponse,
+    response_class=HTMLResponse,
 )
 async def deleteExcluirConta(id: int = Form()):
     conta = ContaRepo.excluir(id)
-    return {"conta": conta}
+    return RedirectResponse("/formConta", status_code=status.HTTP_303_SEE_OTHER)
 
 
 @router.delete(
