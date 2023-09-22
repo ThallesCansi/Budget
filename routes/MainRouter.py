@@ -14,6 +14,13 @@ async def startup_event():
     templates.env.filters["date"] = formatarData
 
 
+@router.get("/")
+async def getIndex(request: Request):
+    return templates.TemplateResponse(
+        "signUp-signIn.html", { "request": request,}
+    )
+
+
 @router.get("/dashboard")
 async def getIndex(request: Request):
     titulo = "Bom dia, Thalles"

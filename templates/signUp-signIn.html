@@ -4,76 +4,103 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/lib/meu_bootstrap.css">
+    <link rel="stylesheet" href="/static/css/cadastroLogin.css">
+    <link rel="stylesheet" href="/static/lib/bootstrap-icons/font/bootstrap-icons.min.css">
     <link rel="icon" type="image/x-icon" href="/static/img/Logo.ico" />
-    <link rel="stylesheet" href="/static/css/teste.css">
     <title>Budget  |  Entrar</title>
 </head>
 <body>
     <!-- div que contém todo o conteúdo -->
-    <div class="container login">
+    <div class="container-fluid animacao">
         <!-- div que contem os formularios -->
         <div class="forms-container-login">
             <!-- div com os formulario de entrar e cadastro -->
             <div class="signin-signup">
                 <!-- formulario para entrar -->
-                <form action="dashboard" class="sign-in-form">
-                    <img src="static/images/nameLogo.svg">
-                    <h1>Acesse sua conta</h1>
-                    <!-- icones para acesso -->
-                    <div class="icons">
+                <form action="" class="sign-in-form">
+                    <div class="mb-5">
+                        <img src="/static/img/nameLogo.svg" alt="logo do aplicativo">
+                    </div>
+                    <h3 class="text-dark mb-4">
+                        Acesse sua conta
+                    </h3>
+                    <div class="d-flex gap-5 justify-content-center mb-3">
                         <a href="#">
-                            <img src="static/images/Google.png" alt="" class="icon"></a>
+                            <img src="/static/img/Google.png" alt="icone google">
+                        </a>
                         <a href="#">
-                            <img src="static/images/Facebook.png" alt="" class="icon"></a>
+                            <img src="/static/img/Facebook.png" alt="icone facebook">
+                        </a>
                         <a href="#">
-                            <img src="static/images/Microsoft.png" alt="" class="icon"></a>
+                            <img src="/static/img/Microsoft.png" alt="icone microsoft">
+                        </a>
                     </div>
                     <p>Ou</p>
-                    <!-- campos de entrada -->
-                    <div class="input-field">
-                        <p>Usuário</p>
-                        <input type="text" placeholder="">    
+                    <div class="row text-start mb-3">
+                        <label for="usuario" class="form-label">
+                            Usuário
+                        </label>
+                        <div class="col-12">
+                            <input type="text" name="usuario" id="usuario" class="shadow border-0 form-control" placeholder=" " style="color: #98a6af !important;">
+                        </div>
                     </div>
-                    <div class="input-field">
-                        <p>Senha</p>
-                        <input type="password" placeholder=""> 
+                    <div class="row text-start mb-3">
+                        <label for="senha" class="form-label">
+                            Senha
+                        </label>
+                        <div class="col-12">
+                            <input type="password" name="senha" id="senha" class="shadow border-0 form-control" placeholder=" " style="color: #98a6af !important;">
+                        </div>
                     </div>
-                    <a  href="recuperarSenha">Esqueceu a senha?</a>
-                    <input class="btn-form" type="submit" value="Entrar">
+                    <a class="text-decoration-none text-secondary fw-semibold mb-3" style="cursor: pointer;"> Esqueceu a senha </a>
+                    <div class="row mt-3">
+                        <button  class="btn col-12 rounded bg-secondary text-white fs-5 fw-semibold" type="button"  style=" background-color: #35aa3a;">
+                            Entrar
+                        </button>
+                    </div>
                 </form>
                 <!-- formulario de cadastro -->
                 <form method="post" action="/dashboard" class="sign-up-form">
-                    <img src="static/images/nameLogo.svg">
-                    <h1>Cadastre sua conta</h1>
-                    <div class="icons">
-                        <a href="#"><img src="static/images/Google.png" alt="" class="icon"></a>
-                        <a href="#"><img src="static/images/Facebook.png" alt="" class="icon"></a>
-                        <a href="#"><img src="static/images/Microsoft.png" alt="" class="icon"></a>
+                    <div class="mb-5">
+                        <img src="/static/img/nameLogo.svg" alt="logo do aplicativo">
+                    </div>
+                    <h3 class="text-dark mb-4">
+                        Acesse sua conta
+                    </h3>
+                    <div class="d-flex gap-5 justify-content-center mb-3">
+                        <a href="#">
+                            <img src="/static/img/Google.png" alt="icone google">
+                        </a>
+                        <a href="#">
+                            <img src="/static/img/Facebook.png" alt="icone facebook">
+                        </a>
+                        <a href="#">
+                            <img src="/static/img/Microsoft.png" alt="icone microsoft">
+                        </a>
                     </div>
                     <p>Ou</p>
-                    <!-- campos de entrada -->
-                    <div class="input-field">
-                        <p>Usuário</p>
-                        <input name="name" type="text" placeholder="Exemplo: João da Silva">     
-                    </div>
-                    <div class="input-field">
-                        <p>E-mail</p>
-                        <input name="email" type="email" placeholder="Exemplo: joao@email.com">   
-                    </div>
-                    <div class="password">
-                        <div class="input-field pw">
-                            <p>Senha</p>
-                            <input name="password" class="pw" type="password" placeholder="Abc123!"> 
-                        </div>
-                        <div class="input-field pw">
-                            <p>Confirmar</p>
-                            <input class="pw" type="password" placeholder=""> 
+                    <div class="row text-start mb-3">
+                        <label for="usuario" class="form-label">
+                            Usuário
+                        </label>
+                        <div class="col-12">
+                            <input type="text" name="usuario" id="usuario" class="shadow border-0 form-control" placeholder=" " style="color: #98a6af !important;">
                         </div>
                     </div>
-                    <input class="btn-form" type="submit" value="Cadastre-se">
-                    <div class="termo">
-                        <!-- <input class="checkbox" type="checkbox"> -->
-                        <p>Li e concordo com os <a href="#">termos de uso</a></p>
+                    <div class="row text-start mb-3">
+                        <label for="senha" class="form-label">
+                            Senha
+                        </label>
+                        <div class="col-12">
+                            <input type="password" name="senha" id="senha" class="shadow border-0 form-control" placeholder=" " style="color: #98a6af !important;">
+                        </div>
+                    </div>
+                    <a class="text-decoration-none text-secondary fw-semibold mb-3" style="cursor: pointer;"> Esqueceu a senha </a>
+                    <div class="row mt-3">
+                        <button  class="btn col-12 rounded bg-secondary text-white fs-5 fw-semibold" type="button"  style=" background-color: #35aa3a;">
+                            Entrar
+                        </button>
                     </div>
                 </form>
             </div>
@@ -95,6 +122,7 @@
             </div>
         </div>
     </div>
-    <script src="static/scripts/signUp-signIn.js"></script>
+    <script src="/static/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/signUp-signIn.js"></script>
 </body>
 </html>
