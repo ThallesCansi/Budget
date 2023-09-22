@@ -109,6 +109,11 @@
   font-weight: bold !important;
 }
 
+a.cancelar:hover{
+    font-weight: 500 !important;
+    cursor: pointer;
+}
+
 /* Login  e Cadastro */
 /* .container {
     position: relative;

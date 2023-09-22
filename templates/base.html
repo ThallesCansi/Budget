@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/static/img/Logo.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/static/img/Logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="/static/lib/meu_bootstrap.css">
     <link rel="stylesheet" href="/static/css/estilo.css">
     <link rel="stylesheet" href="/static/lib/bootstrap-icons/font/bootstrap-icons.min.css">
@@ -85,7 +85,7 @@
                                     <span class="">Dashboard</span>   
                                 </a>
                             </li>
-                            <li class="nav-item  py-2 mb-2" >
+                            <li class="nav-item  py-2 mb-2 {{ 'active' if (pagina == '/transacoes') }}" >
                                 <a class="nav-link fw-bold fs-4" href="/transacoes">
                                     <i class="bi bi-list"></i>
                                     <span class="">Transações</span>   
@@ -154,7 +154,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item  py-2 mb-2" >
-                                        <a class="nav-link fw-bold fs-4" href="/transacoes">
+                                        <a class="nav-link fw-bold fs-4 {{ 'active' if (pagina == '/transacoes') }}" href="/transacoes">
                                             <i class="bi bi-list"></i>
                                             <span class="">Transações</span>   
                                         </a>
@@ -202,7 +202,7 @@
                                     <i class="bi bi-pie-chart-fill text-center"></i>  
                                 </a>
                             </li>
-                            <li class="nav-item  p-sm-1 ms-sm-1">
+                            <li class="nav-item  p-sm-1 ms-sm-1 {{ 'active' if (pagina == '/transacoes') }}">
                                 <a class="nav-link fw-bold fs-4" href="/transacoes">
                                     <i class="bi bi-list"></i>  
                                 </a>
