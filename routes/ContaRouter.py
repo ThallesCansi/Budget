@@ -20,7 +20,7 @@ async def startup_event():
 
 
 @router.post(
-    "/formConta",
+    "/addConta",
     tags=["Conta"],
     summary="Nova conta",
     response_class=HTMLResponse,
@@ -29,18 +29,18 @@ async def postNovaConta(
     titulo: str = Form(), saldo: float = Form(), meta: str | None = Form(None)
 ):
     ContaRepo.inserir(Conta(0, Usuario, titulo, saldo, meta))
-    return RedirectResponse("/formConta", status_code=status.HTTP_303_SEE_OTHER)
+    return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
 
 
 @router.get(
-    "/formConta",
+    "/addConta",
     tags=["Conta"],
     summary="Consultar contas",
     response_class=HTMLResponse,
 )
 async def getContas(request: Request):
     contas = ContaRepo.obterTodos()
-    return templates.TemplateResponse("formConta.html", {"request": request, "contas": contas,})
+    return templates.TemplateResponse("configuracoes.html", {"request": request, "contas": contas,})
 
 
 @router.get(

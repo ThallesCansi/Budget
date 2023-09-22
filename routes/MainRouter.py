@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
+from repositories.ContaRepo import ContaRepo
 from util.templateFilters import formatarData
 
 
@@ -39,11 +40,14 @@ async def getTrans(request: Request):
 async def getConfig(request: Request):
     titulo = "Configurações"
     pagina = "/configuracoes"
+    contas = ContaRepo.obterTodos()
     return templates.TemplateResponse(
         "configuracoes.html", { "request": request,
                             "titulo": titulo,
-                             "pagina": pagina, }
+                             "pagina": pagina, 
+                             "contas": contas,}
     )
+
 
 @router.get("/formCategoria")
 async def getIndex(request: Request):
