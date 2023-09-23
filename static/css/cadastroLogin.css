@@ -261,7 +261,7 @@ a.termo{
     }
   
     .animacao:before {
-      bottom: 72%;
+      bottom: 76%;
       left: 50%;
     }
 
@@ -273,7 +273,7 @@ a.termo{
         margin-right: 1rem;
     }
     .animacao.sign-up-mode:before {
-      bottom: 28%;
+      bottom: 24%;
       left: 50%;
     }
   }
