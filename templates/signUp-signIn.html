@@ -19,7 +19,7 @@
             <div class="signin-signup">
                 <!-- formulario para entrar -->
                 <form action="" class="sign-in-form mt-5">
-                    <div class="mb-5">
+                    <div class="mb-2 mt-5">
                         <img src="/static/img/nameLogo.svg" alt="logo do aplicativo">
                     </div>
                     <h3 class="text-dark mb-4">
@@ -38,31 +38,31 @@
                     </div>
                     <p>Ou</p>
                     <div class="row text-start mb-3">
-                        <label for="usuario" class="form-label">
+                        <label for="usuario" class="form-label offset-lg-0 offset-md-2 offset-1">
                             Usuário
                         </label>
-                        <div class="col-12">
+                        <div class="col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1">
                             <input type="text" name="usuario" id="usuario" class="shadow border-0 form-control" placeholder=" " style="color: #98a6af !important;">
                         </div>
                     </div>
                     <div class="row text-start mb-3">
-                        <label for="senha" class="form-label">
+                        <label for="senha" class="form-label offset-lg-0 offset-md-2 offset-1">
                             Senha
                         </label>
-                        <div class="col-12">
+                        <div class="col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1">
                             <input type="password" name="senha" id="senha" class="shadow border-0 form-control" placeholder=" " style="color: #98a6af !important;">
                         </div>
                     </div>
                     <a class="text-decoration-none text-secondary fw-semibold mb-3" style="cursor: pointer;"> Esqueceu a senha </a>
                     <div class="row mt-3">
-                        <button  class="btn col-12 rounded bg-secondary text-white fs-5 fw-semibold" type="button"  style=" background-color: #35aa3a;">
+                        <button  class="btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" type="button"  style=" background-color: #35aa3a;">
                             Entrar
                         </button>
                     </div>
                 </form>
                 <!-- formulario de cadastro -->
-                <form method="post" action="/dashboard" class="sign-up-form col-10">
-                    <div class="mb-5">
+                <form method="post" action="/dashboard" class="sign-up-form mt-0 col-lg-10 col-md-12 col-12">
+                    <div class="mb-2 d-none d-lg-block">
                         <img src="/static/img/nameLogo.svg" alt="logo do aplicativo">
                     </div>
                     <h3 class="text-dark mb-4">
@@ -81,35 +81,35 @@
                     </div>
                     <p>Ou</p>
                     <div class="row text-start mb-3">
-                        <label for="nomeCompleto" class="form-label">
+                        <label for="nomeCompleto" class="form-label offset-lg-0 offset-md-2 offset-1">
                             Nome Completo*
                         </label>
-                        <div class="col-12">
+                        <div class="col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1">
                             <input type="text" name="nomeCompleto" id="nomeCompleto" class="shadow border-0 form-control" placeholder="Ex: João de Souza" style="color: #98a6af !important;">
                         </div>
                     </div>
                     <div class="row text-start mb-3">
-                        <label for="email" class="form-label">
+                        <label for="email" class="form-label offset-lg-0 offset-md-2 offset-1">
                             E-mail*
                         </label>
-                        <div class="col-12">
+                        <div class="col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1">
                             <input type="email" name="email" id="email" class="shadow border-0 form-control" placeholder="Ex: joaodesouza@email.com" style="color: #98a6af !important;">
                         </div>
                     </div>
                     <div class="row text-start mb-3">
-                        <div class="col-6">
+                        <div class="col-md-4 col-lg-6 col-5 offset-lg-0 offset-md-2 offset-1 ">
                             <label for="senha" class="form-label">
                                 Senha*
                             </label>
-                            <div class="col-12">
+                            <div class="col-md-12 col-12">
                                 <input type="password" name="senha" id="senha" class="shadow border-0 form-control" placeholder=" " style="color: #98a6af !important;">
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-4 col-lg-6 col-5 ">
                             <label for="confirmarSenha" class="form-label">
                                 Confirmar senha*
                             </label>
-                            <div class="col-12">
+                            <div class="col-md-12 col-12">
                                 <input type="password" name="confirmarSenha" id="confirmarSenha" class="shadow border-0 form-control" placeholder=" " style="color: #98a6af !important;">
                             </div>
                         </div>
@@ -117,11 +117,11 @@
                     <div class="form-check d-flex justify-content-center">
                         <input class="form-check-input check me-2" type="checkbox" value="" id="termoUso">
                         <label class="form-check-label" for="termoUso">
-                            Li e concordo com os <a class="text-decoration-none text-secondary fw-semibold">termos de uso</a>
+                            Li e concordo com os <a class="text-decoration-none text-secondary fw-semibold termo">termos de uso</a>
                         </label>
                     </div>                    
                     <div class="row mt-3">
-                        <button  class="btn col-12 rounded bg-secondary text-white fs-5 fw-semibold" type="button"  style=" background-color: #35aa3a;">
+                        <button  class="mb-3 btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" type="button"  style=" background-color: #35aa3a;">
                             Cadastrar
                         </button>
                     </div>
@@ -131,8 +131,10 @@
         <div class="panels-container" id="panels-container">
             <div class="panel left-panel">
                 <div class="content text-white">
-                    <h1>Novo por aqui?</h1>
-                    <p>Crie uma conta gratuita, fácil e segura e junte-se<br> aos usuários que estão economizando dinheiro e<br> planejando melhor seus gastos! </p>
+                    <div class="">
+                        <h3>Novo por aqui?</h3>
+                        <p class="d-none d-sm-block">Crie uma conta gratuita, fácil e segura e junte-se<br> aos usuários que estão economizando dinheiro e<br> planejando melhor seus gastos! </p>
+                    </div>
                     <button  class="btn col-3 rounded bg-white text-secondary  fw-bold" type="button" id="sign-up-btn" style=" background-color: #35aa3a;">
                         Cadastre-se
                     </button>
@@ -140,8 +142,8 @@
             </div>
             <div class="panel right-panel">
                 <div class="content text-white">
-                    <h1>Já é um de nós?</h1>
-                    <p>Que bom tê-lo de volta!  Acesse sua conta<br> rapidamente e continue aprimorando o controle<br> da sua vida financeira. </p>
+                    <h3>Já é um de nós?</h3>
+                    <p class="d-none d-sm-block">Que bom tê-lo de volta!  Acesse sua conta<br> rapidamente e continue aprimorando o controle<br> da sua vida financeira. </p>
                     <button  class="btn col-3 rounded bg-white text-secondary  fw-bold" type="button" id="sign-in-btn"  style=" background-color: #35aa3a;">
                         Acesse
                     </button>
