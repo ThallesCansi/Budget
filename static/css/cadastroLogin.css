@@ -94,7 +94,6 @@ a.termo{
     pointer-events: all;
     display: block;
     margin-right: 2.2rem;
-    margin-top: 1rem;
 }
 
 .right-panel{
@@ -145,6 +144,12 @@ a.termo{
 .animacao.sign-up-mode form.sign-up-form{
     z-index: 2;
     opacity: 1;
+}
+
+.caixa{
+    width: 500px;
+    height: 300px;
+    color: #6C757D !important;
 }
 
 @media (max-width: 991px) {
@@ -214,7 +219,7 @@ a.termo{
       height: 1500px;
       transform: translateX(-50%);
       left: 30%;
-      bottom: 68%;
+      bottom: 73%;
       right: initial;
       top: initial;
       transition: 2s ease-in-out;
@@ -222,7 +227,7 @@ a.termo{
   
     .animacao.sign-up-mode:before {
       transform: translate(-50%, 100%);
-      bottom: 29%;
+      bottom: 24%;
       right: initial;
       left: 60%;
     }
@@ -261,7 +266,7 @@ a.termo{
     }
   
     .animacao:before {
-      bottom: 76%;
+      bottom: 80%;
       left: 50%;
     }
 
@@ -273,7 +278,13 @@ a.termo{
         margin-right: 1rem;
     }
     .animacao.sign-up-mode:before {
-      bottom: 24%;
+      bottom: 20%;
       left: 50%;
     }
+    .caixa {
+    width: 80vw;
+    height: 60vh;
+    }
   }
+
+/* recuperar senha */

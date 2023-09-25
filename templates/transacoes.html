@@ -26,7 +26,11 @@
                       <td class="text-dark">Conteudo</td>
                       <td class="text-dark">Conteudo</td>
                       <td class="text-dark">Conteudo</td>
-                      <td><i class="bi bi-pencil-square mx-1 text-body-tertiary"></i><i class="bi bi-trash mx-1 text-body-tertiary"></i><i class="bi bi-paperclip mx-1 text-body-tertiary"></i></td>
+                      <td><i class="bi bi-pencil mx-1 text-body-tertiary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Editar"></i>
+                          </button>
+                          <i class="bi bi-trash mx-1 text-body-tertiary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Excluir"></i>
+                          <i class="bi bi-paperclip mx-1 text-body-tertiary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Anexar"></i>
+                      </td>
                   </tr>
                 </tbody>
                  <!-- {% for t in transactions %}
@@ -57,6 +61,12 @@
               </tbody>
             </table>
         </div>
+    <!-- JavaScript -->
+    <script> 
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+    
     <div class="col-3 p-5">
         <div class= "mb-5 d-flex flex-column">
                 <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3" style= "width: auto; height: 9rem;">

@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/lib/meu_bootstrap.css">
-    <link rel="stylesheet" href="/static/css/cadastroLogin.css">
     <link rel="stylesheet" href="/static/lib/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/css/cadastroLogin.css">
     <link rel="icon" type="image/x-icon" href="/static/img/Logo.ico" />
     <title>Budget  |  Entrar</title>
 </head>
@@ -18,23 +18,17 @@
             <!-- div com os formulario de entrar e cadastro -->
             <div class="signin-signup">
                 <!-- formulario para entrar -->
-                <form action="" class="sign-in-form mt-1 mt-lg-5">
-                    <div class="mb-2 mt-0 mt-sm-3 mt-lg-5 mb-lg-5">
+                <form action="/dashboard" class="sign-in-form mt-1 mt-lg-5">
+                    <div class="mb-2 mt-0 mt-sm-3 mb-md-2 mb-lg-5 mt-md-3">
                         <img src="/static/img/nameLogo.svg" alt="logo do aplicativo">
                     </div>
-                    <h3 class="text-dark mb-4">
+                    <h3 class="text-dark">
                         Acesse sua conta
                     </h3>
                     <div class="d-flex gap-5 justify-content-center mb-3">
-                        <a href="#">
-                            <img src="/static/img/Google.png" alt="icone google">
-                        </a>
-                        <a href="#">
-                            <img src="/static/img/Facebook.png" alt="icone facebook">
-                        </a>
-                        <a href="#">
-                            <img src="/static/img/Microsoft.png" alt="icone microsoft">
-                        </a>
+                        <i class="bi bi-google fs-1"></i>
+                        <i class="bi bi-facebook fs-1"></i>
+                        <i class="bi bi-microsoft fs-1"></i>
                     </div>
                     <p>Ou</p>
                     <div class="row text-start mb-3">
@@ -53,31 +47,25 @@
                             <input type="password" name="senha" id="senha" class="shadow border-0 form-control" placeholder=" " style="color: #98a6af !important;">
                         </div>
                     </div>
-                    <a class="text-decoration-none text-secondary fw-semibold mb-3" style="cursor: pointer;"> Esqueceu a senha </a>
+                    <a href="/recuperarSenha" class="text-decoration-none text-secondary fw-semibold mb-3" style="cursor: pointer;"> Esqueceu a senha </a>
                     <div class="row mt-3">
-                        <button  class="btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" type="button"  style=" background-color: #35aa3a;">
+                        <button  class="btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" type="submit"  style=" background-color: #35aa3a;">
                             Entrar
                         </button>
                     </div>
                 </form>
                 <!-- formulario de cadastro -->
                 <form method="post" action="/dashboard" class="sign-up-form mt-0 col-lg-10 col-md-12 col-12">
-                    <div class="mb-2 d-none d-lg-block mb-lg-5">
+                    <div class="d-lg-block mb-md-2 mb-lg-5 mt-md-3">
                         <img src="/static/img/nameLogo.svg" alt="logo do aplicativo">
                     </div>
-                    <h3 class="text-dark mb-4">
+                    <h3 class="text-dark">
                         Cadastre sua conta
                     </h3>
                     <div class="d-flex gap-5 justify-content-center mb-3">
-                        <a href="#">
-                            <img src="/static/img/Google.png" alt="icone google">
-                        </a>
-                        <a href="#">
-                            <img src="/static/img/Facebook.png" alt="icone facebook">
-                        </a>
-                        <a href="#">
-                            <img src="/static/img/Microsoft.png" alt="icone microsoft">
-                        </a>
+                        <i class="bi bi-google fs-1"></i>
+                        <i class="bi bi-facebook fs-1"></i>
+                        <i class="bi bi-microsoft fs-1"></i>
                     </div>
                     <p>Ou</p>
                     <div class="row text-start mb-3">
@@ -121,7 +109,7 @@
                         </label>
                     </div>                    
                     <div class="row mt-3">
-                        <button  class="mb-3 btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" type="button"  style=" background-color: #35aa3a;">
+                        <button  class="mb-3 btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" type="submit"  style=" background-color: #35aa3a;">
                             Cadastrar
                         </button>
                     </div>
@@ -129,7 +117,7 @@
             </div>
         </div>
         <div class="panels-container" id="panels-container">
-            <div class="panel left-panel">
+            <div class="panel left-panel mt-lg-3">
                 <div class="content text-white">
                     <div class="">
                         <h3>Novo por aqui?</h3>
@@ -140,7 +128,7 @@
                     </button>
                 </div>
             </div>
-            <div class="panel right-panel">
+            <div class="panel right-panel  mt-lg-3 mt-3">
                 <div class="content text-white">
                     <h3>Já é um de nós?</h3>
                     <p class="d-none d-sm-block">Que bom tê-lo de volta!  Acesse sua conta<br> rapidamente e continue aprimorando o controle<br> da sua vida financeira. </p>

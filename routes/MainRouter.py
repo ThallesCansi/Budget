@@ -20,9 +20,15 @@ async def getIndex(request: Request):
         "signUp-signIn.html", { "request": request,}
     )
 
+@router.get("/recuperarSenha")
+async def getRecuperar(request: Request):
+    return templates.TemplateResponse(
+        "recuperarSenha.html", { "request": request,}
+    )
+
 
 @router.get("/dashboard")
-async def getIndex(request: Request):
+async def getDash(request: Request):
     titulo = "Bom dia, Thalles"
     pagina = "/dashboard"
     return templates.TemplateResponse(
