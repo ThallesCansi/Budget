@@ -6,7 +6,7 @@ from models.Conta import Conta
 from models.Usuario import Usuario
 from repositories.ContaRepo import ContaRepo
 
-from util.templateFilters import formatarData
+from utils.templateFilters import formatarData
 
 
 router = APIRouter()

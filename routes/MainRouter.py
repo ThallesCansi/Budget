@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
 from repositories.ContaRepo import ContaRepo
-from util.templateFilters import formatarData
+from utils.templateFilters import formatarData
 
 
 router = APIRouter()

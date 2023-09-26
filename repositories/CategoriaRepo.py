@@ -1,6 +1,6 @@
 from typing import List
 
-from util.Database import Database
+from utils.Database import Database
 from models.Categoria import Categoria
 
 

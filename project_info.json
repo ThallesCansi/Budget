@@ -1,0 +1,27 @@
+{
+    "title": "Budget",
+    "version": "2.0.8",
+    "description": "Budget - Realizando o controle de suas finanças.",
+    "contact": {
+        "name": "Thalles Cansi",
+        "e-mail": "thalles_cansi@hotmail.com"
+    },
+    "license": {
+        "name": "Apache 2.0",
+        "identifier": "MIT"
+    },
+    "tags_metadata": [
+        {
+            "name": "Usuário",
+            "description": "Operações com os Usuários"
+        },
+        {
+            "name": "Conta",
+            "description": "Operações com as Contas"
+        },
+        {
+            "name": "Categoria",
+            "description": "Operações com as Categorias"
+        }
+    ]
+}
