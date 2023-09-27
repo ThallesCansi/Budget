@@ -6,5 +6,5 @@ class Usuario:
     id: int
     nome: str
     email: str
-    senha: str
+    senha: str | None = None
     token: str | None = None

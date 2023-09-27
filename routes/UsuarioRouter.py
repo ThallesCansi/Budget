@@ -55,6 +55,7 @@ async def postNovoUsuario(request: Request, nome: str = Form(...), email: str = 
     else:
         UsuarioRepo.inserir(Usuario(0, nome, email, senha))
         token = gerar_token()
+        UsuarioRepo.inserirToken(email, token)
         response = RedirectResponse("/dashboard", status.HTTP_302_FOUND)
         response.set_cookie(key="auth_token", value=token, max_age=1800, httponly=True)
         return response

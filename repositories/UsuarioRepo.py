@@ -133,7 +133,11 @@ class UsuarioRepo:
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(sql, (token,)).fetchone()
-        objeto = Usuario(*resultado)
-        conexao.commit()
-        conexao.close()
-        return objeto
+        if resultado:
+            conexao.commit()
+            conexao.close()
+            objeto = Usuario(*resultado)
+            return objeto
+        else:
+            conexao.close()
+            return None
