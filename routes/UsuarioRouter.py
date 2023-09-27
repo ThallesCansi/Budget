@@ -1,9 +1,11 @@
-from fastapi import APIRouter, Form, Path, Request, status
+from datetime import datetime
+from fastapi import APIRouter, Depends, Form, Path, Request, status
 from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from models.Usuario import Usuario
 from repositories.UsuarioRepo import UsuarioRepo
+from utils.seguranca import gerar_token, validar_usuario_logado
 from utils.templateFilters import formatarData
 
 
@@ -18,39 +20,60 @@ async def startup_event():
 
 
 @router.get("/entrar", tags=["Usuário"], summary="Ir para a página de acesso ao sistema.", response_class=HTMLResponse)
-async def getEntrar(request: Request): # ! COLOCAR A DEPENDÊNCIA PARA VERIFICAR SE JÁ ESTÁ LOGADO
-    return templates.TemplateResponse("entrar.html", {"request": request})
+async def getEntrar(request: Request, logado: bool = Depends(validar_usuario_logado)):
+    if logado:
+        return RedirectResponse("/dashboard", status.HTTP_302_FOUND)
+    else:
+        return templates.TemplateResponse("usuario/entrar.html", {"request": request})
 
 
 @router.post("/entrar", tags=["Usuário"], summary="Entrar no sistema através de e-mail e senha.", response_class=HTMLResponse)
 async def postEntrar(request: Request, email: str = Form(...), senha: str = Form(...)):
-    usuario = UsuarioRepo.obterPorEmail(email) # ! CRIAR FUNÇÃO PARA PESQUISAR O USUÁRIO COM BASE NO E-MAIL DELE DO FORMULÁRIO
-    if usuario == []:
-        mensagem_erro = "Parece que você ainda não se cadastrou no Budget."
-        return templates.TemplateResponse("participante/entrar.html", {"request": request, "mensagem_erro": mensagem_erro})
-    else:
+    usuario = UsuarioRepo.obterPorEmail(email)
+    if usuario:
         if email != usuario.email or senha != usuario.senha:
-            mensagem_erro = "E-mail ou senha inválidos. Tente novamente."
-            return templates.TemplateResponse("participante/entrar.html", {"request": request, "mensagem_erro": mensagem_erro})
+            mensagem_erro_entrar = "E-mail ou senha inválidos. Tente novamente."
+            return templates.TemplateResponse("usuario/entrar.html", {"request": request, "mensagem_erro_entrar": mensagem_erro_entrar})
         else:
-            return RedirectResponse("/dashboard", status.HTTP_302_FOUND)
+            token = gerar_token()
+            UsuarioRepo.inserirToken(email, token)
+            response = RedirectResponse("/dashboard", status.HTTP_302_FOUND)
+            response.set_cookie(key="auth_token", value=token, max_age=1800, httponly=True)
+            return response
+    else:
+        mensagem_erro_entrar = "Parece que você ainda não se cadastrou no Budget."
+        return templates.TemplateResponse("usuario/entrar.html", {"request": request, "mensagem_erro_entrar": mensagem_erro_entrar})
 
 
+@router.post("/novousuario", tags=["Usuário"], summary="Inserir um novo usuário ao sistema.", response_class=HTMLResponse)
+async def postNovoUsuario(request: Request, nome: str = Form(...), email: str = Form(...), senha: str = Form()):
+    usuario = UsuarioRepo.obterPorEmail(email)
+    if usuario:
+        mensagem_erro_cadastrar = "Este e-mail já está em uso."
+        return templates.TemplateResponse("usuario/entrar.html", {"request": request, "mensagem_erro_cadastrar": mensagem_erro_cadastrar})
+    else:
+        UsuarioRepo.inserir(Usuario(0, nome, email, senha))
+        token = gerar_token()
+        response = RedirectResponse("/dashboard", status.HTTP_302_FOUND)
+        response.set_cookie(key="auth_token", value=token, max_age=1800, httponly=True)
+        return response
 
 
-@router.post(
-    "/novousuario",
-    tags=["Usuário"],
-    summary="Novo usuário",
-    response_class=JSONResponse,
-)
-async def postNovoUsuario(
-    nome: str = Form(),
-    senha: str = Form(),
-):
-    UsuarioRepo.inserir(Usuario(0, nome, senha))
-    return {"nome": nome, "senha": senha}
-
+@router.get("/dashboard", tags=["Usuário"], summary="Visualizar o dashboard do sistema.", response_class=HTMLResponse)
+async def getDashboard(request: Request, logado: bool = Depends(validar_usuario_logado)):
+    if logado:
+        token = request.cookies.values().mapping["auth_token"]
+        usuario = UsuarioRepo.obterPorToken(token)
+        hora = datetime.now().hour
+        if 6 <= hora <= 12:
+            mensagem = "Bom dia, "
+        elif hora <= 18:
+            mensagem = "Boa tarde, "
+        else:
+            mensagem = "Boa noite, "
+        return templates.TemplateResponse("usuario/dashboard.html", {"request": request, "usuario": usuario, "mensagem": mensagem})
+    else:
+        return RedirectResponse("/entrar", status.HTTP_302_FOUND)
 
 @router.get(
     "/usuarios",

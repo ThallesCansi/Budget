@@ -27,17 +27,6 @@ async def getRecuperar(request: Request):
     )
 
 
-@router.get("/dashboard")
-async def getDash(request: Request):
-    titulo = "Bom dia, Thalles"
-    pagina = "/dashboard"
-    return templates.TemplateResponse(
-        "dashboard.html", { "request": request,
-                            "titulo": titulo,
-                            "pagina": pagina,
-                          }
-    )
-
 @router.get("/transacoes")
 async def getTrans(request: Request):
     titulo = "Transações"
