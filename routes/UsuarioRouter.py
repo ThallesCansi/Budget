@@ -1,3 +1,4 @@
+from babel.dates import format_datetime, get_month_names
 from datetime import datetime
 from fastapi import APIRouter, Depends, Form, Path, Request, status
 from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
@@ -64,14 +65,9 @@ async def getDashboard(request: Request, logado: bool = Depends(validar_usuario_
     if logado:
         token = request.cookies.values().mapping["auth_token"]
         usuario = UsuarioRepo.obterPorToken(token)
-        hora = datetime.now().hour
-        if 6 <= hora <= 12:
-            mensagem = "Bom dia, "
-        elif hora <= 18:
-            mensagem = "Boa tarde, "
-        else:
-            mensagem = "Boa noite, "
-        return templates.TemplateResponse("usuario/dashboard.html", {"request": request, "usuario": usuario, "mensagem": mensagem})
+        data_hora = format_datetime(datetime.now(), format="short", locale='pt_BR').title()
+        meses = get_month_names("wide", locale="pt_BR")
+        return templates.TemplateResponse("usuario/dashboard.html", {"request": request, "usuario": usuario, "data_hora": data_hora, "meses": meses})
     else:
         return RedirectResponse("/entrar", status.HTTP_302_FOUND)
 

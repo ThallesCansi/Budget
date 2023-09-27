@@ -5,18 +5,9 @@
     <div class="col-md-7 col-sm-12 col-12 d-md-inline d-flex flex-column justify-content-center align-items-center">
         <div class="mb-3 form-floating w-50">
             <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                <option value="1">Janeiro</option>
-                <option value="2">Fevereiro</option>
-                <option value="3">Março</option>
-                <option value="4">Abril</option>
-                <option value="5">Maio</option>
-                <option value="6">Junho</option>
-                <option value="7">Julho</option>
-                <option value="8">Agosto</option>
-                <option value="9">Setembro</option>
-                <option value="10">Outubro</option>
-                <option value="11">Novembro</option>
-                <option value="12">Dezembro</option>
+                {% for mes in meses %}
+                    <option value="{{ mes }}" {{ "selected" if mes == data_hora.split("/")[1] | int }}>{{ meses[mes].title() }}</option>
+                {% endfor %}
             </select>
             <label for="floatingSelect">Escolha o mês</label>
         </div>
