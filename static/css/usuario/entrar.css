@@ -139,6 +139,7 @@ a.termo{
 .animacao.sign-up-mode form.sign-in-form{
     z-index: 1;
     opacity: 0;
+    pointer-events: none;
 }
 
 .animacao.sign-up-mode form.sign-up-form{

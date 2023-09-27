@@ -40,23 +40,27 @@ async def getTrans(request: Request):
 
 @router.get("/configuracoes")
 async def getConfig(request: Request):
-    titulo = "Configurações"
+    mensagem = "Configurações"
+    usuario = ""
     pagina = "/configuracoes"
     contas = ContaRepo.obterTodos()
     return templates.TemplateResponse(
         "configuracoes.html", { "request": request,
-                            "titulo": titulo,
+                            "mensagem": mensagem,
+                            "usuario": usuario,
                              "pagina": pagina, 
                              "contas": contas,}
     )
 
 
-@router.get("/formCategoria")
+@router.get("/dependentes")
 async def getIndex(request: Request):
-    titulo = "Conta"
-    activeConfig = "active"
+    mensagem = "Dependentes"
+    usuario = ""
+    pagina = "/configuracoes"
     return templates.TemplateResponse(
-        "formCategoria.html", { "request": request,
-                            "titulo": titulo,
-                             "activeConfig": activeConfig, }
+        "/dependentes/dependente.html", { "request": request,
+                            "pagina": pagina,
+                            "mensagem": mensagem,
+                            "usuario": usuario, }
     )

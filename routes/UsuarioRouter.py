@@ -62,12 +62,21 @@ async def postNovoUsuario(request: Request, nome: str = Form(...), email: str = 
 
 @router.get("/dashboard", tags=["Usuário"], summary="Visualizar o dashboard do sistema.", response_class=HTMLResponse)
 async def getDashboard(request: Request, logado: bool = Depends(validar_usuario_logado)):
+    pagina = "/dashboard"
+    hora = datetime.now().hour
+    if 6 <= hora <= 12:
+        mensagem = "Bom dia, "
+    elif hora <= 18:
+        mensagem = "Boa tarde, "
+    else:
+        mensagem = "Boa noite, "
+        
     if logado:
         token = request.cookies.values().mapping["auth_token"]
         usuario = UsuarioRepo.obterPorToken(token)
         data_hora = format_datetime(datetime.now(), format="short", locale='pt_BR').title()
         meses = get_month_names("wide", locale="pt_BR")
-        return templates.TemplateResponse("usuario/dashboard.html", {"request": request, "usuario": usuario, "data_hora": data_hora, "meses": meses})
+        return templates.TemplateResponse("usuario/dashboard.html", {"request": request, "mensagem": mensagem, "pagina": pagina, "usuario": usuario, "data_hora": data_hora, "meses": meses})
     else:
         return RedirectResponse("/entrar", status.HTTP_302_FOUND)
 
