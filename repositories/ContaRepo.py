@@ -1,7 +1,8 @@
 from typing import List
 
-from utils.Database import Database
+
 from models.Conta import Conta
+from util.Database import Database
 
 
 class ContaRepo:

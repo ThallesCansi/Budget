@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass
@@ -6,5 +7,5 @@ class Usuario:
     id: int
     nome: str
     email: str
-    senha: str | None = None
-    token: str | None = None
+    senha:  Optional[str] = ""
+    token: Optional[str] = ""

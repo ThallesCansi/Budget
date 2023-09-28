@@ -1,7 +1,8 @@
 from typing import List
 
-from utils.Database import Database
+
 from models.Meta import Meta
+from util.Database import Database
 
 class MetaRepo:
     @classmethod

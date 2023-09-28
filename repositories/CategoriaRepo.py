@@ -1,7 +1,8 @@
 from typing import List
 
-from utils.Database import Database
+
 from models.Categoria import Categoria
+from util.Database import Database
 
 
 class CategoriaRepo:
