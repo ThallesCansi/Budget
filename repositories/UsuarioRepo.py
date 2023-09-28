@@ -13,7 +13,8 @@ class UsuarioRepo:
                 nome TEXT NOT NULL,
                 email TEXT NOT NULL,
                 senha TEXT NOT NULL,
-                token TEXT
+                token TEXT,
+                UNIQUE (email)
             )"""
         conexao = Database.criarConexao()
         cursor = conexao.cursor()

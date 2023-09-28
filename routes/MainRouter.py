@@ -39,33 +39,28 @@ async def getEntrar(request: Request, logado: bool = Depends(validar_usuario_log
 @router.post("/entrar", tags=["Usuário"], summary="Entrar no sistema através de e-mail e senha.", response_class=HTMLResponse)
 async def postEntrar(
     request: Request, 
+    usuario: Usuario = Depends(validar_usuario_logado),
     email: str = Form(""), 
     senha: str = Form(""),
+    returnUrl: str = Query("/entrar"),
     ):
 
     # normalização de dados
     email = email.strip().lower()
     senha = senha.strip()
 
-
-    usuario = UsuarioRepo.obterPorEmail(email)
-    if usuario:
-        if email != usuario.email:
-            mensagem_erro_entrar = "E-mail inválido. Tente novamente."
-            return templates.TemplateResponse("usuario/entrar.html", {"request": request, "mensagem_erro_entrar": mensagem_erro_entrar})
+    hash_senha_bd = UsuarioRepo.obterSenhaDeEmail(email)
+    if hash_senha_bd:
+        if verificar_senha(senha, hash_senha_bd):
+            token = gerar_token()
+            UsuarioRepo.alterarToken(email, token)
+            response = RedirectResponse(returnUrl, status.HTTP_302_FOUND)
+            response.set_cookie(key="auth_token", value=token, max_age=1800, httponly=True)
+            return response
         else:
-            hash_senha_bd = UsuarioRepo.obterSenhaDeEmail(email)
-            if hash_senha_bd:
-                if verificar_senha(senha, hash_senha_bd):
-                    token = gerar_token()
-                    UsuarioRepo.alterarToken(email, token)
-                    response = RedirectResponse("/dashboard", status.HTTP_302_FOUND)
-                    response.set_cookie(key="auth_token", value=token, max_age=1800, httponly=True)
-                    return response
-    else:
-        mensagem_erro_entrar = "Parece que você ainda não se cadastrou no Budget."
-        return templates.TemplateResponse("usuario/entrar.html", {"request": request, "mensagem_erro_entrar": mensagem_erro_entrar})
-
+            raise Exception(
+                "Não foi possível alterar o token do usuário no banco de dados."
+            )
 
 @router.get("/sair")
 async def getSair(
