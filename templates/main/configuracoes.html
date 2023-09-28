@@ -27,7 +27,7 @@
     </div>
     <hr />
 </a>
-<div class="modal fade " id="formConta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="formConta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered ">
         <div class="modal-content">
             <div class="modal-header d-md-none">
@@ -105,22 +105,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade " id="alertaExcluirConta"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"  aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered " style="width: 401; height: 291;">
-        <div class="modal-content">
-            <div class="modal-body container-fluid d-flex flex-column justify-content-center align-items-center">
-                <img src="/static/img/alerta.svg" class="mb-2" alt="icone de exclamação/alerta">
-                <h5 >Deseja confirmar a exclusão?</h5>
-                <button class="btn rounded bg-secondary text-white fs-5 fw-semibold mt-3 px-2" type="submit"  style=" background-color: #35aa3a;">
-                    Confirmar
-                </button>
-                <a href="#"  class="text-danger text-decoration-none cancelar" data-bs-dismiss="modal" aria-label="Close">
-                    Cancelar
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+{% from "main/modalExcluir.html" import modalExcluir %}
+{{ modalExcluir(id="alertaExcluirConta") }}
 
 <a class="row col-xl-5 col-md-6 col-10 offset-1 ms-3 mb-3 text-decoration-none text-dark menu-configuracoes" 
 style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#formCategoria">
