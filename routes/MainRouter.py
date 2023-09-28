@@ -93,6 +93,32 @@ async def getTrans(request: Request):
                           }
     )
 
+@router.get("/carteira")
+async def getTrans(request: Request):
+    mensagem = "Carteira"
+    usuario = ""
+    pagina = "/carteira"
+    return templates.TemplateResponse(
+        "conta/carteira.html", { "request": request,
+                            "mensagem":mensagem,
+                            "usuario": usuario,
+                            "pagina": pagina,
+                          }
+    )
+
+@router.get("/metas")
+async def getTrans(request: Request):
+    mensagem = "Metas"
+    usuario = ""
+    pagina = "/metas"
+    return templates.TemplateResponse(
+        "metas/metas.html", { "request": request,
+                            "mensagem":mensagem,
+                            "usuario": usuario,
+                            "pagina": pagina,
+                          }
+    )
+
 @router.get("/configuracoes")
 async def getConfig(request: Request):
     mensagem = "Configurações"

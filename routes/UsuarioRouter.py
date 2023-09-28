@@ -74,7 +74,7 @@ async def getDashboard(
                 {"request": request, "usuario": usuario, "mensagem": mensagem, "pagina": pagina, "data_hora": data_hora, "meses": meses },
             )
         else:
-            return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
+            return RedirectResponse("/entrar", status_code=status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     

@@ -148,7 +148,7 @@ class UsuarioRepo:
 
     @classmethod
     def obterPorId(cls, id: int) -> Usuario:
-        sql = "SELECT * FROM usuario WHERE id=?"
+        sql = "SELECT usuario.id, usuario.nome, usuario.email FROM usuario WHERE id=?"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(sql, (id,)).fetchone()
@@ -173,19 +173,6 @@ class UsuarioRepo:
         conexao.close()
         return objeto
 
-    @classmethod
-    def alterarToken(cls, email: str, token: str) -> bool:
-        sql = "UPDATE usuario SET token=? WHERE email=?"
-        conexao = Database.criarConexao()
-        cursor = conexao.cursor()
-        resultado = cursor.execute(sql, (token, email))
-        if resultado.rowcount > 0:
-            conexao.commit()
-            conexao.close()
-            return True
-        else:
-            conexao.close()
-            return None
         
     @classmethod
     def obterUsuarioPorToken(cls, token: str) -> Usuario:
