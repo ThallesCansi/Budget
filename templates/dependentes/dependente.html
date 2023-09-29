@@ -163,9 +163,12 @@
 </div>
 
 
-<button class="btn col-4 offset-4 rounded bg-secondary text-white fs-5 fw-semibold" type="submit"  style=" background-color: #35aa3a;">
+<button class="btn col-4 offset-4 rounded bg-secondary text-white fs-5 fw-semibold"
+ type="submit"  style=" background-color: #35aa3a;" data-bs-toggle="modal" data-bs-target="#formDependente">
     Adicionar
 </button>
+{% from "dependentes/formDependente.html" import modalFormDependente %}
+{{ modalFormDependente(id="formDependente")}}
 
 
 {% endblock %}

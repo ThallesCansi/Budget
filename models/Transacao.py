@@ -1,16 +1,14 @@
-from pydantic import BaseModel
 from datetime import date
+from dataclasses import dataclass
 
-from models.Conta import Conta
-from models.Usuario import Usuario
-from models.Dependente import Dependente
-
-class Transacao(BaseModel):
-    idTransacao: int
-    usuario: Usuario
-    conta: Conta
-    dependente: Dependente
-    descricao: str
-    data: date
-    valor: float
-    tipo: str
+@dataclass
+class Transacao():
+    id: int
+    conta: str | None = None
+    dependente: str | None = None
+    categoria: str | None = None
+    descricao: str | None = None
+    data: date | None = None
+    valor: float | None = None
+    forma_pagamento: str | None = None
+    tipo: str | None = None
