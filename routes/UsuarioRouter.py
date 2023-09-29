@@ -7,7 +7,7 @@ from util.seguranca import gerar_token, obter_hash_senha, validar_usuario_logado
 from util.templateFilters import capitalizar_nome_proprio, formatarData
 from models.Usuario import Usuario
 from repositories.UsuarioRepo import UsuarioRepo
-from repositories.TransacaoRepo import TransacaoRepo
+# from repositories.TransacaoRepo import TransacaoRepo
 
 
 router = APIRouter()
@@ -91,8 +91,9 @@ async def getRecuperar(request: Request):
     )
 
 
-@router.post("/receita", tags=["Usuário"], summary="Adicionar uma receita", response_class=HTMLResponse)
-async def postReceita(request: Request, descricao: str = Form(""), valor: float = Form(""), conta: str = Form(""), dependente: str = Form(""), data: str = Form(""), categoria: str = Form(""), forma_pagamento: str = Form(""), usuario: Usuario = Depends(validar_usuario_logado)):
-    if usuario:
-        TransacaoRepo.inserir(descricao, valor, conta, dependente, data, categoria, forma_pagamento)
-    pass
+
+# @router.post("/receita", tags=["Usuário"], summary="Adicionar uma receita", response_class=HTMLResponse)
+# async def postReceita(request: Request, descricao: str = Form(""), valor: float = Form(""), conta: str = Form(""), dependente: str = Form(""), data: str = Form(""), categoria: str = Form(""), forma_pagamento: str = Form(""), usuario: Usuario = Depends(validar_usuario_logado)):
+#     if usuario:
+#         TransacaoRepo.inserir(descricao, valor, conta, dependente, data, categoria, forma_pagamento)
+#     pass

@@ -1,15 +1,17 @@
 {% extends "base.html" %} {% block conteudo %}
-<div class="d-flex justify-content-between mt-2">
-    <div class="d-flex align-items-center">
-        <img src="/static/img//meta.svg" alt="">
+<div class="row d-flex mt-2 align-items-center">
+    <div class="col-lg-6 col-md-5 col-12 d-flex align-items-center">
+        <img src="/static/img/meta.svg" alt="">
         <h4 class="ms-2">minhas metas</h4>
     </div>
-    <div class="rounded-pill shadow d-flex p-0 me-2">
-        <div  class="rounded-pill bg-secondary text-white fw-bold p-2 px-5 aberta">
-            <span>Metas abertas</span>
-        </div>
-        <div style="color: #6C757D;" class="rounded-pill p-2 px-4 fw-semibold fechada">
-            <span>Metas fechadas</span>
+    <div class="col-lg-6 col-md-7 mt-3 mt-md-0">
+        <div style="width: 400px;" class="ms-md-5 rounded-pill shadow d-flex p-0 ">
+            <div class="rounded-pill bg-secondary text-white fw-bold p-2 px-5 aberta">
+                <span>Metas abertas</span>
+            </div>
+            <div style="color: #6C757D;" class="rounded-pill p-2 px-4 fw-semibold fechada">
+                <span>Metas fechadas</span>
+            </div>
         </div>
     </div>
 </div>
