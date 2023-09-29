@@ -1,84 +1,80 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/estilo.css">
-    <link rel="stylesheet" href="/static/lib/meu_bootstrap.css">
-    <link rel="stylesheet" href="/static/lib/bootstrap-icons/font/bootstrap-icons.min.css">
-    <title>Cartão</title>
-</head>
-<body>
-    <div class="container-md container-fluid">
-        <form class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 pt-3" method="post">
-            <h1 class="display-6 text-center fw-semibold">
-                Adicionar Cartão
-            </h1>
-            <div class="row mb-3 mt-5">
-                <div class="col-12 col-md-6 mb-3">
-                    <label for="descricao" class="form-label offset-md-1 offset-sm-2 offset-1">Descrição</label>
-                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                        <input type="text" name="descricao" id="descricao" class="shadow border-0 form-control" placeholder="Exemplo: Vendi minha moto" style="color: #98a6af !important;">
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <label for="data" class="form-label offset-md-1 offset-sm-2 offset-1">Dia do Fechamento</label>
-                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                        <input type="date" name="data" id="data" class="shadow border-0 form-control" style="color: #6c757d;">
-                    </div>
+{% macro modalFormCartao(id) %}
+<div class="modal fade" id="{{ id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header d-md-none">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="col-12 col-md-10 offset-md-1" method="post" action="addConta">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <h1 class="display-6 fw-semibold">Adicionar Cartão</h1>
+                            <!-- <p class="fs-5">
+                                Personalize suas conexões e contas bancárias 
+                            <p> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-12 mt-4">
+                                <div class="mb-3">
+                                    <label for="descricao" class="form-label offset-md-1 offset-sm-2 offset-1">
+                                        Descrição
+                                    </label>
+                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                        <input type="text" name="descricao" id="descricao" class="shadow border-0 form-control" placeholder="Descrição" style="color: #98a6af !important;">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="conta" class="form-label offset-md-1 offset-sm-2 offset-1">Conta</label>
+                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                        <select id="idConta" name="conta" class="shadow border-0 form-select" style="color: #6c757d;">
+                                            <option disabled selected>Escolha uma conta</option>
+                                            {% for c in contas %}
+                                            <option value="viagem">{{c.titulo}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="limite" class="form-label offset-md-1 offset-sm-2 offset-1">Limite</label>
+                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                        <input type="number" name="limite" id="limite" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12 mt-4">
+                                <div class="mb-3">
+                                    <label for="diaFechamento" class="form-label offset-md-1 offset-sm-2 offset-1">Dia do Fechamento</label>
+                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                        <input type="date" name="diaFechamento" id="diaFechamento" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="diaVencimento" class="form-label offset-md-1 offset-sm-2 offset-1">Dia do Vencimento</label>
+                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                        <input type="date" name="diaVencimento" id="diaVencimento" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
+                                    </div>
+                                </div>
+                                <div class="mb-5">
+                                    <label for="bandeira" class="form-label offset-md-1 offset-sm-2 offset-1">Bandeira</label>
+                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                        <select id="bandeira" name="bandeira" class="shadow border-0 form-select" style="color: #6c757d;">
+                                            <option disabled selected>Escolha uma bandeira</option>
+                                            <option value="visa">Visa </option>
+                                            <option value="mastercard">Mastercard</option>
+                                            <option value="elo">Elo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                           <button class="btn col-4 offset-4 rounded bg-secondary text-white fs-5 fw-semibold" type="submit"  style=" background-color: #35aa3a;">
+                                Adicionar
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            
-            <div class="row mb-3">
-                 <div class="col-12 col-md-6 mb-3">
-                    <label for="acconut" class="form-label offset-md-1 offset-sm-2 offset-1">Conta</label>
-                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                        <select id="account" name="idAccount" class="shadow border-0 form-select" style="color: #6c757d;">
-                            <option disabled selected>Escolha a sua conta</option>
-                            {% for a in account %}
-                            <option value="{{a.idAccount}}">{{a.title}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <label for="dataVencimento" class="form-label offset-md-1 offset-sm-2 offset-1">Dia do Vencimento</label>
-                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                        <input type="date" name="dataVencimento" id="dataVencimento" class="shadow border-0 form-control" style="color: #6c757d;">
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-12 col-md-6 mb-3">
-                    
-                    <label for="limite" class="form-label offset-md-1 offset-sm-2 offset-1">Limite</label>
-                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                        <input type="number" name="limite" id="limite" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <label for="bandeira" class="form-label offset-md-1 offset-sm-2 offset-1">Bandeira</label>
-                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                        <select name="bandeira" id="bandeira" class="shadow border-0 form-select" style="color: #6c757d;">
-                            <option value="label" disabled selected>
-                                Escolha a bandeira do cartão
-                            </option>
-                            <option value="mastecard">Mastecard</option>
-                            <option value="visa">Visa</option>
-                            <option value="elo">Elo</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <button class="btn col-4 offset-4 rounded bg-secondary text-white fs-5 fw-semibold" type="submit"  style=" background-color: #35aa3a;">
-                    Adicionar Cartão
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
-        
-    
-</body>
-</html>
+</div>
+{% endmacro %}

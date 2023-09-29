@@ -6,7 +6,7 @@
         <h4 class="ms-2">meus cartões</h4>
     </div>
     <div class="col-lg-6 col-md-7">
-        <div style="width: 380px;" class=" float-md-end me-2 me-md-4 rounded-pill shadow d-flex p-0 ">
+        <div style="width: 380px;" class=" float-md-end me-2 me-md-4 rounded-pill shadow d-flex p-0 text-center">
             <div class="rounded-pill bg-secondary text-white fw-bold p-2 px-5 aberta">
                 <span>Faturas abertas</span>
             </div>
@@ -16,4 +16,15 @@
         </div>
     </div>
 </div>
+
+<div class=" mt-5 row">
+    <div style="width: 330px; height: 230px; " class="ms-1 ms-md-3 shadow rounded d-flex align-items-center justify-content-center">
+        <button style="height: 40px;" class="btn col-8 rounded bg-secondary text-white fs-5 fw-semibold" 
+            type="submit"  style=" background-color: #35aa3a;" data-bs-toggle="modal" data-bs-target="#formCartao">
+            Adicionar Cartão
+        </button>
+    </div>
+</div>
+{% from "conta/formCartao.html" import modalFormCartao %}
+{{ modalFormCartao(id="formCartao")}}
 {% endblock %}
