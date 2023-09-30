@@ -10,7 +10,7 @@ from fastapi.templating import Jinja2Templates
 from util.seguranca import gerar_token, validar_usuario_logado, verificar_senha
 
 from util.templateFilters import formatarData
-
+from util.validators import *
 
 router = APIRouter()
 
@@ -40,27 +40,57 @@ async def getEntrar(request: Request, logado: bool = Depends(validar_usuario_log
 async def postEntrar(
     request: Request, 
     usuario: Usuario = Depends(validar_usuario_logado),
-    email: str = Form(""), 
-    senha: str = Form(""),
-    returnUrl: str = Query("/entrar"),
+    emailLogin: str = Form(""), 
+    senhaLogin: str = Form(""),
+    returnUrl: str = Query("/dashboard"),
     ):
 
     # normalização de dados
-    email = email.strip().lower()
-    senha = senha.strip()
+    emailLogin = emailLogin.strip().lower()
+    senhaLogin = senhaLogin.strip()
 
-    hash_senha_bd = UsuarioRepo.obterSenhaDeEmail(email)
-    if hash_senha_bd:
-        if verificar_senha(senha, hash_senha_bd):
-            token = gerar_token()
-            UsuarioRepo.alterarToken(email, token)
-            response = RedirectResponse(returnUrl, status.HTTP_302_FOUND)
-            response.set_cookie(key="auth_token", value=token, max_age=1800, httponly=True)
-            return response
+    # validação de dados
+    erros = {}
+    # validação do campo email
+    is_not_empty(emailLogin, "emailLogin", erros)
+    is_email(emailLogin, "emailLogin", erros)
+    # validação do campo senha
+    is_not_empty(senhaLogin, "senhaLogin", erros)
+    
+    # só checa a senha no BD se os dados forem válidos
+    if len(erros) == 0:
+        hash_senha_bd = UsuarioRepo.obterSenhaDeEmail(emailLogin)
+        if hash_senha_bd:
+            if verificar_senha(senhaLogin, hash_senha_bd):
+                token = gerar_token()
+                if UsuarioRepo.alterarToken(emailLogin, token):
+                    response = RedirectResponse(returnUrl, status.HTTP_302_FOUND)
+                    response.set_cookie(
+                        key="auth_token", value=token, max_age=1, httponly=True
+                    )
+                    return response
+                else:
+                    raise Exception(
+                        "Não foi possível alterar o token do usuário no banco de dados."
+                    )
+            else:            
+                add_error("senhaLogin", "Senha não confere.", erros)
         else:
-            raise Exception(
-                "Não foi possível alterar o token do usuário no banco de dados."
-            )
+            add_error("emailLogin", "Usuário não cadastrado.", erros)
+
+    # se tem algum erro, mostra o formulário novamente
+    if len(erros) > 0:
+        valores = {}
+        valores["emailLogin"] = emailLogin        
+        return templates.TemplateResponse(
+            "usuario/entrar.html",
+            {
+                "request": request,
+                "usuario": usuario,
+                "erros": erros,
+                "valores": valores,
+            },
+        )
 
 @router.get("/sair")
 async def getSair(

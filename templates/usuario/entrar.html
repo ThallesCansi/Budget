@@ -11,7 +11,7 @@
         <script src="/static/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
         
         <!-- CSS -->
-        <link rel="stylesheet" href="/static/css/usuario/entrar.css" />
+        <link rel="stylesheet" href="/static/css/usuario/entrar.css"/>
 
         <!-- JavaScript -->
         <script src="/static/js/usuario/entrar.js" defer></script>
@@ -26,8 +26,12 @@
         <div class="container-fluid animacao">
             <div class="forms-container-login">
                 <div class="signin-signup">
+                    {% if not logado: %}
+                    {% if request.query_params["returnUrl"]: %}
+                    <p class="lead">A página que você tentou acessar requer que esteja logado. Faça o login para prosseguir.</p>
+                    {% endif %}
                     <!-- Entrar -->
-                    <form method="POST" class="sign-in-form mt-1 mt-lg-5 needs-validation" novalidate>
+                    <form method="POST" id="formLogin" class="sign-in-form mt-1 mt-lg-5">
                         <div class="mb-2 mt-0 mt-sm-3 mb-md-2 mb-lg-5 mt-md-3">
                             <img src="/static/img/nameLogo.svg" alt="Logo do Budget" />
                         </div>
@@ -39,32 +43,35 @@
                         </div>
                         <p>Ou</p>
                         <div class="row text-start mb-3">
-                            <label for="email" class="form-label offset-lg-0 offset-md-2 offset-1">E-mail</label>
+                            <label for="emailLogin" class="form-label offset-lg-0 offset-md-2 offset-1">E-mail</label>
                             <div class="col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1">
-                                <input type="email" name="email" id="email" class="shadow border-0 form-control" style="color: #98a6af !important" required />
-                                <div class="invalid-feedback">Por favor, preencha corretamente o seu e-mail.</div>
+                                <input type="email" name="emailLogin" id="emailLogin" class="shadow border-0 form-control" value="{{ email }}" style="color: #98a6af !important" autofocus>
+                                <span class="text-danger d-none small"></span>
                             </div>
                         </div>
                         <div class="row text-start mb-3">
-                            <label for="senha" class="form-label offset-lg-0 offset-md-2 offset-1">Senha</label>
+                            <label for="senhaLogin" class="form-label offset-lg-0 offset-md-2 offset-1">Senha</label>
                             <div class="col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1">
-                                <input type="password" name="senha" id="senha" class="shadow border-0 form-control" style="color: #98a6af !important" required />
-                                <div class="invalid-feedback">Por favor, preencha corretamente a sua senha.</div>
+                                <input type="password" name="senhaLogin" id="senhaLogin" class="shadow border-0 form-control" style="color: #98a6af !important">
+                                <span class="text-danger d-none small"></span>
                             </div>
                         </div>
                         <a href="/recuperarSenha" class="text-decoration-none text-secondary fw-semibold mb-3" style="cursor: pointer">Esqueceu a senha</a>
                         <div class="row mt-3">
                             <button type="submit" class="btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" style="background-color: #35aa3a">Entrar</button>
                         </div>
-                        {% if mensagem_erro_entrar %}
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>{{ mensagem_erro_entrar }}</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                    
+                        {% if erros and valores: %}
+                        <script>
+                            const validationErrors = {{ erros|tojson }};
+                            const fieldValues = {{ valores|tojson }};
+                        </script>
+                        <script src="/static/js/formValidation.js"></script>
                         {% endif %}
                     </form>
+                    {% endif %}
                     <!-- Cadastrar -->
-                    <form method="POST" action="/novousuario" class="sign-up-form mt-0 col-lg-10 col-md-12 col-12 needs-validation" novalidate>
+                    <form method="POST" action="/novousuario" id="formCadastro" class="sign-up-form mt-0 col-lg-10 col-md-12 col-12">
                         <div class="d-lg-block mb-md-2 mb-lg-5 mt-md-3">
                             <img src="/static/img/nameLogo.svg" alt="Logo do Budget" />
                         </div>
@@ -78,30 +85,30 @@
                         <div class="row text-start mb-3">
                             <label for="nome" class="form-label offset-lg-0 offset-md-2 offset-1">Nome Completo*</label>
                             <div class="col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1">
-                                <input type="text" name="nome" id="nome" class="shadow border-0 form-control" placeholder="Ex: João de Souza" style="color: #98a6af !important" required />
-                                <div class="invalid-feedback">Por favor, preencha corretamente o seu nome.</div>
+                                <input type="text" name="nome" id="nome" class="shadow border-0 form-control" placeholder="Ex: João de Souza" style="color: #98a6af !important" autofocus>
+                                <span class="text-danger d-none small"></span>
                             </div>
                         </div>
                         <div class="row text-start mb-3">
                             <label for="email" class="form-label offset-lg-0 offset-md-2 offset-1">E-mail*</label>
                             <div class="col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1">
-                                <input type="email" name="email" id="email" class="shadow border-0 form-control" placeholder="Ex: joaodesouza@email.com" style="color: #98a6af !important" required />
-                                <div id="nome-error" class="invalid-feedback">Por favor, preencha corretamente o seu e-mail.</div>
+                                <input type="email" name="email" id="email" class="shadow border-0 form-control" placeholder="Ex: joaodesouza@email.com" style="color: #98a6af !important">
+                                <span class="text-danger d-none small"></span>
                             </div>
                         </div>
                         <div class="row text-start mb-3">
                             <div class="col-md-4 col-lg-6 col-5 offset-lg-0 offset-md-2 offset-1">
                                 <label for="senha" class="form-label">Senha*</label>
                                 <div class="col-md-12 col-12">
-                                    <input type="password" name="senha" id="senha" class="shadow border-0 form-control" style="color: #98a6af !important" required />
-                                    <div id="nome-error" class="invalid-feedback">Por favor, preencha corretamente o seu e-mail.</div>
+                                    <input type="password" name="senha" id="senha" class="shadow border-0 form-control" style="color: #98a6af !important">
+                                    <span class="text-danger d-none small"></span>
                                 </div>
                             </div>
                             <div class="col-md-4 col-lg-6 col-5">
                                 <label for="confirmarSenha" class="form-label">Confirmar senha*</label>
                                 <div class="col-md-12 col-12">
-                                    <input type="password" name="confirmarSenha" id="confirmarSenha" class="shadow border-0 form-control" style="color: #98a6af !important" required />
-                                    <div id="nome-error" class="invalid-feedback">Por favor, preencha corretamente o seu e-mail.</div>
+                                    <input type="password" name="confirmarSenha" id="confirmarSenha" class="shadow border-0 form-control" style="color: #98a6af !important">
+                                    <span class="text-danger d-none small"></span>
                                 </div>
                             </div>
                         </div>
@@ -114,11 +121,12 @@
                         <div class="row mt-3">
                             <button class="mb-3 btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" type="submit" style="background-color: #35aa3a">Cadastrar</button>
                         </div>
-                        {% if mensagem_erro_cadastrar %}
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert" >
-                            <strong>{{ mensagem_erro_cadastrar }}</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                        {% if erros and valores: %}
+                        <script>
+                            const validationErrors = {{ erros|tojson }};
+                            const fieldValues = {{ valores|tojson }};
+                        </script>
+                        <script src="/static/js/formValidation.js"></script>
                         {% endif %}
                     </form>
                 </div>
@@ -153,4 +161,6 @@
             </div>
         </div>
     </body>
+
+    
 </html>

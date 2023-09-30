@@ -7,7 +7,9 @@ from util.seguranca import gerar_token, obter_hash_senha, validar_usuario_logado
 from util.templateFilters import capitalizar_nome_proprio, formatarData
 from models.Usuario import Usuario
 from repositories.UsuarioRepo import UsuarioRepo
+from fastapi.exceptions import RequestValidationError
 # from repositories.TransacaoRepo import TransacaoRepo
+from util.validators import *
 
 
 router = APIRouter()
@@ -23,35 +25,65 @@ async def startup_event():
 @router.post("/novousuario", tags=["Usuário"], summary="Inserir um novo usuário ao sistema.", response_class=HTMLResponse)
 async def postNovoUsuario(
     request: Request,
+    usuario: Usuario = Depends(validar_usuario_logado),
     nome: str = Form(""),
     email: str = Form(""),
     senha: str = Form(""),
+    confirmarSenha: str = Form(""),
 ):
 
     # normalização dos dados
     nome = capitalizar_nome_proprio(nome).strip()
     email = email.lower().strip()
     senha = senha.strip()
+    confirmarSenha = confirmarSenha.strip()
 
-    usuario = UsuarioRepo.obterPorEmail(email)
-    if usuario:
-        mensagem_erro_cadastrar = "Este e-mail já está em uso."
-        return templates.TemplateResponse("usuario/entrar.html", {"request": request, "mensagem_erro_cadastrar": mensagem_erro_cadastrar})
-    else:
-        UsuarioRepo.inserir(
-            Usuario(
-                id=0,
-                nome=nome,
-                email=email,
-                senha=obter_hash_senha(senha),
-            )
+    # verificação de erros
+    erros = {}
+    # validação do campo nome
+    is_not_empty(nome, "nome", erros)
+    is_person_fullname(nome, "nome", erros)
+    # validação do campo email
+    is_not_empty(email, "email", erros)
+    if is_email(email, "email", erros):
+        if UsuarioRepo.emailExiste(email):
+            add_error("email", "Já existe um aluno cadastrado com este e-mail.", erros)
+    # validação do campo senha
+    is_not_empty(senha, "senha", erros)
+    is_password(senha, "senha", erros)
+    # validação do campo confSenha
+    is_not_empty(confirmarSenha, "confirmarSenha", erros)
+    is_matching_fields(confirmarSenha, "confirmarSenha", senha, "Senha", erros)
+
+    # se tem erro, mostra o formulário novamente
+    if len(erros) > 0:
+        valores = {}
+        valores["nome"] = nome
+        valores["email"] = email.lower()
+        return templates.TemplateResponse(
+            "usuario/entrar.html",
+            {
+                "request": request,
+                "usuario": usuario,
+                "erros": erros,
+                "valores": valores,
+            },
         )
-        token = gerar_token()
-        UsuarioRepo.alterarToken(email, token)
-        response = RedirectResponse("/dashboard", status.HTTP_302_FOUND)
-        response.set_cookie(key="auth_token", value=token,
-                            max_age=1800, httponly=True)
-        return response
+    
+    UsuarioRepo.inserir(
+        Usuario(
+            id=0,
+            nome=nome,
+            email=email,
+            senha=obter_hash_senha(senha),
+        )
+    )
+    token = gerar_token()
+    UsuarioRepo.alterarToken(email, token)
+    response = RedirectResponse("/dashboard", status.HTTP_302_FOUND)
+    response.set_cookie(key="auth_token", value=token,
+                        max_age=1800, httponly=True)
+    return response
 
 
 @router.get("/dashboard", tags=["Usuário"], summary="Visualizar o dashboard do sistema.", response_class=HTMLResponse)
