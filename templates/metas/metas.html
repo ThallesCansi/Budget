@@ -5,23 +5,32 @@
         <h4 class="ms-2">minhas metas</h4>
     </div>
     <div class="col-lg-6 col-md-7">
-        <div style="width: 380px;" class=" float-md-end me-2 me-md-4 rounded-pill shadow d-flex p-0 text-center">
+        <div style="width: 350px;" class=" float-md-end me-2 me-md-4 rounded-pill shadow d-flex p-0 text-center">
             <div class="rounded-pill bg-secondary text-white fw-bold p-2 px-5 aberta">
-                <span>Metas abertas</span>
+                <span style="font-size: 14px;">Metas abertas</span>
             </div>
-            <div style="color: #6C757D;" class="rounded-pill p-2 px-4 fw-semibold fechada">
+            <div style="color: #6C757D; font-size: 14px;" class="rounded-pill p-2 px-4 fw-semibold fechada">
                 <span>Metas fechadas</span>
             </div>
         </div>
     </div>
 </div>
-<div class=" mt-5 row">
-    <div style="width: 330px; height: 230px; " class="ms-1 ms-md-3 shadow rounded d-flex align-items-center justify-content-center">
-        <button style="height: 40px;" class="btn col-8 rounded bg-secondary text-white fs-5 fw-semibold" 
-            type="submit"  style=" background-color: #35aa3a;" data-bs-toggle="modal" data-bs-target="#formMeta">
-            Adicionar Meta
-        </button>
+<div class=" mt-5 row g-0 ">
+    <div class="col-xl-4 col-sm-6 col-12 offset-sm-0  offset-xl-0 offset-md-0 mb-3 d-flex justify-content-center">
+        <div style="width: 300px; height: 215px; " class="ms-1 ms-md-3 shadow rounded d-flex align-items-center justify-content-center">
+            <button style="height: 40px;" class="btn col-8 rounded bg-secondary text-white fs-5 fw-semibold d-flex align-items-center justify-content-center" 
+                type="submit"  style=" background-color: #35aa3a;" data-bs-toggle="modal" data-bs-target="#formMeta">
+                Adicionar meta
+            </button>
+        </div>
     </div>
+    {% for m in metas %}
+    <div class="col-xl-4 col-sm-6 col-12  offset-xl-0 offset-md-0  d-flex justify-content-center mb-3">
+        <div style="width: 300px; height: 215px; " class="ms-1 ms-md-3 shadow rounded ">
+            {{m.descricaoMeta}}
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% from "metas/formMeta.html" import modalFormMeta %}
 {{ modalFormMeta(id="formMeta")}}

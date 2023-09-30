@@ -17,53 +17,58 @@
                         <div class="row">
                             <div class="col-md-6 col-12 mt-4">
                                 <div class="mb-3">
-                                    <label for="descricao" class="form-label offset-md-1 offset-sm-2 offset-1">
-                                        Descrição
+                                    <label for="nomeMeta" class="form-label offset-md-1 offset-sm-2 offset-1">
+                                        Nome da Meta
                                     </label>
                                     <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <input type="text" name="descricao" id="descricao" class="shadow border-0 form-control" placeholder="Descrição" style="color: #98a6af !important;">
+                                        <input type="text" name="nomeMeta" id="nomeMeta" class="shadow border-0 form-control" placeholder="Descrição" style="color: #98a6af !important;">
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="conta" class="form-label offset-md-1 offset-sm-2 offset-1">Conta</label>
+                                    <label for="valorMeta" class="form-label offset-md-1 offset-sm-2 offset-1">Valor da Meta</label>
                                     <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <select id="idConta" name="conta" class="shadow border-0 form-select" style="color: #6c757d;">
-                                            <option disabled selected>Escolha uma conta</option>
-                                            {% for c in contas %}
-                                            <option value="viagem">{{c.titulo}}</option>
+                                        <input type="number" name="valorMeta" id="valorMeta" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="valorInicialMeta" class="form-label offset-md-1 offset-sm-2 offset-1">Valor Inicial da Meta</label>
+                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                        <input type="number" name="valorInicialMeta" id="valorInicialMeta" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="idCategoria" class="form-label offset-md-1 offset-sm-2 offset-1">Categoria</label>
+                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                        <select id="idCategoria" name="idCategoria" class="shadow border-0 form-select" style="color: #6c757d;">
+                                            <option value="label" disabled selected>
+                                                Escolha a categoria
+                                            </option>
+                                            {% for c in categorias %}
+                                            <option value="{{c.idCategory}}">{{c.nome}}</option>
                                             {% endfor %}
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="limite" class="form-label offset-md-1 offset-sm-2 offset-1">Limite</label>
-                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <input type="number" name="limite" id="limite" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12 mt-4">
                                 <div class="mb-3">
-                                    <label for="diaFechamento" class="form-label offset-md-1 offset-sm-2 offset-1">Dia do Fechamento</label>
+                                    <label for="data" class="form-label offset-md-1 offset-sm-2 offset-1">Data</label>
                                     <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <input type="date" name="diaFechamento" id="diaFechamento" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
+                                        <input type="date" name="data" id="data" class="shadow border-0 form-control" style="color: #6c757d;">
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="diaVencimento" class="form-label offset-md-1 offset-sm-2 offset-1">Dia do Vencimento</label>
+                                    <label for="descricaoMeta" class="form-label offset-md-1 offset-sm-2 offset-1">Descrição da Meta</label>
                                     <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <input type="date" name="diaVencimento" id="diaVencimento" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
+                                        <input type="text" name="descricaoMeta" id="descricaoMeta" class="shadow border-0 form-control" placeholder="Descrição da Meta" style="color: #6c757d;">
                                     </div>
                                 </div>
-                                <div class="mb-5">
-                                    <label for="bandeira" class="form-label offset-md-1 offset-sm-2 offset-1">Bandeira</label>
-                                    <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <select id="bandeira" name="bandeira" class="shadow border-0 form-select" style="color: #6c757d;">
-                                            <option disabled selected>Escolha uma bandeira</option>
-                                            <option value="visa">Visa </option>
-                                            <option value="mastercard">Mastercard</option>
-                                            <option value="elo">Elo</option>
-                                        </select>
+                                <div class="mb-3">
+                                    <div class="select-color shadow col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 text-center py-5">
+                                        <i class="bg-danger rounded-circle" style="padding: 12px 24px 12px 24px"></i>
+                                        <i class="bg-warning rounded-circle mx-3"  style="padding: 12px 24px 12px 24px"></i>
+                                        <i class="bg-success rounded-circle me-3"  style="padding: 12px 24px 12px 24px"></i>
+                                        <i class="bg-primary rounded-circle"  style="padding: 12px 24px 12px 24px"></i>
                                     </div>
                                 </div>
                             </div>

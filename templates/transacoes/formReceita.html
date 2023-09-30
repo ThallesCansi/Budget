@@ -1,0 +1,114 @@
+{% macro modalFormReceita(id) %}
+<div class="modal fade " id="{{ id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header d-md-none">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="col-12 col-md-10 offset-md-1" method="post" action="/receita"> 
+                        <h1 class="display-6 text-center fw-semibold" style=" color: #35aa3a;">
+                            Registrar Receita
+                        </h1>
+                        <div class="row mb-3 mt-5">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="descricao" class="form-label offset-md-1 offset-sm-2 offset-1">Descrição</label>
+                                <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                    <input type="text" name="descricao" id="descricao" class="shadow border-0 form-control" placeholder="Exemplo: Vendi minha moto" style="color: #98a6af !important;">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="data" class="form-label offset-md-1 offset-sm-2 offset-1">Data</label>
+                                <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                    <input type="date" name="data" id="data" class="shadow border-0 form-control" style="color: #6c757d;">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="valor" class="form-label offset-md-1 offset-sm-2 offset-1">Valor</label>
+                                <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                    <input type="number" name="valor" id="valor" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="idCategoria" class="form-label offset-md-1 offset-sm-2 offset-1">Categoria</label>
+                                <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                    <select name="categoria" id="idCategoria" class="shadow border-0 form-select" style="color: #6c757d;">
+                                        <option value="label" disabled selected>
+                                            Escolha a categoria
+                                        </option>
+                                        {% for c in categories %}
+                                        <option value="{{c.idCategory}}">{{c.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="acconut" class="form-label offset-md-1 offset-sm-2 offset-1">Conta</label>
+                                <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                    <select id="account" name="idAccount" class="shadow border-0 form-select" style="color: #6c757d;">
+                                        <option disabled selected>Escolha a sua conta</option>
+                                        {% for a in account %}
+                                        <option value="{{a.idAccount}}">{{a.title}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="payment" class="form-label offset-md-1 offset-sm-2 offset-1">Forma de Pagamento</label>
+                                <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                    <select name="payment" id="payment" class="shadow border-0 form-select" style="color: #6c757d;">
+                                        <option value="label" disabled selected>
+                                            Escolha a forma de pagamento
+                                        </option>
+                                        <option value="money">Dinheiro</option>
+                                        <option value="card">Cartão</option>
+                                        <option value="pix">PIX</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12 col-md-6">
+                                <label for="dependent" class="form-label offset-md-1 offset-sm-2 offset-1">Adicionar Dependente</label>
+                                <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                    <select class="shadow border-0 form-select" id="dependent" name="idMembro" style="color:#6c757d;">
+                                        <option value="label" disabled selected>
+                                            Escolha o Dependente
+                                        </option>
+                    
+                                        {% for d in dependents %}
+                                            <option value="{{d.idDependent}}">{{d.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mt-3 mb-3 d-flex flex-row justify-content-center align-items-center fs-6 fs-md-5">
+                                <div class="border border-2 p-3 rounded-circle">
+                                    <i class="bi bi-hand-thumbs-up-fill" ></i>
+                                </div>
+                                <div class="border border-2 p-3 mx-4 rounded-circle">
+                                     <i class="bi bi-repeat"></i>
+                                </div>
+                                <div class="border border-2 p-3 rounded-circle">
+                                    <i class="bi bi-paperclip"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn col-4 offset-4 rounded-pill" type="submit"  style=" background-color: #35aa3a;">
+                                <i class="bi bi-check2 text-white fs-4"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
