@@ -7,10 +7,10 @@ def formatarData(dataStr: str) -> str:
 
 def capitalizar_nome_proprio(nome: str) -> str:
     nome = nome.lower()
-    ignoradas = ['de', 'da', 'do', 'di', 'das', 'com', 'dos']    
-    palavras = nome.split()    
+    ignoradas = ["de", "da", "do", "di", "das", "com", "dos"]
+    palavras = nome.split()
     palavras_capitalizadas = [
         palavra.capitalize() if palavra.lower() not in ignoradas else palavra.lower()
         for palavra in palavras
     ]
-    return ' '.join(palavras_capitalizadas)
+    return " ".join(palavras_capitalizadas)

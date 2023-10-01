@@ -1,12 +1,10 @@
-from dataclasses import asdict, dataclass
-
-from models.Usuario import Usuario
+from dataclasses import dataclass
 
 
 @dataclass
 class Conta:
-    idConta: int
-    usuario: Usuario
+    id: int
+    idUsuario: int
     titulo: str
     saldo: float
     meta: str | None = None

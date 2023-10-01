@@ -25,10 +25,19 @@ async def startup_event():
 @router.get("/")
 async def getIndex(request: Request):
     return templates.TemplateResponse(
-        "main/index.html", { "request": request,}
+        "main/index.html",
+        {
+            "request": request,
+        },
     )
 
-@router.get("/entrar", tags=["Usuário"], summary="Ir para a página de acesso ao sistema.", response_class=HTMLResponse)
+
+@router.get(
+    "/entrar",
+    tags=["Usuário"],
+    summary="Ir para a página de acesso ao sistema.",
+    response_class=HTMLResponse,
+)
 async def getEntrar(request: Request, logado: bool = Depends(validar_usuario_logado)):
     if logado:
         return RedirectResponse("/dashboard", status.HTTP_302_FOUND)
@@ -36,15 +45,19 @@ async def getEntrar(request: Request, logado: bool = Depends(validar_usuario_log
         return templates.TemplateResponse("usuario/entrar.html", {"request": request})
 
 
-@router.post("/entrar", tags=["Usuário"], summary="Entrar no sistema através de e-mail e senha.", response_class=HTMLResponse)
+@router.post(
+    "/entrar",
+    tags=["Usuário"],
+    summary="Entrar no sistema através de e-mail e senha.",
+    response_class=HTMLResponse,
+)
 async def postEntrar(
-    request: Request, 
+    request: Request,
     usuario: Usuario = Depends(validar_usuario_logado),
-    emailLogin: str = Form(""), 
+    emailLogin: str = Form(""),
     senhaLogin: str = Form(""),
     returnUrl: str = Query("/dashboard"),
-    ):
-
+):
     # normalização de dados
     emailLogin = emailLogin.strip().lower()
     senhaLogin = senhaLogin.strip()
@@ -56,7 +69,7 @@ async def postEntrar(
     is_email(emailLogin, "emailLogin", erros)
     # validação do campo senha
     is_not_empty(senhaLogin, "senhaLogin", erros)
-    
+
     # só checa a senha no BD se os dados forem válidos
     if len(erros) == 0:
         hash_senha_bd = UsuarioRepo.obterSenhaDeEmail(emailLogin)
@@ -66,14 +79,14 @@ async def postEntrar(
                 if UsuarioRepo.alterarToken(emailLogin, token):
                     response = RedirectResponse(returnUrl, status.HTTP_302_FOUND)
                     response.set_cookie(
-                        key="auth_token", value=token, max_age=1, httponly=True
+                        key="auth_token", value=token, max_age=1800, httponly=True
                     )
                     return response
                 else:
                     raise Exception(
                         "Não foi possível alterar o token do usuário no banco de dados."
                     )
-            else:            
+            else:
                 add_error("senhaLogin", "Senha não confere.", erros)
         else:
             add_error("emailLogin", "Usuário não cadastrado.", erros)
@@ -81,7 +94,7 @@ async def postEntrar(
     # se tem algum erro, mostra o formulário novamente
     if len(erros) > 0:
         valores = {}
-        valores["emailLogin"] = emailLogin        
+        valores["emailLogin"] = emailLogin
         return templates.TemplateResponse(
             "usuario/entrar.html",
             {
@@ -92,31 +105,17 @@ async def postEntrar(
             },
         )
 
+
 @router.get("/sair")
-async def getSair(
-    request: Request, usuario: Usuario = Depends(validar_usuario_logado)
-):   
-    if (usuario):
-        UsuarioRepo.alterarToken(usuario.email, "") 
+async def getSair(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
+    if usuario:
+        UsuarioRepo.alterarToken(usuario.email, "")
     response = RedirectResponse("/entrar", status.HTTP_302_FOUND)
     response.set_cookie(
         key="auth_token", value="", httponly=True, expires="1970-01-01T00:00:00Z"
-    )    
+    )
     return response
 
-
-@router.get("/transacoes")
-async def getTrans(request: Request):
-    mensagem = "Transações"
-    usuario = ""
-    pagina = "/transacoes"
-    return templates.TemplateResponse(
-        "transacoes/transacoes.html", { "request": request,
-                            "mensagem":mensagem,
-                            "usuario": usuario,
-                            "pagina": pagina,
-                          }
-    )
 
 @router.get("/carteira")
 async def getTrans(request: Request):
@@ -124,12 +123,15 @@ async def getTrans(request: Request):
     usuario = ""
     pagina = "/carteira"
     return templates.TemplateResponse(
-        "conta/carteira.html", { "request": request,
-                            "mensagem":mensagem,
-                            "usuario": usuario,
-                            "pagina": pagina,
-                          }
+        "conta/carteira.html",
+        {
+            "request": request,
+            "mensagem": mensagem,
+            "usuario": usuario,
+            "pagina": pagina,
+        },
     )
+
 
 @router.get("/metas")
 async def getTrans(request: Request):
@@ -137,12 +139,15 @@ async def getTrans(request: Request):
     usuario = ""
     pagina = "/metas"
     return templates.TemplateResponse(
-        "metas/metas.html", { "request": request,
-                            "mensagem":mensagem,
-                            "usuario": usuario,
-                            "pagina": pagina,
-                          }
+        "metas/metas.html",
+        {
+            "request": request,
+            "mensagem": mensagem,
+            "usuario": usuario,
+            "pagina": pagina,
+        },
     )
+
 
 @router.get("/configuracoes")
 async def getConfig(request: Request):
@@ -151,12 +156,16 @@ async def getConfig(request: Request):
     pagina = "/configuracoes"
     contas = ContaRepo.obterTodos()
     return templates.TemplateResponse(
-        "main/configuracoes.html", { "request": request,
-                            "mensagem": mensagem,
-                            "usuario": usuario,
-                             "pagina": pagina, 
-                             "contas": contas,}
+        "main/configuracoes.html",
+        {
+            "request": request,
+            "mensagem": mensagem,
+            "usuario": usuario,
+            "pagina": pagina,
+            "contas": contas,
+        },
     )
+
 
 @router.get("/dependentes")
 async def getIndex(request: Request):
@@ -164,8 +173,11 @@ async def getIndex(request: Request):
     usuario = ""
     pagina = "/configuracoes"
     return templates.TemplateResponse(
-        "/dependentes/dependente.html", { "request": request,
-                            "pagina": pagina,
-                            "mensagem": mensagem,
-                            "usuario": usuario, }
+        "/dependentes/dependente.html",
+        {
+            "request": request,
+            "pagina": pagina,
+            "mensagem": mensagem,
+            "usuario": usuario,
+        },
     )

@@ -9,7 +9,11 @@ def add_error(field_name: str, msg: str, errors: dict) -> bool:
 
 
 def is_in_range(
-    field_value: int | float, field_name: str, low: int | float, high: int | float, errors: dict
+    field_value: int | float,
+    field_name: str,
+    low: int | float,
+    high: int | float,
+    errors: dict,
 ) -> bool:
     if low <= field_value <= high:
         return True
@@ -70,7 +74,9 @@ def is_min_size(field_value: str, field_name: str, min_size: int, errors: dict) 
         return False
 
 
-def is_matching_regex(field_value: str, field_name: str, regex: str, errors: dict) -> bool:
+def is_matching_regex(
+    field_value: str, field_name: str, regex: str, errors: dict
+) -> bool:
     if re.match(regex, field_value) is not None:
         return True
     else:
@@ -141,13 +147,18 @@ def is_person_name(field_value: str, field_name: str, errors: dict) -> bool:
 
 
 def is_person_fullname(field_value: str, field_name: str, errors: dict) -> bool:
-    if re.match(r"^[a-zA-ZÀ-ú']{2,40}(?:\s[a-zA-ZÀ-ú']{2,40})+$", field_value) is not None:
+    if (
+        re.match(r"^[a-zA-ZÀ-ú']{2,40}(?:\s[a-zA-ZÀ-ú']{2,40})+$", field_value)
+        is not None
+    ):
         return True
     else:
-        add_error(field_name, "O valor deste campo deve ser um nome completo válido.", errors)
+        add_error(
+            field_name, "O valor deste campo deve ser um nome completo válido.", errors
+        )
         return False
-    
-    
+
+
 def is_project_name(field_value: str, field_name: str, errors: dict) -> bool:
     if re.match(r"^[\w]+(\s[\w]+)*$", field_value) is not None:
         return True
@@ -205,7 +216,9 @@ def is_greater_than(
     if field_value > value:
         return True
     else:
-        add_error(field_name, f"O valor deste campo deve ser maior que {value}.", errors)
+        add_error(
+            field_name, f"O valor deste campo deve ser maior que {value}.", errors
+        )
         return False
 
 
@@ -223,7 +236,9 @@ def is_less_than(
     if field_value < value:
         return True
     else:
-        add_error(field_name, f"O valor deste campo deve ser menor que {value}.", errors)
+        add_error(
+            field_name, f"O valor deste campo deve ser menor que {value}.", errors
+        )
         return False
 
 
@@ -234,7 +249,9 @@ def is_greater_than_or_equal(
         return True
     else:
         add_error(
-            field_name, f"O valor deste campo deve ser maior ou igual a {value}.", errors
+            field_name,
+            f"O valor deste campo deve ser maior ou igual a {value}.",
+            errors,
         )
         return False
 
@@ -246,6 +263,8 @@ def is_less_than_or_equal(
         return True
     else:
         add_error(
-            field_name, f"O valor deste campo deve ser menor ou igual a {value}.", errors
+            field_name,
+            f"O valor deste campo deve ser menor ou igual a {value}.",
+            errors,
         )
         return False

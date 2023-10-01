@@ -8,14 +8,12 @@ from util.Database import Database
 class CategoriaRepo:
     @classmethod
     def criarTabela(cls):
-        sql = """CREATE TABLE IF NOT EXISTS categoria(
-            idCategoria INTEGER PRIMARY KEY AUTOINCREMENT,
-            usuario INTEGER,
-            nome TEXT NOT NULL,
-            limite DECIMAL,
-            cor TEXT,
-            tipo TEXT,
-            FOREIGN KEY(usuario) REFERENCES user(usuario))"""
+        sql = """CREATE TABLE IF NOT EXISTS categoria (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                idUsuario INTEGER NOT NULL,
+                nome TEXT NOT NULL,
+                CONSTRAINT fkUsuarioCategoria FOREIGN KEY(idUsuario) REFERENCES usuario(id)
+            )"""
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         tabelaCriada = cursor.execute(sql).rowcount > 0
@@ -25,26 +23,27 @@ class CategoriaRepo:
 
     @classmethod
     def inserir(cls, categoria: Categoria) -> Categoria:
-        sql = """INSERT INTO categoria (nome, limite, cor, tipo)
-            values (?, ?, ?, ?)"""
+        sql = "INSERT INTO categoria (nome, idUsuario) values (?, ?)"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(
-            sql, (categoria.nome, categoria.limite, categoria.cor, categoria.tipo)
-        )
+        resultado = cursor.execute(sql, (categoria.nome, categoria.idUsuario))
         if resultado.rowcount > 0:
-            categoria.idCategoria = resultado.lastrowid
+            categoria.id = resultado.lastrowid
         conexao.commit()
         conexao.close()
         return categoria
 
     @classmethod
     def alterar(cls, categoria: Categoria) -> Categoria:
-        sql = "UPDATE categoria SET nome=?, limite=?, cor=?, tipo=? WHERE idCategoria=?"
+        sql = "UPDATE categoria SET nome=? WHERE id=?"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(
-            sql, (categoria.nome, categoria.limite, categoria.cor, categoria.tipo, categoria.idCategoria)
+            sql,
+            (
+                categoria.nome,
+                categoria.id,
+            ),
         )
         if resultado.rowcount > 0:
             conexao.commit()
@@ -55,25 +54,11 @@ class CategoriaRepo:
             return None
 
     @classmethod
-    def excluir(cls, idCategoria: int) -> bool:
-        sql = "DELETE FROM categoria WHERE idCategoria=?"
+    def excluir(cls, id: int) -> bool:
+        sql = "DELETE FROM categoria WHERE id=?"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(sql, (idCategoria,))
-        if resultado.rowcount > 0:
-            conexao.commit()
-            conexao.close()
-            return True
-        else:
-            conexao.close()
-            return False
-
-    @classmethod
-    def limparTabela(cls) -> bool:
-        sql = "DELETE FROM categoria"
-        conexao = Database.criarConexao()
-        cursor = conexao.cursor()
-        resultado = cursor.execute(sql)
+        resultado = cursor.execute(sql, (id,))
         if resultado.rowcount > 0:
             conexao.commit()
             conexao.close()
@@ -84,7 +69,7 @@ class CategoriaRepo:
 
     @classmethod
     def obterTodos(cls) -> List[Categoria]:
-        sql = "SELECT idCategoria, usuario, nome, limite, cor, tipo FROM categoria"
+        sql = "SELECT * FROM categoria"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(sql).fetchall()
@@ -94,11 +79,11 @@ class CategoriaRepo:
         return objetos
 
     @classmethod
-    def obterPorId(cls, idCategoria: int) -> Categoria:
-        sql = "SELECT idCategoria, usuario, nome, limite, cor, tipo FROM categoria WHERE idCategoria=?"
+    def obterPorId(cls, id: int) -> Categoria:
+        sql = "SELECT * FROM categoria WHERE id=?"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(sql, (idCategoria,)).fetchone()
+        resultado = cursor.execute(sql, (id,)).fetchone()
         objeto = Categoria(*resultado)
         conexao.commit()
         conexao.close()

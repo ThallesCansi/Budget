@@ -2,83 +2,51 @@
 <!-- Tabela copiada do arquivo "Aplicação Web" -->
 <!-- Modificar cor dos itens-->
 <div class="row">
-    <div class="col-md-9 col-10 ">
-     <table id="transacao-table" class="table align-middle table-sm" >
-              <caption>Quantidade de Transações: {{qtdeTransacoes}}</caption>
-              <thead class="table-secondary" style="height: 50px; vertical-align: middle;" >
-                <tr class="" >
-                  <th scope="col" class="text-white">Situação</th>
-                  <th scope="col" class="text-white">Data</th>
-                  <th scope="col" class="text-white">Categoria</th>
-                  <th scope="col" class="text-white">Descrição</th>
-                  <th scope="col" class="text-white">Conta</th>
-                  <th scope="col" class="text-white">Valor</th>
-                  <th scope="col" class="text-white">Dependente</th>
-                  <th scope="col" class="text-white">Ações</th>
+    <div class="col-md-9 col-10">
+        <table id="transacao-table" class="table align-middle table-sm">
+            <caption>Quantidade de Transações:</caption>
+            <thead class="table-secondary" style="height: 50px; vertical-align: middle;">
+                <tr class="">
+                    <th scope="col" class="text-white">Situação</th>
+                    <th scope="col" class="text-white">Data</th>
+                    <th scope="col" class="text-white">Categoria</th>
+                    <th scope="col" class="text-white">Descrição</th>
+                    <th scope="col" class="text-white">Conta</th>
+                    <th scope="col" class="text-white">Valor</th>
+                    <th scope="col" class="text-white">Dependente</th>
+                    <th scope="col" class="text-white">Ações</th>
                 </tr>
-              </thead>
-                <tbody>
-                  <tr>
-                      <td>
-                          <i class="bi bi-check-circle-fill text-secondary"></i>
-                      </td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td>
-                          <i class="bi bi-pencil mx-1 text-body-tertiary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Editar"></i>
-                          <i class="bi bi-trash mx-1 text-body-tertiary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Excluir"></i>
-                          <i class="bi bi-paperclip mx-1 text-body-tertiary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Anexar"></i>
-                      </td>
-                  </tr>
-                    <tr>
-                      <td>
-                          <i class="bi bi-exclamation-circle-fill text-danger"></i>
-                      </td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td class="text-dark">Conteudo</td>
-                      <td>
-                          <i class="bi bi-pencil mx-1 text-body-tertiary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Editar"></i>
-                          <i class="bi bi-trash mx-1 text-body-tertiary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Excluir"></i>
-                          <i class="bi bi-paperclip mx-1 text-body-tertiary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Anexar"></i>
-                      </td>
-                  </tr>
-                </tbody>
-                 <!-- {% for t in transactions %}
-                 {% if t.typeIorE == 'Receita' %}
-                 <tr class="table-success">
-                 {% else %}
-                 <tr class="table-danger">
-                 {% endif %}
-                    <td>{{t.typeIorE}}</td>
-                    <td>{{t.date}}</td>
-                    <td>{{t.idCategory}}</td>
-                    <td>{{t.description}}</td>
-                    <td>{{t.idAccount}}</td>
-                    <td>{{t.value}}</td>
-                    <td>{{t.idDependent}}</td>
+            </thead>
+            <tbody>
+                {% for t in transacoes %}
+                <tr {% if t.tipo == 'Receita' %} class="table-success" {% else %} class="table-danger" {% endif %}>
                     <td>
-                      <div class="edit-excl">
-                          <form action="/excluirTransacao" method="post">
-                            <button class="reset-Button" name="idTransaction" value="{{t.idTransaction}}" type="submit" onclick="openPopupExcluir()"><img src="static/img/edit.svg"></button>                        
-                          </form>
-                          <form action="/excluirTransacao" method="post">
-                            <button class="reset-Button" name="idTransaction" value="{{t.idTransaction}}" type="submit" onclick="openPopupExcluir()"><img src="static/img/excluir.svg"></button>                        
-                          </form>
-                      </div>
-                   </td>
+                        {% if t.tipo == 'Receita' %}
+                        <i class="bi bi-check-circle-fill text-secondary"></i>
+                        {% else %}
+                        <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                        {% endif %}
+                    </td>
+                    <td class="text-dark">{{ t.data }}</td>
+                    <td class="text-dark">{{ t.nomeCategoria }}</td>
+                    <td class="text-dark">{{ t.descricao }}</td>
+                    <td class="text-dark">{{ t.nomeConta }}</td>
+                    <td class="text-dark">{{ t.valor }}</td>
+                    <td class="text-dark">{{ t.nomeDependente }}</td>
+                    <td>
+                        <div class="edit-excl">
+                            <form action="/excluirTransacao" method="post">
+                                <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/edit.svg"></button>
+                            </form>
+                            <form action="/excluirTransacao" method="post">
+                                <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/excluir.svg"></button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
-                {% endfor %} -->
-              </tbody>
-            </table>
-        </div>
+                {% endfor %}
+            </tbody>
+        </table>
     <!-- JavaScript -->
     <script> 
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

@@ -1,15 +1,16 @@
-from fastapi import APIRouter, Form, Path
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from models.Categoria import Categoria
 from models.Usuario import Usuario
 from repositories.CategoriaRepo import CategoriaRepo
+from repositories.UsuarioRepo import UsuarioRepo
+from util.seguranca import validar_usuario_logado
 from util.templateFilters import formatarData
 
 
-
-router = APIRouter()
+router = APIRouter(prefix="/categoria")
 
 templates = Jinja2Templates(directory="templates")
 
@@ -20,77 +21,26 @@ async def startup_event():
 
 
 @router.post(
-    "/novacategoria",
+    "/adicionar",
     tags=["Categoria"],
-    summary="Nova categoria",
-    response_class=JSONResponse,
+    summary="Inserir uma nova categoria à tabela para um usuário do sistema.",
+    response_class=HTMLResponse,
 )
 async def postNovaCategoria(
+    request: Request,
     nome: str = Form(),
-    limite: float | None = Form(None),
-    cor: str | None = Form(None),
-    tipo: str | None = Form(None),
+    usuario: Usuario = Depends(validar_usuario_logado),
 ):
-    CategoriaRepo.inserir(Categoria(0, Usuario, nome, limite, cor, tipo))
-    return {"nome": nome, "limite": limite, "cor": cor, "tipo": tipo}
-
-
-@router.get(
-    "/categorias",
-    tags=["Categoria"],
-    summary="Consultar categorias",
-    response_class=JSONResponse,
-)
-async def getCategorias():
-    categorias = CategoriaRepo.obterTodos()
-    return {"categorias": categorias}
-
-
-@router.get(
-    "/categoria/{id}",
-    tags=["Categoria"],
-    summary="Consultar uma única categoria",
-    response_class=JSONResponse,
-)
-async def getCategoria(id: int = Path(...)):
-    categoria = CategoriaRepo.obterPorId(id)
-    return {"categoria": categoria}
-
-
-@router.put(
-    "/atualizarcategoria",
-    tags=["Categoria"],
-    summary="Atualizar categoria",
-    response_class=JSONResponse,
-)
-async def putAtualizarCategoria(
-    id: int = Form(),
-    nome: str = Form(),
-    limite: str | None = Form(None),
-    cor: str | None = Form(None),
-    tipo: str | None = Form(None),
-):
-    categoriaAtualizada = CategoriaRepo.alterar(Categoria(id, Categoria, nome, limite, cor, tipo))
-    return {"categoriaAtualizada": categoriaAtualizada}
-
-
-@router.delete(
-    "/excluircategoria",
-    tags=["Categoria"],
-    summary="Excluir categoria",
-    response_class=JSONResponse,
-)
-async def deleteExcluirCategoria(id: int = Form()):
-    categoria = CategoriaRepo.excluir(id)
-    return {"categoria": categoria}
-
-
-@router.delete(
-    "/excluircategorias",
-    tags=["Categoria"],
-    summary="Excluir todas as categorias",
-    response_class=JSONResponse,
-)
-async def deleteExcluirCategorias():
-    categorias = CategoriaRepo.limparTabela()
-    return {"categorias": categorias}
+    if usuario:
+        token = request.cookies.values().mapping["auth_token"]
+        user = UsuarioRepo.obterUsuarioPorToken(token)
+        CategoriaRepo.inserir(
+            Categoria(
+                0,
+                user.id,
+                nome,
+            )
+        )
+        return RedirectResponse("/configuracoes", status.HTTP_303_SEE_OTHER)
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

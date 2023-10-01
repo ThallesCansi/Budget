@@ -1,10 +1,10 @@
-from pydantic import BaseModel
+from dataclasses import dataclass
 
 from models.Usuario import Usuario
 
-class Dependente(BaseModel):
-    idDependente: int
-    usuario: Usuario
+
+@dataclass
+class Dependente:
+    id: int
+    idUsuario: Usuario
     nome: str
-    descricao: str
-    cor: str

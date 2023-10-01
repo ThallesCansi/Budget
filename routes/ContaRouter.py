@@ -1,14 +1,13 @@
-from typing import Optional
-from fastapi import APIRouter, Form, Path, Request, status
+from fastapi import APIRouter, Depends, Form, HTTPException, Path, Request, status
 from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
+
 from models.Conta import Conta
 from models.Usuario import Usuario
 from repositories.ContaRepo import ContaRepo
+from repositories.UsuarioRepo import UsuarioRepo
+from util.seguranca import validar_usuario_logado
 from util.templateFilters import formatarData
-
-
-
 
 router = APIRouter()
 
@@ -27,12 +26,22 @@ async def startup_event():
     response_class=HTMLResponse,
 )
 async def postNovaConta(
-    titulo: str = Form(), saldo: float = Form(), meta: str | None = Form(None)
+    request: Request,
+    titulo: str = Form(""),
+    saldo: float = Form(""),
+    meta: str = Form(None),
+    usuario: Usuario = Depends(validar_usuario_logado),
 ):
-    ContaRepo.inserir(Conta(0, Usuario, titulo, saldo, meta))
-    return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
+    if usuario:
+        token = request.cookies.values().mapping["auth_token"]
+        user = UsuarioRepo.obterUsuarioPorToken(token)
+        ContaRepo.inserir(Conta(0, user.id, titulo, saldo, meta))
+        return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
+# ! Não faz muito sentido essa rota get
 @router.get(
     "/addConta",
     tags=["Conta"],
@@ -41,7 +50,13 @@ async def postNovaConta(
 )
 async def getContas(request: Request):
     contas = ContaRepo.obterTodos()
-    return templates.TemplateResponse("configuracoes.html", {"request": request, "contas": contas,})
+    return templates.TemplateResponse(
+        "configuracoes.html",
+        {
+            "request": request,
+            "contas": contas,
+        },
+    )
 
 
 @router.get(
