@@ -29,7 +29,7 @@ async def startup_event():
 async def getListagem(
     request: Request,
     mensagem="Transações",
-    pagina="/transacoes",
+    pagina = "/transacoes",
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
@@ -56,20 +56,6 @@ async def getListagem(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
-@router.get("/transacoes")
-async def getTrans(request: Request):
-    mensagem = "Transações"
-    usuario = ""
-    pagina = "/transacoes"
-    return templates.TemplateResponse(
-        "transacoes/transacoes.html",
-        {
-            "request": request,
-            "mensagem": mensagem,
-            "usuario": usuario,
-            "pagina": pagina,
-        },
-    )
 
 
 @router.post(
