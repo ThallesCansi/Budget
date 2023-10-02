@@ -14,6 +14,7 @@ from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import gerar_token, obter_hash_senha, validar_usuario_logado
 from util.templateFilters import capitalizar_nome_proprio, formatar_data
 from util.validators import *
+from babel.numbers import format_currency
 
 
 router = APIRouter()
@@ -116,12 +117,21 @@ async def getDashboard(
             mensagem = "Boa noite, "
 
         transacoes = TransacaoRepo.obterTransacaoPorUsuario(usuario.id)
-
         receita = TransacaoRepo.obterReceita(usuario.id)
         despesa = TransacaoRepo.obterDespesa(usuario.id)
         saldo = TransacaoRepo.obterSaldo(usuario.id)
 
         categorias = CategoriaRepo.obterCategoriaPorUsuario(usuario.id)
+        lista_categoria_despesa = []
+        for t in transacoes:
+            if t.tipo == "Despesa":
+                lista_categoria_despesa.append(t.nomeCategoria)
+
+        receita = format_currency(receita, 'BRL', locale='pt_BR')
+        saldo = format_currency(saldo, 'BRL', locale='pt_BR')
+        despesa = format_currency(despesa, 'BRL', locale='pt_BR')
+
+        
 
         contas = ContaRepo.obterContaPorUsuario(usuario.id)
 
@@ -147,6 +157,7 @@ async def getDashboard(
                 "pagina": pagina,
                 "data_hora": data_hora,
                 "meses": meses,
+                "lista_despesa": lista_categoria_despesa,
             },
         )
     else:
