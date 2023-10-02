@@ -2,7 +2,14 @@
 
 <div class="row">
     <div class="col-md-9 col-10">
-        
+        <div class="mb-3 form-floating col-10 col-md-7 col-sm-8">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                    {% for mes in meses %}
+                        <option value="{{ mes }}" {{ "selected" if mes == data_hora.split("/")[1] | int }}>{{ meses[mes].title() }}</option>
+                    {% endfor %}
+                </select>
+                <label for="floatingSelect">Escolha o mês</label>
+            </div>
         <table id="transacao-table" class="table align-middle table-sm">
             <caption>Quantidade de Transações:</caption>
             <thead class="table-secondary" style="height: 50px; vertical-align: middle;" >
