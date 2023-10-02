@@ -1,4 +1,4 @@
-{% macro modalFormCategoria(id) %}
+{% macro modalFormCategoria(id, categorias) %}
 <div class="modal fade " id="{{ id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered ">
         <div class="modal-content">
@@ -14,7 +14,7 @@
                         <p>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 col-12 mt-4">
+                        <div class="col-lg-6 col-12 mt-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label offset-md-1 offset-sm-2 offset-1">
                                     Nome da Categoria
@@ -45,33 +45,31 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6 col-12">
+                        <div class="col-lg-6 col-12 mb-3">
                             <h3 class="display-6 fs-2 text-center fw-semibold">
                                 Minhas Categorias
                             </h3>
-                            {% for c in categories %}
-                                <div  class=" shadow col-md-8 offset-md-2 col-sm-6 offset-sm-3 offset-2 col-8 py-2 mt-3 d-flex justify-content-between">
-                                    <div class="ms-2 mt-1">
-                                        <h5 class="fs-5 p-0">{{c.name}}</h5>
-                                    </div>
-                                    <div class="d-flex mt-2 me-2 gap-2">
-                                        <div>
-                                            <form action="/excluirCategoria" method="post">
-                                              <button class="btn p-0" name="idCategory" value="" type="submit" onclick="openPopupExcluir()">
-                                                 <i class="bi bi-pencil-square"></i>
-                                              </button>                        
-                                            </form>
+                            <div style="overflow-y: auto; max-height: 52vh;">
+                                {% for c in categorias %}
+                                    <div  class=" shadow col-md-8 offset-md-2 col-sm-6 offset-sm-3 offset-2 col-8 py-2 mt-3 d-flex justify-content-between">
+                                        <div class="ms-2 mt-1">
+                                            <h5 class="fs-5 p-0">{{c.nome}}</h5>
                                         </div>
-                                        <div >
-                                            <form action="/excluirCategoria" method="post">
-                                              <button class="btn p-0" name="idCategory" value="" type="submit" onclick="openPopupExcluir()">
-                                                  <i class="bi bi-trash"></i>
-                                              </button>                        
-                                            </form>
+                                        <div class="d-flex mt-2 me-2 gap-2">
+                                            <div>
+                                                <button class="btn p-0" type="button">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>                        
+                                            </div>
+                                            <div>
+                                                <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#alertaExcluirConta">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>                        
+                                            </div>
                                         </div>
                                     </div>
-                                    {% endfor %}
-                                </div>
+                                {% endfor %}
+                            </div>
                         </div> 
                          <button class="btn col-4 offset-4 rounded bg-secondary text-white fs-5 fw-semibold" type="submit"  style=" background-color: #35aa3a;">
                                     Adicionar Categoria

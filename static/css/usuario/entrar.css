@@ -8,9 +8,6 @@
     text-align: center;
 }
 
-form{
-  overflow-y: auto;
-}
 
 .animacao:before{
     content: '';

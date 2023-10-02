@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
 from models.Usuario import Usuario
 from repositories.ContaRepo import ContaRepo
 from repositories.UsuarioRepo import UsuarioRepo
+from repositories.CategoriaRepo import CategoriaRepo
 
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request, status
@@ -163,6 +164,7 @@ async def getConfig(request: Request, usuario: Usuario = Depends(validar_usuario
         mensagem = "Configurações"
         pagina = "/configuracoes"
         contas = ContaRepo.obterContaPorUsuario(usuario.id)
+        categorias = CategoriaRepo.obterCategoriaPorUsuario(usuario.id)
         return templates.TemplateResponse(
             "main/configuracoes.html",
             {
@@ -171,6 +173,7 @@ async def getConfig(request: Request, usuario: Usuario = Depends(validar_usuario
                 "usuario": usuario,
                 "pagina": pagina,
                 "contas": contas,
+                "categorias": categorias,
             },
         )
     else:
