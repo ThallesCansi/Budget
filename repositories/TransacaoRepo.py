@@ -145,9 +145,14 @@ class TransacaoRepo:
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(sql, (idUsuario,)).fetchone()
-        conexao.commit()
-        conexao.close()
-        return resultado[0]
+        if resultado[0] == None:
+            conexao.commit()
+            conexao.close()
+            return 0
+        else:
+            conexao.commit()
+            conexao.close()
+            return resultado[0]
 
     @classmethod
     def obterDespesa(cls, idUsuario: int) -> float:
@@ -159,9 +164,14 @@ class TransacaoRepo:
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(sql, (idUsuario,)).fetchone()
-        conexao.commit()
-        conexao.close()
-        return resultado[0]
+        if resultado[0] == None:
+            conexao.commit()
+            conexao.close()
+            return None
+        else:
+            conexao.commit()
+            conexao.close()
+            return resultado[0]
 
     @classmethod
     def obterSaldo(cls, idUsuario: int) -> float:
@@ -176,6 +186,11 @@ class TransacaoRepo:
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(sql, (idUsuario,)).fetchone()
-        conexao.commit()
-        conexao.close()
-        return resultado[0]
+        if resultado[0] == None:
+            conexao.commit()
+            conexao.close()
+            return 0
+        else:
+            conexao.commit()
+            conexao.close()
+            return resultado[0]

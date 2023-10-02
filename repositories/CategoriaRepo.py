@@ -99,7 +99,7 @@ class CategoriaRepo:
             if resultado:
                 objeto = [Categoria(*x) for x in resultado]
             else:
-                objeto = None
+                objeto = []
         except Exception as e: 
             objeto = e
         conexao.commit()

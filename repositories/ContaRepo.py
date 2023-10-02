@@ -114,7 +114,7 @@ class ContaRepo:
             if resultado:
                 objeto = [Conta(*x) for x in resultado]
             else:
-                objeto = None
+                objeto = []
         except Exception as e: 
             objeto = e
         conexao.commit()

@@ -40,7 +40,7 @@ class DependenteRepo:
             if resultado:
                 objeto = [Dependente(*x) for x in resultado]
             else:
-                objeto = None
+                objeto = []
         except Exception as e:
             objeto = e
         conexao.commit()
