@@ -28,7 +28,7 @@
     <hr />
 </a>
 {% from "conta/formConta.html" import modalFormConta %}
-{{ modalFormConta(id="formConta")}}
+{{ modalFormConta(id="formConta", contas=contas)}}
 
 {% from "main/modalExcluir.html" import modalExcluir %}
 {{ modalExcluir(id="alertaExcluirConta") }}

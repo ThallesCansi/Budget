@@ -1,4 +1,4 @@
-{% macro modalFormConta(id) %}
+{% macro modalFormConta(id, contas) %}
 <div class="modal fade" id="{{ id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered ">
         <div class="modal-content">
@@ -21,19 +21,19 @@
                                         Título
                                     </label>
                                     <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <input type="text" name="nome" id="nome" class="shadow border-0 form-control" placeholder="Nubank" style="color: #98a6af !important;">
+                                        <input type="text" name="nome" id="nome" class="shadow border-0 form-control" placeholder="Nubank" >
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="saldo" class="form-label offset-md-1 offset-sm-2 offset-1">Saldo</label>
                                     <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <input type="number" name="saldo" id="saldo" class="shadow border-0 form-control" placeholder="R$ 0,00" style="color: #6c757d;">
+                                        <input type="number" name="saldo" id="saldo" class="shadow border-0 form-control" placeholder="R$ 0,00" >
                                     </div>
                                 </div>
                                 <div class="mb-5">
                                     <label for="meta" class="form-label offset-md-1 offset-sm-2 offset-1">Meta</label>
                                     <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <select id="meta" name="meta" class="shadow border-0 form-select" style="color: #6c757d;">
+                                        <select id="meta" name="meta" class="shadow border-0 form-select" >
                                             <option disabled selected>Escolha uma meta</option>
                                             <option value="viagem">Nova viagem em novembro </option>
                                             <option value="carro">Carro novo</option>

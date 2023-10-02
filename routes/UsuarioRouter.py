@@ -121,11 +121,14 @@ async def getDashboard(
         despesa = TransacaoRepo.obterDespesa(usuario.id)
         saldo = TransacaoRepo.obterSaldo(usuario.id)
 
+
+
         categorias = CategoriaRepo.obterCategoriaPorUsuario(usuario.id)
         lista_categoria_despesa = []
         for t in transacoes:
             if t.tipo == "Despesa":
                 lista_categoria_despesa.append(t.nomeCategoria)
+                
 
         receita = format_currency(receita, 'BRL', locale='pt_BR')
         saldo = format_currency(saldo, 'BRL', locale='pt_BR')
@@ -157,7 +160,7 @@ async def getDashboard(
                 "pagina": pagina,
                 "data_hora": data_hora,
                 "meses": meses,
-                "lista_despesa": lista_categoria_despesa,
+                "lista_despesa":lista_categoria_despesa,
             },
         )
     else:

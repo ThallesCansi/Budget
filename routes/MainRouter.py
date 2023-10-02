@@ -5,7 +5,7 @@ from repositories.ContaRepo import ContaRepo
 from repositories.UsuarioRepo import UsuarioRepo
 
 
-from fastapi import APIRouter, Depends, Form, Query, Request, status
+from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request, status
 from fastapi.templating import Jinja2Templates
 from util.seguranca import gerar_token, validar_usuario_logado, verificar_senha
 
@@ -150,21 +150,24 @@ async def getTrans(request: Request):
 
 
 @router.get("/configuracoes")
-async def getConfig(request: Request):
-    mensagem = "Configurações"
-    usuario = ""
-    pagina = "/configuracoes"
-    contas = ContaRepo.obterTodos()
-    return templates.TemplateResponse(
-        "main/configuracoes.html",
-        {
-            "request": request,
-            "mensagem": mensagem,
-            "usuario": usuario,
-            "pagina": pagina,
-            "contas": contas,
-        },
-    )
+async def getConfig(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
+
+    if usuario:
+        mensagem = "Configurações"
+        pagina = "/configuracoes"
+        contas = ContaRepo.obterContaPorUsuario(usuario.id)
+        return templates.TemplateResponse(
+            "main/configuracoes.html",
+            {
+                "request": request,
+                "mensagem": mensagem,
+                "usuario": usuario,
+                "pagina": pagina,
+                "contas": contas,
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
 @router.get("/dependentes")

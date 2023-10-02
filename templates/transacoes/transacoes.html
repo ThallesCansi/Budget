@@ -2,51 +2,75 @@
 
 <div class="row">
     <div class="col-md-9 col-10">
-        
-        <table id="transacao-table" class="table align-middle table-sm">
-            <caption>Quantidade de Transações:</caption>
-            <thead class="table-secondary" style="height: 50px; vertical-align: middle;" >
-                <tr class="text-center">
-                    <th scope="col" class="text-white">Situação</th>
-                    <th scope="col" class="text-white">Data</th>
-                    <th scope="col" class="text-white">Categoria</th>
-                    <th scope="col" class="text-white">Descrição</th>
-                    <th scope="col" class="text-white">Conta</th>
-                    <th scope="col" class="text-white">Valor</th>
-                    <th scope="col" class="text-white">Dependente</th>
-                    <th scope="col" class="text-white">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for t in transacoes %}
-                <tr {% if t.tipo == 'Receita' %} class="table-success" {% else %} class="table-danger" {% endif %}>
-                    <td>
-                        {% if t.tipo == 'Receita' %}
-                        <i class="d-flex justify-content-center align-items-center bi bi-check-circle-fill text-secondary"></i>
-                        {% else %}
-                        <i class="d-flex justify-content-center align-items-centerbi bi-exclamation-circle-fill text-danger"></i>
-                        {% endif %}
-                    </td>
-                    <td class="text-center text-dark">{{ t.data }}</td>
-                    <td class="text-center text-dark">{{ t.nomeCategoria }}</td>
-                    <td class="text-center text-dark">{{ t.descricao }}</td>
-                    <td class="text-center text-dark">{{ t.nomeConta }}</td>
-                    <td class="text-center text-dark">{{ t.valor }}</td>
-                    <td class="text-center text-dark">{{ t.nomeDependente }}</td>
-                    <td class="d-flex justify-content-center align-items-center">
-                        <div class="edit-excl">
-                            <form action="/excluirTransacao" method="post">
-                                <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/edit.svg"></button>
-                            </form>
-                            <form action="/excluirTransacao" method="post">
-                                <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/excluir.svg"></button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-responsive-sm">
+            <table id="transacao-table" class="table align-middle table-sm">
+                <caption>Quantidade de Transações:</caption>
+                <thead class="table-secondary" style="height: 50px; vertical-align: middle;" >
+                    <tr class="text-center">
+                        <th scope="col" class="text-white">Situação</th>
+                        <th scope="col" class="text-white">Data</th>
+                        <th scope="col" class="text-white">Categoria</th>
+                        <th scope="col" class="text-white">Descrição</th>
+                        <th scope="col" class="text-white">Conta</th>
+                        <th scope="col" class="text-white">Valor</th>
+                        <th scope="col" class="text-white">Dependente</th>
+                        <th scope="col" class="text-white">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in transacoes %}
+                    <tr {% if t.tipo == 'Receita' %} class="table-success" {% else %} class="table-danger" {% endif %}>
+                        <td>
+                            {% if t.tipo == 'Receita' %}
+                            <i class="d-flex justify-content-center align-items-center bi bi-check-circle-fill text-secondary"></i>
+                            {% else %}
+                            <i class="d-flex justify-content-center align-items-centerbi bi-exclamation-circle-fill text-danger"></i>
+                            {% endif %}
+                        </td>
+                        <td class="text-center text-dark">{{ t.data }}</td>
+                        <td class="text-center text-dark">{{ t.nomeCategoria }}</td>
+                        <td class="text-center text-dark">{{ t.descricao }}</td>
+                        <td class="text-center text-dark">{{ t.nomeConta }}</td>
+                        <td class="text-center text-dark">{{ t.valor }}</td>
+                        <td class="text-center text-dark">{{ t.nomeDependente }}</td>
+                        <td class="d-flex justify-content-center align-items-center">
+                            <div class="edit-excl">
+                                <form action="/excluirTransacao" method="post">
+                                    <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/edit.svg"></button>
+                                </form>
+                                <form action="/excluirTransacao" method="post">
+                                    <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/excluir.svg"></button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="gy-3 row col-xl-3 col-lg-12 d-flex flex-xl-column flex-sm-row  flex-column justify-content-center align-items-center ">
+        <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-6 d-sm-inline-block ">
+            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 shadow col-sm-0 col-4" style="height: 180px; width: auto !important;">
+                <i class="bi-wallet-fill rounded p-2 text-white shadow" style="background-color: var(--navBar-blue) !important; line-height: 0px;"></i>
+                <p class="fw-semibold" style="color: var(--navBar-blue) !important; font-size: 25px;">{{saldo}}</p>
+                <p style="font-size: 20px;">saldo</p>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-6 d-sm-inline-block">
+            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 shadow" style="height: 180px;">
+                <i class="bi-graph-up-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-saving) !important; line-height: 0px;"></i>
+                <p class="fw-semibold" style="color: var(--navBar-saving) !important; font-size: 25px; ">{{receita}}</p>
+                <p style="font-size: 20px;">receita</p>
+            </div>
+        </div>
+        <div class="col-xl-12  col-lg-4 col-md-4 col-sm-4 col-6 d-sm-inline-block">
+            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 shadow" style="height: 180px;">
+                <i class="bi-graph-down-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-expense); line-height: 0px;"></i>
+                <p class="fw-semibold" style="color: var(--navBar-expense) !important; font-size: 25px;">{{despesa}}</p>
+                <p style="font-size: 20px;">despesa</p>
+            </div>
+        </div>
     </div>
 </div>
     <!-- JavaScript -->
@@ -56,25 +80,31 @@
 </script>
 
     
-<div class="col-md-3 col-10">
-    <div class= "mb-5 d-flex flex-column">
-        <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3" style= "width: auto; height: 9rem;">
-            <img class="" src="">
-            <p class="" id="saldo">{{saldo}}</p>
-            <p class="fs-4">saldo</p>
+<!-- <div class="row ms-1">
+    <div class="g-3 row d-md-inline d-flex flex-column flex-sm-row justify-content-center align-items-center ">
+        <div class="col-xl-3 col-lg-5 col-md-5 col-sm-4 col-7 d-sm-inline-block ">
+            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 shadow col-sm-0 col-4" style="height: 180px; width: auto !important;">
+                <i class="bi-wallet-fill rounded p-2 text-white shadow" style="background-color: var(--navBar-blue) !important; line-height: 0px;"></i>
+                <p class="fw-semibold" style="color: var(--navBar-blue) !important; font-size: 25px;">{{saldo}}</p>
+                <p style="font-size: 20px;">saldo</p>
+            </div>
         </div>
-        <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 my-3" style= "width: auto; height: 9rem;">
-            <img id="receitas" src="" />
-            <p class="" id="receitas">{{receita}}</p>
-            <p class="fs-4">receitas</p>
+        <div class="col-xl-3 col-lg-5 col-md-5 col-sm-4 col-7 d-sm-inline-block">
+            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 shadow" style="height: 180px;">
+                <i class="bi-graph-up-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-saving) !important; line-height: 0px;"></i>
+                <p class="fw-semibold" style="color: var(--navBar-saving) !important; font-size: 25px; ">{{receita}}</p>
+                <p style="font-size: 20px;">receita</p>
+            </div>
         </div>
-        <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3" style= "width: auto; height: 9rem;">
-            <img src=""/>
-            <p class="" id="despesas">{{despesa}}</p>
-            <p class="fs-4">despesas</p>
+        <div class="col-xl-3  col-lg-5 col-md-5 col-sm-4 col-7 d-sm-inline-block">
+            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 shadow" style="height: 180px;">
+                <i class="bi-graph-down-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-expense); line-height: 0px;"></i>
+                <p class="fw-semibold" style="color: var(--navBar-expense) !important; font-size: 25px;">{{despesa}}</p>
+                <p style="font-size: 20px;">despesa</p>
+            </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 {% endblock %}

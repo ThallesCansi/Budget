@@ -9,6 +9,7 @@ from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import validar_usuario_logado
 from util.templateFilters import formatar_data
 from util.validators import *
+from babel.numbers import format_currency
 
 router = APIRouter(prefix="/transacao")
 
@@ -37,6 +38,10 @@ async def getListagem(
         receita = TransacaoRepo.obterReceita(usuario.id)
         despesa = TransacaoRepo.obterDespesa(usuario.id)
         saldo = TransacaoRepo.obterSaldo(usuario.id)
+
+        receita = format_currency(receita, 'BRL', locale='pt_BR')
+        saldo = format_currency(saldo, 'BRL', locale='pt_BR')
+        despesa = format_currency(despesa, 'BRL', locale='pt_BR')
         return templates.TemplateResponse(
             "transacoes/transacoes.html",
             {
