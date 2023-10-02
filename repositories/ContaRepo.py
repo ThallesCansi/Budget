@@ -11,7 +11,7 @@ class ContaRepo:
         sql = """CREATE TABLE IF NOT EXISTS conta (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 idUsuario INTEGER,
-                titulo TEXT NOT NULL,
+                nome TEXT NOT NULL,
                 saldo DECIMAL NOT NULL,
                 meta TEXT,
                 FOREIGN KEY(idUsuario) REFERENCES usuario(id)
@@ -26,13 +26,13 @@ class ContaRepo:
     @classmethod
     def inserir(cls, conta: Conta) -> Conta:
         sql = """
-                INSERT INTO conta (idUsuario, titulo, saldo, meta)
+                INSERT INTO conta (idUsuario, nome, saldo, meta)
                 VALUES (?, ?, ?, ?)
               """
         conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(
-            sql, (conta.idUsuario, conta.titulo, conta.saldo, conta.meta)
+            sql, (conta.idUsuario, conta.nome, conta.saldo, conta.meta)
         )
         if result.rowcount > 0:
             conta.id = result.lastrowid
@@ -42,10 +42,10 @@ class ContaRepo:
 
     @classmethod
     def alterar(cls, conta: Conta) -> Conta:
-        sql = "UPDATE conta SET titulo=?, saldo=?, meta=? WHERE id=?"
+        sql = "UPDATE conta SET nome=?, saldo=?, meta=? WHERE id=?"
         conn = Database.criarConexao()
         cursor = conn.cursor()
-        result = cursor.execute(sql, (conta.titulo, conta.saldo, conta.meta, conta.id))
+        result = cursor.execute(sql, (conta.nome, conta.saldo, conta.meta, conta.id))
         if result.rowcount > 0:
             conn.commit()
             conn.close()
@@ -84,7 +84,7 @@ class ContaRepo:
 
     @classmethod
     def obterTodos(cls) -> List[Conta]:
-        sql = "SELECT id, idUsuario, titulo, saldo, meta FROM conta"
+        sql = "SELECT id, idUsuario, nome, saldo, meta FROM conta"
         conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql).fetchall()
@@ -95,7 +95,7 @@ class ContaRepo:
 
     @classmethod
     def obterPorId(cls, id: int) -> Conta:
-        sql = "SELECT id, idUsuario, titulo, saldo, meta FROM conta WHERE id=?"
+        sql = "SELECT id, idUsuario, nome, saldo, meta FROM conta WHERE id=?"
         conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql, (id,)).fetchone()
@@ -103,3 +103,20 @@ class ContaRepo:
         conn.commit()
         conn.close()
         return object
+    
+    @classmethod
+    def obterContaPorUsuario(cls, idUsuario: int) -> list[Conta]:
+        sql = "SELECT * FROM conta WHERE idUsuario=?"
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        try:
+            resultado = cursor.execute(sql, (idUsuario,)).fetchall()
+            if resultado:
+                objeto = [Conta(*x) for x in resultado]
+            else:
+                objeto = None
+        except Exception as e: 
+            objeto = e
+        conexao.commit()
+        conexao.close()
+        return objeto

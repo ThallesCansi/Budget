@@ -1,5 +1,5 @@
-def formatarData(dataStr: str) -> str:
-    if dataStr is None:
+def formatar_data(dataStr: str) -> str:
+    if dataStr == None or dataStr == "":
         return ""
     ano, mes, dia = dataStr.split("-")
     return f"{dia}/{mes}/{ano}"

@@ -50,7 +50,7 @@
                 <div class="mt-3">
                     <h3 class="fs-5">transações recentes</h3>
                     <p class="fs-8">receitas e despesas</p>
-                    {% for t in transactions %}
+                    {% for t in transacoes %}
                         {% if t.typeIorE == 'Despesa' %}
                         <a class="text-decoration-none" href="/transacoes">
                             <div class="px-2 bg-white w-50 rounded-3 shadow d-flex justify-content-between ">
@@ -96,8 +96,18 @@
     </div>
 </div>
 {% from "transacoes/formReceita.html" import modalFormReceita %}
-{{ modalFormReceita(id="formReceita")}}
+{{ modalFormReceita(id="formReceita", categorias=categorias, contas=contas, dependentes=dependentes)}}
 
 {% from "transacoes/formDespesa.html" import modalFormDespesa %}
-{{ modalFormDespesa(id="formDespesa")}}
+{{ modalFormDespesa(id="formDespesa", categorias=categorias, contas=contas, dependentes=dependentes)}}
+
+
+{% if erros and valores: %}
+<script>
+    const validationErrors = {{ erros|tojson }};
+    const fieldValues = {{ valores|tojson }};
+</script>
+<script src="/static/js/formValidation.js"></script>
+{% endif %}
 {% endblock %}
+

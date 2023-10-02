@@ -29,3 +29,20 @@ class DependenteRepo:
         conn.commit()
         conn.close()
         return dependente
+
+    @classmethod
+    def obterDependentePorUsuario(cls, idUsuario: int) -> list[Dependente]:
+        sql = "SELECT * FROM dependente WHERE idUsuario=?"
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        try:
+            resultado = cursor.execute(sql, (idUsuario,)).fetchall()
+            if resultado:
+                objeto = [Dependente(*x) for x in resultado]
+            else:
+                objeto = None
+        except Exception as e:
+            objeto = e
+        conexao.commit()
+        conexao.close()
+        return objeto

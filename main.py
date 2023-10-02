@@ -22,7 +22,6 @@ DependenteRepo.criarTabela()
 TransacaoRepo.criarTabela()
 UsuarioRepo.criarTabela()
 
-
 with open("project_info.json", "r", encoding="utf-8") as project_info_file:
     project_info = json.load(project_info_file)
 

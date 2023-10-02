@@ -1,3 +1,4 @@
+from datetime import datetime
 import re
 from typing import Any
 
@@ -266,5 +267,33 @@ def is_less_than_or_equal(
             field_name,
             f"O valor deste campo deve ser menor ou igual a {value}.",
             errors,
+        )
+        return False
+
+
+def is_date(data_str: str, nome_campo: str, erros: dict) -> bool:
+    try:
+        formato_esperado = "%d/%m/%Y"
+        datetime.strptime(data_str, formato_esperado)
+        return True
+    except ValueError:
+        add_error(
+            nome_campo,
+            "O valor deste campo deve ser uma data válida no formato DD/MM/YYYY.",
+            erros,
+        )
+        return False
+
+
+def is_time(horario_str: str, nome_campo: str, erros: dict) -> bool:
+    try:
+        formato_esperado = "%H:%M"
+        datetime.strptime(horario_str, formato_esperado)
+        return True
+    except ValueError:
+        add_error(
+            nome_campo,
+            "O valor deste campo deve ser um horário válido no formato HH:MM.",
+            erros,
         )
         return False

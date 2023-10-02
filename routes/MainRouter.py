@@ -9,7 +9,7 @@ from fastapi import APIRouter, Depends, Form, Query, Request, status
 from fastapi.templating import Jinja2Templates
 from util.seguranca import gerar_token, validar_usuario_logado, verificar_senha
 
-from util.templateFilters import formatarData
+from util.templateFilters import formatar_data
 from util.validators import *
 
 router = APIRouter()
@@ -19,7 +19,7 @@ templates = Jinja2Templates(directory="templates")
 
 @router.on_event("startup")
 async def startup_event():
-    templates.env.filters["date"] = formatarData
+    templates.env.filters["date"] = formatar_data
 
 
 @router.get("/")

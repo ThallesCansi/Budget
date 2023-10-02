@@ -22,7 +22,7 @@ class TransacaoRepo:
                 CONSTRAINT fkCategoriaTransacao FOREIGN KEY(idCategoria) REFERENCES categoria(id),
                 CONSTRAINT fkDependenteTransacao FOREIGN KEY(idDependente) REFERENCES dependente(id),
                 CONSTRAINT fkUsuarioTransacao FOREIGN KEY(idUsuario) REFERENCES usuario(id)
-            )"""
+            );"""
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         tabelaCriada = cursor.execute(sql).rowcount > 0
@@ -32,7 +32,7 @@ class TransacaoRepo:
 
     @classmethod
     def inserir(cls, transacao: Transacao) -> Transacao:
-        sql = "INSERT INTO transacao (idConta, idCategoria, idDependente, idUsuario, descricao, data, valor, forma_pagamento, tipo) values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        sql = "INSERT INTO transacao (idConta, idCategoria, idDependente, idUsuario, descricao, data, valor, forma_pagamento, tipo) values (?, ?, ?, ?, ?, ?, ?, ?, ?);"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(
@@ -57,7 +57,7 @@ class TransacaoRepo:
 
     @classmethod
     def alterar(cls, transacao: Transacao) -> Transacao:
-        sql = "UPDATE transacao SET idConta=?, idCategoria=?, idDependente=?, descricao=?, data=?, valor=?, forma_pagamento=?, tipo=? WHERE id=?"
+        sql = "UPDATE transacao SET idConta=?, idCategoria=?, idDependente=?, descricao=?, data=?, valor=?, forma_pagamento=?, tipo=? WHERE id=?;"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(
@@ -84,7 +84,7 @@ class TransacaoRepo:
 
     @classmethod
     def excluir(cls, id: int) -> bool:
-        sql = "DELETE FROM transacao WHERE id=?"
+        sql = "DELETE FROM transacao WHERE id=?;"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(sql, (id,))
@@ -99,29 +99,24 @@ class TransacaoRepo:
     @classmethod
     def obterTransacaoPorUsuario(cls, idUsuario: int) -> Transacao:
         sql = """SELECT
-                t.id AS id_transacao,
-                t.descricao AS descricao_transacao,
-                t.data AS data_transacao,
-                t.valor AS valor_transacao,
-                t.forma_pagamento AS forma_pagamento_transacao,
-                t.tipo AS tipo_transacao,
-                c.nome AS nome_categoria,
-                co.titulo AS nome_conta,
-                d.nome AS nome_dependente
-                FROM
-                    transacao t
-                INNER JOIN
-                    categoria c ON t.idCategoria = c.id
-                INNER JOIN
-                    conta co ON t.idConta = co.id
-                LEFT JOIN
-                    dependente d ON t.idDependente = d.id
-                INNER JOIN
-                    usuario u ON t.idUsuario = u.id
-            """
+                    t.id as id_transacao,
+                    t.descricao AS descricao_transacao,
+                    t.data,
+                    t.valor,
+                    t.forma_pagamento,
+                    t.tipo,
+                    c.nome AS nome_categoria,
+                    co.nome AS nome_conta,
+                    d.nome AS nome_dependente
+                FROM transacao t
+                INNER JOIN categoria c ON t.idCategoria = c.id
+                INNER JOIN conta co ON t.idConta = co.id
+                LEFT JOIN dependente d ON t.idDependente = d.id
+                WHERE t.idUsuario = ?;
+                """
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(sql).fetchall()
+        resultado = cursor.execute(sql, (idUsuario,)).fetchall()
         objetos = [
             Transacao(
                 id=x[0],
@@ -141,12 +136,46 @@ class TransacaoRepo:
         return objetos
 
     @classmethod
-    def obterPorId(cls, id: int) -> Transacao:
-        sql = "SELECT * FROM transacao WHERE id=?"
+    def obterReceita(cls, idUsuario: int) -> str:
+        sql = """SELECT
+                    SUM(CASE WHEN t.tipo = 'Receita' AND t.valor > 0 THEN t.valor ELSE 0 END) AS soma_receitas_positivas
+                FROM transacao t
+                WHERE t.idUsuario = ?;
+                """
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(sql, (id,)).fetchone()
-        objeto = Transacao(*resultado)
+        resultado = cursor.execute(sql, (idUsuario,)).fetchone()
         conexao.commit()
         conexao.close()
-        return objeto
+        return resultado[0]
+
+    @classmethod
+    def obterDespesa(cls, idUsuario: int) -> float:
+        sql = """SELECT
+                    SUM(CASE WHEN t.tipo = 'Despesa' AND t.valor < 0 THEN t.valor ELSE 0 END) AS soma_receitas_positivas
+                FROM transacao t
+                WHERE t.idUsuario = ?;
+                """
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        resultado = cursor.execute(sql, (idUsuario,)).fetchone()
+        conexao.commit()
+        conexao.close()
+        return resultado[0]
+
+    @classmethod
+    def obterSaldo(cls, idUsuario: int) -> float:
+        sql = """SELECT
+                    SUM(t.valor) AS soma_total_valores
+                FROM transacao t
+                INNER JOIN categoria c ON t.idCategoria = c.id
+                INNER JOIN conta co ON t.idConta = co.id
+                LEFT JOIN dependente d ON t.idDependente = d.id
+                WHERE t.idUsuario = ?;
+                """
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        resultado = cursor.execute(sql, (idUsuario,)).fetchone()
+        conexao.commit()
+        conexao.close()
+        return resultado[0]

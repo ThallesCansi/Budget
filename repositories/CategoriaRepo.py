@@ -88,3 +88,20 @@ class CategoriaRepo:
         conexao.commit()
         conexao.close()
         return objeto
+
+    @classmethod
+    def obterCategoriaPorUsuario(cls, idUsuario: int) -> list[Categoria]:
+        sql = "SELECT * FROM categoria WHERE idUsuario=?"
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        try:
+            resultado = cursor.execute(sql, (idUsuario,)).fetchall()
+            if resultado:
+                objeto = [Categoria(*x) for x in resultado]
+            else:
+                objeto = None
+        except Exception as e: 
+            objeto = e
+        conexao.commit()
+        conexao.close()
+        return objeto

@@ -1,4 +1,4 @@
-{% macro modalFormReceita(id) %}
+{% macro modalFormReceita(id, categorias, contas, dependentes) %}
 <div class="modal fade " id="{{ id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered ">
         <div class="modal-content">
@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form class="col-12 col-md-10 offset-md-1" method="post" action="/receita"> 
+                    <form class="col-12 col-md-10 offset-md-1" method="post" action="/transacao/adicionar?tipo=Receita"> 
                         <h1 class="display-6 text-center fw-semibold" style=" color: #35aa3a;">
                             Registrar Receita
                         </h1>
@@ -40,8 +40,8 @@
                                         <option value="label" disabled selected>
                                             Escolha a categoria
                                         </option>
-                                        {% for c in categories %}
-                                        <option value="{{c.idCategory}}">{{c.name}}</option>
+                                        {% for c in categorias %}
+                                            <option value="{{ c.id }}">{{ c.nome }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -53,8 +53,8 @@
                                 <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
                                     <select id="account" name="idAccount" class="shadow border-0 form-select" style="color: #6c757d;">
                                         <option disabled selected>Escolha a sua conta</option>
-                                        {% for a in account %}
-                                        <option value="{{a.idAccount}}">{{a.title}}</option>
+                                        {% for c in contas %}
+                                            <option value="{{ c.id }}">{{ c.nome }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -82,8 +82,8 @@
                                             Escolha o Dependente
                                         </option>
                     
-                                        {% for d in dependents %}
-                                            <option value="{{d.idDependent}}">{{d.name}}</option>
+                                        {% for d in dependentes %}
+                                            <option value="{{ d.id }}">{{ d.nome }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -101,7 +101,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="btn col-4 offset-4 rounded-pill" type="submit"  style=" background-color: #35aa3a;">
+                            <button class="btn col-4 offset-4 rounded-pill" type="submit" style=" background-color: #35aa3a;">
                                 <i class="bi bi-check2 text-white fs-4"></i>
                             </button>
                         </div>

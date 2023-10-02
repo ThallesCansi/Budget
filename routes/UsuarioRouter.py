@@ -6,10 +6,13 @@ from fastapi.templating import Jinja2Templates
 from models.Transacao import Transacao
 
 from models.Usuario import Usuario
+from repositories.CategoriaRepo import CategoriaRepo
+from repositories.ContaRepo import ContaRepo
+from repositories.DependenteRepo import DependenteRepo
 from repositories.TransacaoRepo import TransacaoRepo
 from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import gerar_token, obter_hash_senha, validar_usuario_logado
-from util.templateFilters import capitalizar_nome_proprio, formatarData
+from util.templateFilters import capitalizar_nome_proprio, formatar_data
 from util.validators import *
 
 
@@ -20,7 +23,7 @@ templates = Jinja2Templates(directory="templates")
 
 @router.on_event("startup")
 async def startup_event():
-    templates.env.filters["date"] = formatarData
+    templates.env.filters["date"] = formatar_data
 
 
 @router.post(
@@ -104,12 +107,27 @@ async def getDashboard(
 ):
     pagina = "/dashboard"
     hora = datetime.now().hour
-    if 6 <= hora <= 12:
+    if 6 <= hora < 12:
         mensagem = "Bom dia, "
-    elif hora <= 18:
+    elif hora < 18:
         mensagem = "Boa tarde, "
     else:
         mensagem = "Boa noite, "
+
+    token = request.cookies.values().mapping["auth_token"]
+    user = UsuarioRepo.obterUsuarioPorToken(token)
+
+    transacoes = TransacaoRepo.obterTransacaoPorUsuario(user.id)
+
+    receita = TransacaoRepo.obterReceita(user.id)
+    despesa = TransacaoRepo.obterDespesa(user.id)
+    saldo = TransacaoRepo.obterSaldo(user.id)
+
+    categorias = CategoriaRepo.obterCategoriaPorUsuario(user.id)
+
+    contas = ContaRepo.obterContaPorUsuario(user.id)
+
+    dependentes = DependenteRepo.obterDependentePorUsuario(user.id)
 
     if usuario:
         usuario = UsuarioRepo.obterPorId(usuario.id)
@@ -123,6 +141,13 @@ async def getDashboard(
                 {
                     "request": request,
                     "usuario": usuario,
+                    "transacoes": transacoes,
+                    "receita": receita,
+                    "despesa": despesa,
+                    "categorias": categorias,
+                    "contas": contas,
+                    "dependentes": dependentes,
+                    "saldo": saldo,
                     "mensagem": mensagem,
                     "pagina": pagina,
                     "data_hora": data_hora,
@@ -143,27 +168,3 @@ async def getRecuperar(request: Request):
             "request": request,
         },
     )
-
-
-@router.post(
-    "/receita",
-    tags=["Usuário"],
-    summary="Adicionar uma receita",
-    response_class=HTMLResponse,
-)
-async def postReceita(
-    request: Request,
-    descricao: str = Form(""),
-    valor: float = Form(""),
-    conta: str = "Inter",
-    dependente: str = "Nenhum",
-    data: str = Form(""),
-    categoria: str = "Venda",
-    forma_pagamento: str = "PIX",
-    usuario: Usuario = Depends(validar_usuario_logado),
-):
-    if usuario:
-        TransacaoRepo.inserir(
-            Transacao(0, 1, 1, 1, 1, descricao, data, valor, forma_pagamento, "Receita")
-        )
-        return RedirectResponse("/dashboard", status_code=status.HTTP_303_SEE_OTHER)

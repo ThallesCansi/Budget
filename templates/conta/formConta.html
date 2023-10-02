@@ -17,11 +17,11 @@
                         <div class="row">
                             <div class="col-md-6 col-12 mt-4">
                                 <div class="mb-3">
-                                    <label for="titulo" class="form-label offset-md-1 offset-sm-2 offset-1">
+                                    <label for="nome" class="form-label offset-md-1 offset-sm-2 offset-1">
                                         Título
                                     </label>
                                     <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                        <input type="text" name="titulo" id="titulo" class="shadow border-0 form-control" placeholder="Nubank" style="color: #98a6af !important;">
+                                        <input type="text" name="nome" id="nome" class="shadow border-0 form-control" placeholder="Nubank" style="color: #98a6af !important;">
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -50,7 +50,7 @@
                                 {% for c in contas %}
                                     <div  class=" shadow col-md-8 offset-md-2 col-sm-6 offset-sm-3 offset-2 col-8 py-2 mt-3 d-flex justify-content-between">
                                         <div class="ms-2 mt-1">
-                                            <h5 class="fs-5 p-0">{{c.titulo}}</h5>
+                                            <h5 class="fs-5 p-0">{{c.nome}}</h5>
                                         </div>
                                         <div class="d-flex mt-2 me-2 gap-2">
                                             <div>
@@ -77,4 +77,5 @@
         </div>
     </div>
 </div>
+
 {% endmacro %}

@@ -7,7 +7,7 @@ from models.Usuario import Usuario
 from repositories.DependenteRepo import DependenteRepo
 from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import validar_usuario_logado
-from util.templateFilters import formatarData
+from util.templateFilters import formatar_data
 
 router = APIRouter(prefix="/dependente")
 
@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="templates")
 
 @router.on_event("startup")
 async def startup_event():
-    templates.env.filters["date"] = formatarData
+    templates.env.filters["date"] = formatar_data
 
 
 @router.post(

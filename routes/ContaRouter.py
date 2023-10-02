@@ -7,7 +7,7 @@ from models.Usuario import Usuario
 from repositories.ContaRepo import ContaRepo
 from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import validar_usuario_logado
-from util.templateFilters import formatarData
+from util.templateFilters import formatar_data
 
 router = APIRouter()
 
@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="templates")
 
 @router.on_event("startup")
 async def startup_event():
-    templates.env.filters["date"] = formatarData
+    templates.env.filters["date"] = formatar_data
 
 
 @router.post(
@@ -27,7 +27,7 @@ async def startup_event():
 )
 async def postNovaConta(
     request: Request,
-    titulo: str = Form(""),
+    nome: str = Form(""),
     saldo: float = Form(""),
     meta: str = Form(None),
     usuario: Usuario = Depends(validar_usuario_logado),
@@ -35,7 +35,7 @@ async def postNovaConta(
     if usuario:
         token = request.cookies.values().mapping["auth_token"]
         user = UsuarioRepo.obterUsuarioPorToken(token)
-        ContaRepo.inserir(Conta(0, user.id, titulo, saldo, meta))
+        ContaRepo.inserir(Conta(0, user.id, nome, saldo, meta))
         return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
@@ -78,11 +78,11 @@ async def getConta(id: int = Path(...)):
 )
 async def putAtualizarConta(
     id: int = Form(),
-    titulo: str = Form(),
+    nome: str = Form(),
     saldo: float = Form(),
     meta: str | None = Form(None),
 ):
-    contaAtualizada = ContaRepo.alterar(Conta(id, Usuario, titulo, saldo, meta))
+    contaAtualizada = ContaRepo.alterar(Conta(id, Usuario, nome, saldo, meta))
     return {"contaAtualizada": contaAtualizada}
 
 

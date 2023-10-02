@@ -5,6 +5,6 @@ from dataclasses import dataclass
 class Conta:
     id: int
     idUsuario: int
-    titulo: str
+    nome: str
     saldo: float
     meta: str | None = None
