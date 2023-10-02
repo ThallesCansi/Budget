@@ -86,17 +86,19 @@
         </div>
     </div>
 </div>
-    <div class="position-absolute bottom-0 end-0 me-md-2 mb-md-1 me-1 w-auto " id="#add" >
-        <a class="add-transacao" href="#add" onclick="openPopupButton()">
-            <img src="/static/img/Adicionar.svg">
-        </a>
-        <div id="tipoRouD" class="tipoRouD flex-column" style="display: none;">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#formReceita">
-                <img src="/static/img/Receita.svg">
+    <div class="fixed-bottom">
+        <div class="position-absolute bottom-0 end-0 me-md-5 mb-sm-5 me-sm-5 me-1 w-auto" id="#add" >
+            <a class="add-transacao" href="#add" onclick="openPopupButton()">
+                <img src="/static/img/Adicionar.svg">
             </a>
-            <a  href="#">
-                <img src="/static/img/Despesa.svg"  data-bs-toggle="modal" data-bs-target="#formDespesa">
-            </a>
+            <div id="tipoRouD" class="tipoRouD flex-column" style="display: none;">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#formReceita">
+                    <img src="/static/img/Receita.svg">
+                </a>
+                <a  href="#">
+                    <img src="/static/img/Despesa.svg"  data-bs-toggle="modal" data-bs-target="#formDespesa">
+                </a>
+            </div>
         </div>
     </div>
 {% from "transacoes/formReceita.html" import modalFormReceita %}
