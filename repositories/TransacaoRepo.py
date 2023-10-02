@@ -167,7 +167,7 @@ class TransacaoRepo:
         if resultado[0] == None:
             conexao.commit()
             conexao.close()
-            return None
+            return 0
         else:
             conexao.commit()
             conexao.close()
