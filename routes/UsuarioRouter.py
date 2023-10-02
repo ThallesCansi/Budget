@@ -1,9 +1,9 @@
 from babel.dates import format_datetime, get_month_names
+from babel.numbers import format_currency
 from datetime import datetime
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
-from models.Transacao import Transacao
 
 from models.Usuario import Usuario
 from repositories.CategoriaRepo import CategoriaRepo
@@ -14,8 +14,6 @@ from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import gerar_token, obter_hash_senha, validar_usuario_logado
 from util.templateFilters import capitalizar_nome_proprio, formatar_data
 from util.validators import *
-from babel.numbers import format_currency
-
 
 router = APIRouter()
 
@@ -35,12 +33,12 @@ async def startup_event():
 )
 async def postNovoUsuario(
     request: Request,
-    usuario: Usuario = Depends(validar_usuario_logado),
     nome: str = Form(""),
     email: str = Form(""),
     senha: str = Form(""),
     confirmarSenha: str = Form(""),
     termoUso: str = Form(""),
+    usuario: Usuario = Depends(validar_usuario_logado),
 ):
     nome = capitalizar_nome_proprio(nome).strip()
 
@@ -121,20 +119,15 @@ async def getDashboard(
         despesa = TransacaoRepo.obterDespesa(usuario.id)
         saldo = TransacaoRepo.obterSaldo(usuario.id)
 
-
-
         categorias = CategoriaRepo.obterCategoriaPorUsuario(usuario.id)
         lista_categoria_despesa = []
         for t in transacoes:
             if t.tipo == "Despesa":
                 lista_categoria_despesa.append(t.nomeCategoria)
-                
 
-        receita = format_currency(receita, 'BRL', locale='pt_BR')
-        saldo = format_currency(saldo, 'BRL', locale='pt_BR')
-        despesa = format_currency(despesa, 'BRL', locale='pt_BR')
-
-        
+        receita = format_currency(receita, "BRL", locale="pt_BR")
+        saldo = format_currency(saldo, "BRL", locale="pt_BR")
+        despesa = format_currency(despesa, "BRL", locale="pt_BR")
 
         contas = ContaRepo.obterContaPorUsuario(usuario.id)
 
@@ -160,7 +153,7 @@ async def getDashboard(
                 "pagina": pagina,
                 "data_hora": data_hora,
                 "meses": meses,
-                "lista_despesa":lista_categoria_despesa,
+                "lista_despesa": lista_categoria_despesa,
             },
         )
     else:

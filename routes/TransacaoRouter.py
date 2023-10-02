@@ -32,7 +32,7 @@ async def startup_event():
 async def getListagem(
     request: Request,
     mensagem="Transações",
-    pagina = "/transacoes",
+    pagina="/transacoes",
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
@@ -41,10 +41,10 @@ async def getListagem(
         despesa = TransacaoRepo.obterDespesa(usuario.id)
         saldo = TransacaoRepo.obterSaldo(usuario.id)
 
-        receita = format_currency(receita, 'BRL', locale='pt_BR')
-        saldo = format_currency(saldo, 'BRL', locale='pt_BR')
-        despesa = format_currency(despesa, 'BRL', locale='pt_BR')
-        
+        receita = format_currency(receita, "BRL", locale="pt_BR")
+        saldo = format_currency(saldo, "BRL", locale="pt_BR")
+        despesa = format_currency(despesa, "BRL", locale="pt_BR")
+
         data_hora = format_datetime(
             datetime.now(), format="short", locale="pt_BR"
         ).title()
@@ -66,8 +66,6 @@ async def getListagem(
         )
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-
-
 
 
 @router.post(
