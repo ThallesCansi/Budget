@@ -4,9 +4,9 @@
 
 
 <div class="row">
-    <div class="col-md-8">
-        <div class="row">
-            <div class="mb-3 form-floating w-50">
+    <div class="col-md-8 col-12">
+        <div class="row d-flex justify-content-center">
+            <div class="mb-3 form-floating col-10 col-md-5">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                     {% for mes in meses %}
                         <option value="{{ mes }}" {{ "selected" if mes == data_hora.split("/")[1] | int }}>{{ meses[mes].title() }}</option>
@@ -16,22 +16,22 @@
             </div>
         </div>
         <div class="row">
-            <div class="g-3 row">
-                <div class="col-4">
-                    <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-3 border border-dark rounded-3 shadow" style="height: 180px; width: auto !important;">
+            <div class="g-3 row  ">
+                <div class="col-lg-4 col-sm-4 d-sm-inline-block d-flex justify-content-center">
+                    <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-3 border border-dark rounded-3 shadow col-sm-0 col-4" style="height: 180px; width: auto !important;">
                         <i class="bi-wallet-fill rounded p-2 text-white shadow" style="background-color: var(--navBar-blue) !important; line-height: 0px;"></i>
                         <p class="fw-semibold" style="color: var(--navBar-blue) !important; font-size: 25px;">{{ 'R$%.2f'|format(saldo) }}</p>
                         <p style="font-size: 20px;">saldo</p>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 col-sm-4 d-sm-inline-block d-flex justify-content-center">
                     <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-3 border border-dark rounded-3 shadow" style="height: 180px;">
                         <i class="bi-graph-up-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-saving) !important; line-height: 0px;"></i>
                         <p class="fw-semibold" style="color: var(--navBar-saving) !important; font-size: 25px; ">{{ 'R$%.2f'|format(receita) }}</p>
                         <p style="font-size: 20px;">receita</p>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 col-sm-4 d-sm-inline-block d-inline-flex justify-content-center">
                     <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-3 border border-dark rounded-3 shadow" style="height: 180px;">
                         <i class="bi-graph-down-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-expense); line-height: 0px;"></i>
                         <p class="fw-semibold" style="color: var(--navBar-expense) !important; font-size: 25px;">{{ 'R$%.2f'|format(despesa) }}</p>
@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-12 mt-5 d-md-block text-md-start d-flex  flex-column justify-content-center align-items-center text-center">
         <div class="">
             <h3 class="fs-5">suas despesas</h3>
             <p class="fs-8">últimos 15 dias</p>
@@ -59,7 +59,7 @@
             {% for t in transacoes %}
                 {% if t.typeIorE == 'Despesa' %}
                 <a class="text-decoration-none" href="/transacoes">
-                    <div class="px-2 bg-white w-50 rounded-3 shadow d-flex justify-content-between ">
+                    <div class="px-2 bg-white w-50 rounded-3 shadow d-flex justify-content-between col-lg-10 col-12 ">
                         <div>
                             <p class="fw-bold" style="color:#d76060">{{t.typeIorE}}</p>
                         </div>
@@ -70,7 +70,7 @@
                 </a>
                 {% else %}
                 <a class="text-decoration-none" href="/transacao/listagem">
-                    <div class="px-2 bg-white min-w-50 rounded-3 shadow d-flex justify-content-between col-10 ">
+                    <div class="px-2 bg-white min-w-50 rounded-3 shadow d-flex justify-content-between col-lg-10 col-12 ">
                         <div>
                             <p class="fw-bold" style="color:#d76060">{{t.typeIorE}}</p>
                         </div>
@@ -84,7 +84,7 @@
         </div>
     </div>
 </div>
-    <div class="position-absolute bottom-0 end-0 m-5 w-auto col-md-6 col-sm-6 col-6 d-lg-inline" id="#add" >
+    <div class="position-absolute bottom-0 end-0 m-md-5 me-1 w-auto " id="#add" >
         <a class="add-transacao" href="#add" onclick="openPopupButton()">
             <img src="/static/img/Adicionar.svg">
         </a>
