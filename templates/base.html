@@ -69,7 +69,6 @@
                         <a class="nav-link fw-bold fs-4" data-bs-toggle="modal" data-bs-target="#modalConfirmar">
                             <i class="bi bi-box-arrow-right"></i>
                             <span class="d-lg-inline d-none">Sair</span>
-                            {{ modalConfirmar(link="/sair", id="modalConfirmar") }}
                         </a>
                     </li>
                 </ul>
@@ -253,6 +252,9 @@
         </div>
     </div>
     <script src="/static/js/larguraCabecalho.js"></script>
+
+    {% from "components/modalConfirmar.html" import modalConfirmar %}
+    {{ modalConfirmar(link="/sair", id="modalConfirmar") }}
 </body>
 
 </html>
