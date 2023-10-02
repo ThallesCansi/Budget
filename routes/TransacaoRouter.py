@@ -1,3 +1,5 @@
+from babel.dates import format_datetime, get_month_names
+from datetime import datetime
 from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -9,6 +11,7 @@ from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import validar_usuario_logado
 from util.templateFilters import formatar_data
 from util.validators import *
+from babel.numbers import format_currency
 
 router = APIRouter(prefix="/transacao")
 
@@ -37,6 +40,15 @@ async def getListagem(
         receita = TransacaoRepo.obterReceita(usuario.id)
         despesa = TransacaoRepo.obterDespesa(usuario.id)
         saldo = TransacaoRepo.obterSaldo(usuario.id)
+
+        receita = format_currency(receita, 'BRL', locale='pt_BR')
+        saldo = format_currency(saldo, 'BRL', locale='pt_BR')
+        despesa = format_currency(despesa, 'BRL', locale='pt_BR')
+        
+        data_hora = format_datetime(
+            datetime.now(), format="short", locale="pt_BR"
+        ).title()
+        meses = get_month_names("wide", locale="pt_BR")
         return templates.TemplateResponse(
             "transacoes/transacoes.html",
             {
@@ -47,6 +59,8 @@ async def getListagem(
                 "saldo": saldo,
                 "mensagem": mensagem,
                 "pagina": pagina,
+                "data_hora": data_hora,
+                "meses": meses,
                 "usuario": usuario,
             },
         )
