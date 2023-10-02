@@ -1,0 +1,332 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&family=Suez+One&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: "DM Sans", sans-serif;
+}
+
+:root {
+    --bg-color: #2b478b;
+    --second-bg-color: #7380a0;
+    --text-color: #e7eaee;
+    --main-color: #56ab91;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    scroll-snap-type: y mandatory;
+}
+
+section {
+    min-height: 100vh;
+    padding: 10rem 9% 2rem;
+    scroll-snap-align: start;
+}
+
+.container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+}
+
+/* ------------------------------ Navbar ------------------------------ */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 9%;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    transition: 1.4s;
+}
+
+.header.scrolled {
+    background-color: #fff; /* cor da navbar ao fazer o scroll */
+    transition: 1.4s;
+}
+
+.header.sticky {
+    border-bottom: 0.1rem solid rgba(0, 0, 0, 0.075);
+}
+
+.logo {
+    height: 50px;
+    width: 50px;
+    font-size: 2.5rem;
+    color: var(--text-color);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.navbar a {
+    font-size: 1.7rem;
+    color: var(--text-color);
+    margin-left: 4rem;
+    transition: 0.3s;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: var(--main-color);
+}
+
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--text-color);
+    display: none;
+}
+
+/* ------------------------------ Home --------------------------- */
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+.home-img img {
+    width: 35vw;
+}
+
+.home-content h3 {
+    margin-top: 10rem;
+    font-size: 64px;
+    font-weight: 700;
+}
+
+.home-content h3:nth-of-type(1) {
+    margin-bottom: 2rem;
+}
+
+.span-budget {
+    font-family: "Suez One", sans-serif;
+    color: var(--main-color);
+}
+
+/* .home-content h1 {
+    font-size: 5.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+} */
+
+.home-content p {
+    font-size: 30px;
+}
+
+/* ------------------------------ Functionalities ------------------------------ */
+.functionalities {
+    background: var(--bg-color);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: top;
+}
+
+.functionalities2 {
+    background: var(--bg-color);
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: left;
+}
+
+.functionalities3 {
+    background: var(--bg-color);
+    background-repeat: no-repeat;
+    background-size: 85%;
+    background-position: center;
+}
+
+.functionalities4 {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: top;
+}
+
+.functionalities5 {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: top;
+    background-image: linear-gradient(to bottom, var(--bg-color), #fff);
+}
+.functionalities-planning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    min-width: auto;
+}
+
+.functionalities-img img {
+    width: 35vw;
+}
+
+.functionalities-content p {
+    font-size: 1.6rem;
+    margin: 2rem 0 3rem;
+}
+
+/* ------------------------------ Who ------------------------------ */
+.who {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff;
+    overflow: hidden;
+    padding: 100px 20px;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+}
+
+.who-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.who-container .card {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 20px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(15px);
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+}
+
+.who-container .card .imgBx {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    transition: 2s ease;
+    transform: translateZ(20px);
+}
+
+.who-container .card:hover .imgBx {
+    transform: translateY(-100px);
+}
+
+.who-container .card .imgBx img {
+    max-width: 50%;
+    margin: 0 0 20px;
+    transition: 0.5s ease-in-out;
+}
+
+.who-container .card:hover .imgBx img {
+    transform: scale(1.3);
+}
+
+.who-container .card .imgBx h2 {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 26px;
+}
+
+.who-container .card .content {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: 0.5s ease;
+    visibility: hidden;
+    transform: translateZ(20px);
+}
+
+.who-container .card:hover .content {
+    opacity: 1;
+    transition: 2s;
+    visibility: visible;
+    transform: translateY(-10px);
+}
+
+.who-container .card .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+}
+
+.who-container .card .content .about p {
+    color: black;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-right: 10px;
+    text-justify: auto;
+}
+
+.who-container .card .content .socials {
+    font-size: 3.6rem;
+    color: var(--text-color);
+}
+
+.who-container .card .content .socials i:hover {
+    cursor: pointer;
+    color: var(--main-color);
+}
+
+@media (max-width: 768px) {
+    #menu-icon {
+        display: block;
+    }
+
+    .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem;
+        background: var(--bg-color);
+        border-top: 0.1rem solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        display: none;
+    }
+
+    .navbar.active {
+        display: block;
+    }
+
+    .navbar a {
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+    }
+    .navbar.border {
+        margin: 20px;
+        padding: 10px;
+        border-radius: 25px;
+        background-image: linear-gradient(#55ab91, #2b478b);
+    }
+}
