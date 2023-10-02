@@ -115,48 +115,40 @@ async def getDashboard(
         else:
             mensagem = "Boa noite, "
 
-        token = request.cookies.values().mapping["auth_token"]
-        user = UsuarioRepo.obterUsuarioPorToken(token)
+        transacoes = TransacaoRepo.obterTransacaoPorUsuario(usuario.id)
 
-        transacoes = TransacaoRepo.obterTransacaoPorUsuario(user.id)
+        receita = TransacaoRepo.obterReceita(usuario.id)
+        despesa = TransacaoRepo.obterDespesa(usuario.id)
+        saldo = TransacaoRepo.obterSaldo(usuario.id)
 
-        receita = TransacaoRepo.obterReceita(user.id)
-        despesa = TransacaoRepo.obterDespesa(user.id)
-        saldo = TransacaoRepo.obterSaldo(user.id)
+        categorias = CategoriaRepo.obterCategoriaPorUsuario(usuario.id)
 
-        categorias = CategoriaRepo.obterCategoriaPorUsuario(user.id)
+        contas = ContaRepo.obterContaPorUsuario(usuario.id)
 
-        contas = ContaRepo.obterContaPorUsuario(user.id)
+        dependentes = DependenteRepo.obterDependentePorUsuario(usuario.id)
 
-        dependentes = DependenteRepo.obterDependentePorUsuario(user.id)
-
-        usuario = UsuarioRepo.obterPorId(usuario.id)
-
-        if usuario:
-            data_hora = format_datetime(
-                datetime.now(), format="short", locale="pt_BR"
-            ).title()
-            meses = get_month_names("wide", locale="pt_BR")
-            return templates.TemplateResponse(
-                "usuario/dashboard.html",
-                {
-                    "request": request,
-                    "usuario": usuario,
-                    "transacoes": transacoes,
-                    "receita": receita,
-                    "despesa": despesa,
-                    "categorias": categorias,
-                    "contas": contas,
-                    "dependentes": dependentes,
-                    "saldo": saldo,
-                    "mensagem": mensagem,
-                    "pagina": pagina,
-                    "data_hora": data_hora,
-                    "meses": meses,
-                },
-            )
-        else:
-            return RedirectResponse("/entrar", status_code=status.HTTP_303_SEE_OTHER)
+        data_hora = format_datetime(
+            datetime.now(), format="short", locale="pt_BR"
+        ).title()
+        meses = get_month_names("wide", locale="pt_BR")
+        return templates.TemplateResponse(
+            "usuario/dashboard.html",
+            {
+                "request": request,
+                "usuario": usuario,
+                "transacoes": transacoes,
+                "receita": receita,
+                "despesa": despesa,
+                "categorias": categorias,
+                "contas": contas,
+                "dependentes": dependentes,
+                "saldo": saldo,
+                "mensagem": mensagem,
+                "pagina": pagina,
+                "data_hora": data_hora,
+                "meses": meses,
+            },
+        )
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
@@ -169,3 +161,25 @@ async def getRecuperar(request: Request):
             "request": request,
         },
     )
+
+
+@router.get("/usuario/perfil")
+async def getPerfil(
+    request: Request,
+    mensagem="Perfil",
+    pagina="/configuracoes",
+    usuario: Usuario = Depends(validar_usuario_logado),
+):
+    if usuario:
+        return templates.TemplateResponse(
+            "usuario/perfil.html",
+            {
+                "request": request,
+                "usuario": usuario,
+                "mensagem": mensagem,
+                "pagina": pagina,
+                "usuario": usuario,
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

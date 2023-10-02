@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+    <link rel="stylesheet" href="/static/css/usuario/perfil.css">
+
+    <div class="gap-5 d-flex flex-column">
+        <div class="row">
+            <div class="perfil d-flex align-items-center bg-light px-3 py-3 ms-3 rounded shadow justify-content-between w-75" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="col-9">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="/static/img/avatar-circle-120x120.png" alt="Imagem de Perfil" width="50px !important">
+                        <h3 class="text-dark">Editar Foto</h3>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="text-end me-3">
+                        <i class="bi-arrow-right text-secondary fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="perfil d-flex align-items-center bg-light px-3 py-3 ms-3 rounded shadow justify-content-between w-75" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="col-9">
+                    <div class="d-flex flex-column">
+                        <h3 class="text-dark mb-0">Nome</h3>
+                        <p class="mb-0">{{ usuario.nome }}</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="text-end me-3">
+                        <i class="bi-arrow-right text-secondary fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="perfil d-flex align-items-center bg-light px-3 py-3 ms-3 rounded shadow justify-content-between w-75" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="col-9">
+                    <div class="d-flex flex-column">
+                        <h3 class="text-dark mb-0">E-mail</h3>
+                        <p class="mb-0">{{ usuario.email }}</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="text-end me-3">
+                        <i class="bi-arrow-right text-secondary fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ..
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

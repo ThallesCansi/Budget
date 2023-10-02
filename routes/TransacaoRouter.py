@@ -33,12 +33,10 @@ async def getListagem(
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
-        token = request.cookies.values().mapping["auth_token"]
-        user = UsuarioRepo.obterUsuarioPorToken(token)
-        transacoes = TransacaoRepo.obterTransacaoPorUsuario(user.id)
-        receita = TransacaoRepo.obterReceita(user.id)
-        despesa = TransacaoRepo.obterDespesa(user.id)
-        saldo = TransacaoRepo.obterSaldo(user.id)
+        transacoes = TransacaoRepo.obterTransacaoPorUsuario(usuario.id)
+        receita = TransacaoRepo.obterReceita(usuario.id)
+        despesa = TransacaoRepo.obterDespesa(usuario.id)
+        saldo = TransacaoRepo.obterSaldo(usuario.id)
         return templates.TemplateResponse(
             "transacoes/transacoes.html",
             {
