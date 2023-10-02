@@ -2,8 +2,15 @@
 
 <div class="row">
     <div class="col-md-9 col-10">
-<<<<<<< HEAD
-        <div class="table-responsive-sm">
+        <div class="mb-3 form-floating col-10 col-md-7 col-sm-8">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                {% for mes in meses %}
+                    <option value="{{ mes }}" {{ "selected" if mes == data_hora.split("/")[1] | int }}>{{ meses[mes].title() }}</option>
+                {% endfor %}
+            </select>
+            <label for="floatingSelect">Escolha o mês</label>
+        </div>
+        <div class="table-responsive-md">
             <table id="transacao-table" class="table align-middle table-sm">
                 <caption>Quantidade de Transações:</caption>
                 <thead class="table-secondary" style="height: 50px; vertical-align: middle;" >
@@ -72,60 +79,6 @@
                 <p style="font-size: 20px;">despesa</p>
             </div>
         </div>
-=======
-        <div class="mb-3 form-floating col-10 col-md-7 col-sm-8">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    {% for mes in meses %}
-                        <option value="{{ mes }}" {{ "selected" if mes == data_hora.split("/")[1] | int }}>{{ meses[mes].title() }}</option>
-                    {% endfor %}
-                </select>
-                <label for="floatingSelect">Escolha o mês</label>
-            </div>
-        <table id="transacao-table" class="table align-middle table-sm">
-            <caption>Quantidade de Transações:</caption>
-            <thead class="table-secondary" style="height: 50px; vertical-align: middle;" >
-                <tr class="text-center">
-                    <th scope="col" class="text-white">Situação</th>
-                    <th scope="col" class="text-white">Data</th>
-                    <th scope="col" class="text-white">Categoria</th>
-                    <th scope="col" class="text-white">Descrição</th>
-                    <th scope="col" class="text-white">Conta</th>
-                    <th scope="col" class="text-white">Valor</th>
-                    <th scope="col" class="text-white">Dependente</th>
-                    <th scope="col" class="text-white">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for t in transacoes %}
-                <tr {% if t.tipo == 'Receita' %} class="table-success" {% else %} class="table-danger" {% endif %}>
-                    <td>
-                        {% if t.tipo == 'Receita' %}
-                        <i class="d-flex justify-content-center align-items-center bi bi-check-circle-fill text-secondary"></i>
-                        {% else %}
-                        <i class="d-flex justify-content-center align-items-centerbi bi-exclamation-circle-fill text-danger"></i>
-                        {% endif %}
-                    </td>
-                    <td class="text-center text-dark">{{ t.data }}</td>
-                    <td class="text-center text-dark">{{ t.nomeCategoria }}</td>
-                    <td class="text-center text-dark">{{ t.descricao }}</td>
-                    <td class="text-center text-dark">{{ t.nomeConta }}</td>
-                    <td class="text-center text-dark">{{ t.valor }}</td>
-                    <td class="text-center text-dark">{{ t.nomeDependente }}</td>
-                    <td class="d-flex justify-content-center align-items-center">
-                        <div class="edit-excl">
-                            <form action="/excluirTransacao" method="post">
-                                <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/edit.svg"></button>
-                            </form>
-                            <form action="/excluirTransacao" method="post">
-                                <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/excluir.svg"></button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
->>>>>>> c52d0160a6e9644a00bbce599908dbaa19c203b3
     </div>
 </div>
     <!-- JavaScript -->

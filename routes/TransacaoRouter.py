@@ -40,18 +40,15 @@ async def getListagem(
         receita = TransacaoRepo.obterReceita(usuario.id)
         despesa = TransacaoRepo.obterDespesa(usuario.id)
         saldo = TransacaoRepo.obterSaldo(usuario.id)
-<<<<<<< HEAD
 
         receita = format_currency(receita, 'BRL', locale='pt_BR')
         saldo = format_currency(saldo, 'BRL', locale='pt_BR')
         despesa = format_currency(despesa, 'BRL', locale='pt_BR')
-=======
         
         data_hora = format_datetime(
             datetime.now(), format="short", locale="pt_BR"
         ).title()
         meses = get_month_names("wide", locale="pt_BR")
->>>>>>> c52d0160a6e9644a00bbce599908dbaa19c203b3
         return templates.TemplateResponse(
             "transacoes/transacoes.html",
             {
