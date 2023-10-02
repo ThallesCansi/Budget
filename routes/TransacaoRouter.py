@@ -97,7 +97,6 @@ async def postReceita(
 
         is_not_empty(descricao, "descricao", erros)
         is_size_between(descricao, "descricao", 4, 64, erros)
-        is_project_name(descricao, "descricao", erros)
 
         is_not_none(valor, "valor", erros)
 
@@ -113,9 +112,9 @@ async def postReceita(
         is_not_empty(forma_pagamento, "forma_pagamento", erros)
 
         if tipo == "Receita":
-            valor = abs(tipo)
+            valor = abs(float(valor))
         else:
-            valor == -valor
+            valor == float(-valor)
 
         if len(erros) > 0:
             print(erros)

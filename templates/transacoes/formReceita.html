@@ -36,7 +36,7 @@
                             <div class="col-12 col-md-6">
                                 <label for="idCategoria" class="form-label offset-md-1 offset-sm-2 offset-1">Categoria</label>
                                 <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                    <select name="categoria" id="idCategoria" class="shadow border-0 form-select" style="color: #6c757d;">
+                                    <select name="idCategoria" id="idCategoria" class="shadow border-0 form-select" style="color: #6c757d;">
                                         <option value="label" disabled selected>
                                             Escolha a categoria
                                         </option>
@@ -49,9 +49,9 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-md-6 mb-3">
-                                <label for="acconut" class="form-label offset-md-1 offset-sm-2 offset-1">Conta</label>
+                                <label for="idConta" class="form-label offset-md-1 offset-sm-2 offset-1">Conta</label>
                                 <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                    <select id="account" name="idAccount" class="shadow border-0 form-select" style="color: #6c757d;">
+                                    <select id="idConta" name="idConta" class="shadow border-0 form-select" style="color: #6c757d;">
                                         <option disabled selected>Escolha a sua conta</option>
                                         {% for c in contas %}
                                             <option value="{{ c.id }}">{{ c.nome }}</option>
@@ -60,9 +60,9 @@
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
-                                <label for="payment" class="form-label offset-md-1 offset-sm-2 offset-1">Forma de Pagamento</label>
+                                <label for="forma_pagamento" class="form-label offset-md-1 offset-sm-2 offset-1">Forma de Pagamento</label>
                                 <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                    <select name="payment" id="payment" class="shadow border-0 form-select" style="color: #6c757d;">
+                                    <select name="forma_pagamento" id="forma_pagamento" class="shadow border-0 form-select" style="color: #6c757d;">
                                         <option value="label" disabled selected>
                                             Escolha a forma de pagamento
                                         </option>
@@ -75,13 +75,12 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-md-6">
-                                <label for="dependent" class="form-label offset-md-1 offset-sm-2 offset-1">Adicionar Dependente</label>
+                                <label for="idDependente" class="form-label offset-md-1 offset-sm-2 offset-1">Adicionar Dependente</label>
                                 <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                    <select class="shadow border-0 form-select" id="dependent" name="idMembro" style="color:#6c757d;">
+                                    <select class="shadow border-0 form-select" id="idDependente" name="idDependente" style="color:#6c757d;">
                                         <option value="label" disabled selected>
                                             Escolha o Dependente
                                         </option>
-                    
                                         {% for d in dependentes %}
                                             <option value="{{ d.id }}">{{ d.nome }}</option>
                                         {% endfor %}

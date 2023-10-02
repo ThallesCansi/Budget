@@ -1,100 +1,102 @@
 {% extends "base.html" %} 
 
 {% block conteudo %}
-<div class="row" >
-    <div class="col-md-7 col-sm-12 col-12 d-md-inline d-flex flex-column justify-content-center align-items-center">
-        <div class="mb-3 form-floating w-50">
-            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                {% for mes in meses %}
-                    <option value="{{ mes }}" {{ "selected" if mes == data_hora.split("/")[1] | int }}>{{ meses[mes].title() }}</option>
-                {% endfor %}
-            </select>
-            <label for="floatingSelect">Escolha o mês</label>
+    <div class="d-flex">
+        <div class="row" >
+            <div class="col-md-7 col-sm-12 col-12 d-md-inline d-flex flex-column justify-content-center align-items-center">
+                <div class="mb-3 form-floating w-50">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        {% for mes in meses %}
+                            <option value="{{ mes }}" {{ "selected" if mes == data_hora.split("/")[1] | int }}>{{ meses[mes].title() }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="floatingSelect">Escolha o mês</label>
+                </div>
+    
+                <div class="d-flex gap-3">
+                    <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-3 border border-dark rounded-3 h-25 shadow" style="width: 250px !important;">
+                        <i class="bi-wallet-fill rounded p-2 text-white shadow" style="background-color: var(--navBar-blue) !important; font-size: 20px; line-height: 0px;"></i>
+                        <p style="color: var(--navBar-blue) !important; font-size: 36px;">{{ 'R$%.2f'|format(saldo) }}</p>
+                        <p style="font-size: 36px;">saldo</p>
+                    </div>
+                    <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-3 border border-dark rounded-3 h-25 shadow" style="width: 250px;">
+                        <i class="bi-graph-up-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-saving) !important; font-size: 20px; line-height: 0px;"></i>
+                        <p style="color: var(--navBar-saving) !important; font-size: 36px;">{{ 'R$%.2f'|format(receita) }}</p>
+                        <p style="font-size: 36px;">receita</p>
+                    </div>
+                    <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-3 border border-dark rounded-3 h-25 shadow" style="width: 250px;">
+                        <i class="bi-graph-down-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-expense) !important; font-size: 20px; line-height: 0px;"></i>
+                        <p style="color: var(--navBar-expense) !important; font-size: 36px;">{{ 'R$%.2f'|format(despesa) }}</p>
+                        <p style="font-size: 36px;">despesa</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-         <div class= "mb-5 d-sm-flex flex-sm-row flex-column ">
-            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3" style= "width: auto; height: 9rem;">
-                <img id="receitas" src="" />
-                <p class="" id="receitas">{{receita}}</p>
-                <p class="">receitas</p>
-            </div>
-            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 mx-sm-3 my-3 my-sm-0" style= "width: auto; height: 9rem;">
-                <img src="" />
-                <p class="" id="despesas">{{despesa}}</p>
-                <p class="">despesas</p>
-            </div>
-            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3" style= "width: auto; height: 9rem;">
-                <img class= src="">
-                <p class="" id="saldo">{{saldo}}</p>
-                <p class="">saldo</p>
-            </div>
-        </div>
-        <img class="img-fluid" src="/static/img/Gráfico.svg" alt="grafico despesas"/>
-    </div>
-    <div class="col-md-5 col-sm-12 col-12 d-md-inline d-flex flex-column align-items-center">
-        
+    
         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-6 col-6 me-md-0 mt-md-0 mt-5">
-                <div class="">
-                    <h3 class="fs-5">suas despesas</h3>
-                    <p class="fs-8">últimos 15 dias</p>
-                    {% for despesa in lista_despesa %}
-                        <a class="text-decoration-none" href="/transacoes">
-                            <div class="p-2 bg-white w-50 rounded-3 shadow">
-                                <h3 class="fs-6 text-dark ">Despesa</h3>
-                            </div>
-                        </a>
-                    {% endfor %}
-                </div>
-                 
-                <div class="mt-3">
-                    <h3 class="fs-5">transações recentes</h3>
-                    <p class="fs-8">receitas e despesas</p>
-                    {% for t in transacoes %}
-                        {% if t.typeIorE == 'Despesa' %}
-                        <a class="text-decoration-none" href="/transacoes">
-                            <div class="px-2 bg-white w-50 rounded-3 shadow d-flex justify-content-between ">
-                                <div>
-                                    <p class="fw-bold" style="color:#d76060">{{t.typeIorE}}</p>
-                                </div>
-                                <div>
-                                    <p class="fw-bold" style="color:#d76060">{{t.value}}</p>
-                                </div>
-                            </div>
-                        </a>
-                        {% else %}
-                        <a class="text-decoration-none" href="/transacoes">
-                            <div class="px-2 bg-white min-w-50 rounded-3 shadow d-flex justify-content-between ">
-                                <div>
-                                    <p class="fw-bold" style="color:#d76060">{{t.typeIorE}}</p>
-                                </div>
-                                <div>
-                                    <p class="fw-bold" style="color:#d76060">{{t.value}}</p>
-                                </div>
-                            </div>
-                        </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-6 d-lg-inline ms-md-0 mt-md-0 mt-5" id="#add" >
-                <div>
-                    <a class="add-transacao" href="#add" onclick="openPopupButton()"
-                        ><img src="/static/img/Adicionar.svg"
-                    /></a>
-                    <div id="tipoRouD" class="tipoRouD flex-column" style="display: none;">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#formReceita" 
-                            ><img src="/static/img/Receita.svg "
-                        /></a>
-                        <a  href="#"
-                            ><img src="/static/img/Despesa.svg"  data-bs-toggle="modal" data-bs-target="#formDespesa"
-                        /></a>
+            <div class="col-md-5 col-sm-12 col-12 d-md-inline d-flex flex-column align-items-center">
+                
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-6 col-6 me-md-0 mt-md-0 mt-5">
+                        <div class="">
+                            <h3 class="fs-5">suas despesas</h3>
+                            <p class="fs-8">últimos 15 dias</p>
+                            {% for despesa in lista_despesa %}
+                                <a class="text-decoration-none" href="/transacoes">
+                                    <div class="p-2 bg-white w-50 rounded-3 shadow">
+                                        <h3 class="fs-6 text-dark ">Despesa</h3>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mt-3">
+                            <h3 class="fs-5">transações recentes</h3>
+                            <p class="fs-8">receitas e despesas</p>
+                            {% for t in transacoes %}
+                                {% if t.typeIorE == 'Despesa' %}
+                                <a class="text-decoration-none" href="/transacoes">
+                                    <div class="px-2 bg-white w-50 rounded-3 shadow d-flex justify-content-between ">
+                                        <div>
+                                            <p class="fw-bold" style="color:#d76060">{{t.typeIorE}}</p>
+                                        </div>
+                                        <div>
+                                            <p class="fw-bold" style="color:#d76060">{{t.value}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% else %}
+                                <a class="text-decoration-none" href="/transacoes">
+                                    <div class="px-2 bg-white min-w-50 rounded-3 shadow d-flex justify-content-between ">
+                                        <div>
+                                            <p class="fw-bold" style="color:#d76060">{{t.typeIorE}}</p>
+                                        </div>
+                                        <div>
+                                            <p class="fw-bold" style="color:#d76060">{{t.value}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="position-absolute bottom-0 end-0 m-5 w-auto col-md-6 col-sm-6 col-6 d-lg-inline" id="#add" >
+        <a class="add-transacao" href="#add" onclick="openPopupButton()">
+            <img src="/static/img/Adicionar.svg">
+        </a>
+        <div id="tipoRouD" class="tipoRouD flex-column" style="display: none;">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#formReceita">
+                <img src="/static/img/Receita.svg">
+            </a>
+            <a  href="#">
+                <img src="/static/img/Despesa.svg"  data-bs-toggle="modal" data-bs-target="#formDespesa">
+            </a>
+        </div>
+    </div>
 {% from "transacoes/formReceita.html" import modalFormReceita %}
 {{ modalFormReceita(id="formReceita", categorias=categorias, contas=contas, dependentes=dependentes)}}
 

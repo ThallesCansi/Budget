@@ -105,32 +105,33 @@ async def postNovoUsuario(
 async def getDashboard(
     request: Request, usuario: Usuario = Depends(validar_usuario_logado)
 ):
-    pagina = "/dashboard"
-    hora = datetime.now().hour
-    if 6 <= hora < 12:
-        mensagem = "Bom dia, "
-    elif hora < 18:
-        mensagem = "Boa tarde, "
-    else:
-        mensagem = "Boa noite, "
-
-    token = request.cookies.values().mapping["auth_token"]
-    user = UsuarioRepo.obterUsuarioPorToken(token)
-
-    transacoes = TransacaoRepo.obterTransacaoPorUsuario(user.id)
-
-    receita = TransacaoRepo.obterReceita(user.id)
-    despesa = TransacaoRepo.obterDespesa(user.id)
-    saldo = TransacaoRepo.obterSaldo(user.id)
-
-    categorias = CategoriaRepo.obterCategoriaPorUsuario(user.id)
-
-    contas = ContaRepo.obterContaPorUsuario(user.id)
-
-    dependentes = DependenteRepo.obterDependentePorUsuario(user.id)
-
     if usuario:
+        pagina = "/dashboard"
+        hora = datetime.now().hour
+        if 6 <= hora < 12:
+            mensagem = "Bom dia, "
+        elif hora < 18:
+            mensagem = "Boa tarde, "
+        else:
+            mensagem = "Boa noite, "
+
+        token = request.cookies.values().mapping["auth_token"]
+        user = UsuarioRepo.obterUsuarioPorToken(token)
+
+        transacoes = TransacaoRepo.obterTransacaoPorUsuario(user.id)
+
+        receita = TransacaoRepo.obterReceita(user.id)
+        despesa = TransacaoRepo.obterDespesa(user.id)
+        saldo = TransacaoRepo.obterSaldo(user.id)
+
+        categorias = CategoriaRepo.obterCategoriaPorUsuario(user.id)
+
+        contas = ContaRepo.obterContaPorUsuario(user.id)
+
+        dependentes = DependenteRepo.obterDependentePorUsuario(user.id)
+
         usuario = UsuarioRepo.obterPorId(usuario.id)
+
         if usuario:
             data_hora = format_datetime(
                 datetime.now(), format="short", locale="pt_BR"
