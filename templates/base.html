@@ -132,7 +132,7 @@
                 <div class="row bg-white " style="position: fixed; top: 0; z-index:100;" id="navbar">
                     <header  class=" d-flex align-items-center justify-content-between top-0">
                         <div class="">
-                            <h1 class="">{{ mensagem }}{{ usuario.nome }}</h1>
+                            <h1 class="">{{ mensagem }}{{ usuario.nome if pagina == '/dashboard' }}</h1>
                         </div>
                         <div id="profile" class="fs-4 align-items-center justify-content-center mt-2">
                             <i class="bi bi-bell-fill fs-4" data-bs-toggle="dropdown"></i>

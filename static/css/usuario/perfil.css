@@ -1,0 +1,8 @@
+.perfil:hover {
+    transform: scale(1.02) !important;
+}
+
+.perfil {
+    cursor: pointer !important;
+    transition: transform 0.2s ease !important;
+}
