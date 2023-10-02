@@ -110,48 +110,55 @@ async def postEntrar(
 async def getSair(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
     if usuario:
         UsuarioRepo.alterarToken(usuario.email, "")
-    response = RedirectResponse("/entrar", status.HTTP_302_FOUND)
-    response.set_cookie(
-        key="auth_token", value="", httponly=True, expires="1970-01-01T00:00:00Z"
-    )
-    return response
+        response = RedirectResponse("/entrar", status.HTTP_302_FOUND)
+        response.set_cookie(
+            key="auth_token", value="", httponly=True, expires="1970-01-01T00:00:00Z"
+        )
+        return response
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
 @router.get("/carteira")
-async def getTrans(request: Request):
-    mensagem = "Carteira"
-    usuario = ""
-    pagina = "/carteira"
-    return templates.TemplateResponse(
-        "conta/carteira.html",
-        {
-            "request": request,
-            "mensagem": mensagem,
-            "usuario": usuario,
-            "pagina": pagina,
-        },
-    )
+async def getTrans(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
+    if usuario:
+        mensagem = "Carteira"
+        usuario = ""
+        pagina = "/carteira"
+        return templates.TemplateResponse(
+            "conta/carteira.html",
+            {
+                "request": request,
+                "mensagem": mensagem,
+                "usuario": usuario,
+                "pagina": pagina,
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
 @router.get("/metas")
-async def getTrans(request: Request):
-    mensagem = "Metas"
-    usuario = ""
-    pagina = "/metas"
-    return templates.TemplateResponse(
-        "metas/metas.html",
-        {
-            "request": request,
-            "mensagem": mensagem,
-            "usuario": usuario,
-            "pagina": pagina,
-        },
-    )
+async def getTrans(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
+    if usuario:
+        mensagem = "Metas"
+        usuario = ""
+        pagina = "/metas"
+        return templates.TemplateResponse(
+            "metas/metas.html",
+            {
+                "request": request,
+                "mensagem": mensagem,
+                "usuario": usuario,
+                "pagina": pagina,
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
 @router.get("/configuracoes")
 async def getConfig(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
-
     if usuario:
         mensagem = "Configurações"
         pagina = "/configuracoes"
@@ -171,16 +178,19 @@ async def getConfig(request: Request, usuario: Usuario = Depends(validar_usuario
 
 
 @router.get("/dependentes")
-async def getIndex(request: Request):
-    mensagem = "Dependentes"
-    usuario = ""
-    pagina = "/configuracoes"
-    return templates.TemplateResponse(
-        "/dependentes/dependente.html",
-        {
-            "request": request,
-            "pagina": pagina,
-            "mensagem": mensagem,
-            "usuario": usuario,
-        },
-    )
+async def getIndex(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
+    if usuario:
+        mensagem = "Dependentes"
+        usuario = ""
+        pagina = "/configuracoes"
+        return templates.TemplateResponse(
+            "/dependentes/dependente.html",
+            {
+                "request": request,
+                "pagina": pagina,
+                "mensagem": mensagem,
+                "usuario": usuario,
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
