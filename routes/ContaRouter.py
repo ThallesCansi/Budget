@@ -103,31 +103,11 @@ async def postNovaCarteira(
 
 @router.post("/carteira/excluir", response_class=HTMLResponse)
 async def postExcluir(
-    request: Request,
     id: int = Form(""),
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
-        if ContaRepo.verificarTransacoesConta(id):
-            ContaRepo.excluirContaTransacoes(id)
-            return RedirectResponse("/carteira", status_code=status.HTTP_303_SEE_OTHER)
-        else:
-            erros = {}
-
-            add_error(
-                "excluir",
-                "Você não pode excluir contas com transações existentes",
-                erros,
-            )
-
-            return templates.TemplateResponse(
-                "conta/carteira.html",
-                {
-                    "request": request,
-                    "usuario": usuario,
-                    "erros": erros,
-                },
-            )
-
+        ContaRepo.excluirContaTransacoes(id)
+        return RedirectResponse("/carteira", status_code=status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
