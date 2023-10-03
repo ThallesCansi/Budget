@@ -14,7 +14,6 @@ from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import gerar_token, obter_hash_senha, validar_usuario_logado
 from util.templateFilters import capitalizar_nome_proprio, formatar_data
 from util.validators import *
-import execjs
 
 router = APIRouter()
 
@@ -72,12 +71,7 @@ async def postNovoUsuario(
         valoresCad["nome"] = nome
         valoresCad["email"] = email.lower()
 
-        script_js="""
-        document.getElementById('sign-up-btn').click();"""
-
-        contexto_js = execjs.compile(script_js)
-
-
+    
         return templates.TemplateResponse(
             "usuario/entrar.html",
             {
