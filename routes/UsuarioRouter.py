@@ -14,6 +14,7 @@ from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import gerar_token, obter_hash_senha, validar_usuario_logado
 from util.templateFilters import capitalizar_nome_proprio, formatar_data
 from util.validators import *
+import execjs
 
 router = APIRouter()
 
@@ -48,35 +49,42 @@ async def postNovoUsuario(
 
     confirmarSenha = confirmarSenha.strip()
 
-    erros = {}
+    errosCad = {}
 
-    is_not_empty(nome, "nome", erros)
-    is_person_fullname(nome, "nome", erros)
+    is_not_empty(nome, "nome", errosCad)
+    is_person_fullname(nome, "nome", errosCad)
 
-    is_not_empty(email, "email", erros)
-    if is_email(email, "email", erros):
+    is_not_empty(email, "email", errosCad)
+    if is_email(email, "email", errosCad):
         if UsuarioRepo.emailExiste(email):
-            add_error("email", "Já existe um aluno cadastrado com este e-mail.", erros)
+            add_error("email", "Já existe um aluno cadastrado com este e-mail.", errosCad)
 
-    is_not_empty(senha, "senha", erros)
-    is_password(senha, "senha", erros)
+    is_not_empty(senha, "senha", errosCad)
+    is_password(senha, "senha", errosCad)
 
-    is_not_empty(confirmarSenha, "confirmarSenha", erros)
-    is_matching_fields(confirmarSenha, "confirmarSenha", senha, "Senha", erros)
+    is_not_empty(confirmarSenha, "confirmarSenha", errosCad)
+    is_matching_fields(confirmarSenha, "confirmarSenha", senha, "Senha", errosCad)
 
-    is_not_none(termoUso, "termoUso", erros)
+    is_not_none(termoUso, "termoUso", errosCad)
 
-    if len(erros) > 0:
-        valores = {}
-        valores["nome"] = nome
-        valores["email"] = email.lower()
+    if len(errosCad) > 0:
+        valoresCad = {}
+        valoresCad["nome"] = nome
+        valoresCad["email"] = email.lower()
+
+        script_js="""
+        document.getElementById('sign-up-btn').click();"""
+
+        contexto_js = execjs.compile(script_js)
+
+
         return templates.TemplateResponse(
             "usuario/entrar.html",
             {
                 "request": request,
                 "usuario": usuario,
-                "erros": erros,
-                "valores": valores,
+                "errosCad": errosCad,
+                "valoresCad": valoresCad,
             },
         )
 
