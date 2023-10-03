@@ -1,174 +1,40 @@
 {% extends "base.html" %} {% block conteudo %}
-
-    <!-- Botão de Voltar -->
-    <h1>
-        <a href="/configuracoes">
-            <i class="bi bi-arrow-left text-secondary"></i>
-        </a>
-    </h1>
-
-<div class="row mb-3 d-flex justify-content-center">
-    <div class="col-md-5 col-sm-8 col-11 mb-3">
-        <div class="card d-flex flex-row">
-            <img src="https://img.freepik.com/icones-gratis/garoto_318-500912.jpg?w=360" class="card-img-start img-thumbnail" alt="..." style="width: 5rem; height: auto;">
-            <div class="card-body row">
-                <div class="col-9">
-                    <ul class="list-unstyled fw-semibold" style="color: #98a6af !important;">
-                        <li>Teste</li>
-                        <li>teste descrição</li>
-                    </ul>
-                </div>
-                <div class="col-3 d-flex gap-2">
-                    <div>
-                        <button class="btn p-0" type="button">
-                            <i class="bi bi-pencil-square"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                    <div>
-                        <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#alertaExcluirConta">
-                            <i class="bi bi-trash"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+<h1>
+    <a href="/configuracoes">
+        <i class="bi bi-arrow-left text-secondary"></i>
+    </a>
+</h1>
+<div class="row mb-3 d-flex ">
+    {% for d in dependentes %}
     <div class="col-md-5 col-sm-8 col-11">
         <div class="card d-flex flex-row">
             <img src="https://img.freepik.com/icones-gratis/garoto_318-500912.jpg?w=360" class="card-img-start img-thumbnail" alt="..." style="width: 5rem; height: auto;">
             <div class="card-body row">
                 <div class="col-9">
                     <ul class="list-unstyled fw-semibold" style="color: #98a6af !important;">
-                        <li>Teste</li>
-                        <li>teste descrição</li>
+                        <li>{{d.nome}}</li>
+                        <li>Descrição</li>
                     </ul>
                 </div>
                 <div class="col-3 d-flex gap-2">
                     <div>
                         <button class="btn p-0" type="button">
                             <i class="bi bi-pencil-square"  style="color: #98a6af !important;"></i>
-                        </button>                        
+                        </button>                     
                     </div>
                     <div>
-                        <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#alertaExcluirConta">
+                        <button class="btn p-0" type="button" value="{{d.id}}" data-bs-toggle="modal" data-bs-target="#modalExcluir">
                             <i class="bi bi-trash"  style="color: #98a6af !important;"></i>
-                        </button>                        
+                        </button>                     
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% from "main/modalExcluir.html" import modalExcluir %}
+    {{ modalExcluir(id="modalExcluir", elementoId= d.id, action="/dependente/excluir")}}
+    {% endfor %}
 </div>
-
-<div class="row mb-3 d-flex justify-content-center">
-    <div class="col-md-5 col-sm-8 col-11 mb-3">
-        <div class="card d-flex flex-row">
-            <img src="https://img.freepik.com/icones-gratis/garoto_318-500912.jpg?w=360" class="card-img-start img-thumbnail" alt="..." style="width: 5rem; height: auto;">
-            <div class="card-body row">
-                <div class="col-9">
-                    <ul class="list-unstyled fw-semibold" style="color: #98a6af !important;">
-                        <li>Teste</li>
-                        <li>teste descrição</li>
-                    </ul>
-                </div>
-                <div class="col-3 d-flex gap-2">
-                    <div>
-                        <button class="btn p-0" type="button">
-                            <i class="bi bi-pencil-square"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                    <div>
-                        <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#alertaExcluirConta">
-                            <i class="bi bi-trash"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-5 col-sm-8 col-11 ">
-        <div class="card d-flex flex-row">
-            <img src="https://img.freepik.com/icones-gratis/garoto_318-500912.jpg?w=360" class="card-img-start img-thumbnail" alt="..." style="width: 5rem; height: auto;">
-            <div class="card-body row">
-                <div class="col-9">
-                    <ul class="list-unstyled fw-semibold" style="color: #98a6af !important;">
-                        <li>Teste</li>
-                        <li>teste descrição</li>
-                    </ul>
-                </div>
-                <div class="col-3 d-flex gap-2">
-                    <div>
-                        <button class="btn p-0" type="button">
-                            <i class="bi bi-pencil-square"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                    <div>
-                        <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#alertaExcluirConta">
-                            <i class="bi bi-trash"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mb-3 d-flex justify-content-center">
-    <div class="col-md-5 col-sm-8 col-11  mb-3">
-        <div class="card d-flex flex-row">
-            <img src="https://img.freepik.com/icones-gratis/garoto_318-500912.jpg?w=360" class="card-img-start img-thumbnail" alt="..." style="width: 5rem; height: auto;">
-            <div class="card-body row">
-                <div class="col-9">
-                    <ul class="list-unstyled fw-semibold" style="color: #98a6af !important;">
-                        <li>Teste</li>
-                        <li>teste descrição</li>
-                    </ul>
-                </div>
-                <div class="col-3 d-flex gap-2">
-                    <div>
-                        <button class="btn p-0" type="button">
-                            <i class="bi bi-pencil-square"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                    <div>
-                        <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#alertaExcluirConta">
-                            <i class="bi bi-trash"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-5 col-sm-8 col-11">
-        <div class="card d-flex flex-row">
-            <img src="https://img.freepik.com/icones-gratis/garoto_318-500912.jpg?w=360" class="card-img-start img-thumbnail" alt="..." style="width: 5rem; height: auto;">
-            <div class="card-body row">
-                <div class="col-9">
-                    <ul class="list-unstyled fw-semibold" style="color: #98a6af !important;">
-                        <li>Teste</li>
-                        <li>teste descrição</li>
-                    </ul>
-                </div>
-                <div class="col-3 d-flex gap-2">
-                    <div>
-                        <button class="btn p-0" type="button">
-                            <i class="bi bi-pencil-square"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                    <div>
-                        <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#alertaExcluirConta">
-                            <i class="bi bi-trash"  style="color: #98a6af !important;"></i>
-                        </button>                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <button class="btn col-4 offset-4 rounded bg-secondary text-white fs-5 fw-semibold"
  type="submit"  style=" background-color: #35aa3a;" data-bs-toggle="modal" data-bs-target="#formDependente">
@@ -176,6 +42,7 @@
 </button>
 {% from "dependentes/formDependente.html" import modalFormDependente %}
 {{ modalFormDependente(id="formDependente")}}
+
 
 
 {% endblock %}

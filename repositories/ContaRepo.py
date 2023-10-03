@@ -55,17 +55,33 @@ class ContaRepo:
             return None
 
     @classmethod
-    def excluir(cls, id: int) -> bool:
-        sql = "DELETE FROM conta WHERE id=?"
-        conn = Database.criarConexao()
-        cursor = conn.cursor()
+    def excluirContaTransacoes(cls, id: int) -> bool:
+        sql = """DELETE FROM transacao
+                WHERE idConta = ?;
+                """
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
         result = cursor.execute(sql, (id,))
+
         if result.rowcount > 0:
-            conn.commit()
-            conn.close()
+            conexao.commit()
+            conexao.close()
+        else:
+            conexao.close()
+
+        sql = """DELETE FROM conta
+                WHERE id = ?;
+                """
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        result = cursor.execute(sql, (id,))
+
+        if result.rowcount > 0:
+            conexao.commit()
+            conexao.close()
             return True
         else:
-            conn.close()
+            conexao.close()
             return False
 
     @classmethod
@@ -141,3 +157,18 @@ class ContaRepo:
             saldo_contas = []
         conexao.close()
         return saldo_contas
+
+    @classmethod
+    def verificarTransacoesConta(cls, id) -> bool:
+        sql = """SELECT COUNT(*) AS total_transacoes
+                FROM transacao
+                WHERE idConta = ?;
+                """
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        resultado = cursor.execute(sql, (id, )).fetchone()
+        conexao.close
+        if resultado[0] == 0:
+            return False
+        else:
+            return True
