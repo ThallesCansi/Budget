@@ -1,4 +1,4 @@
-{% macro formNovaCarteira() %}
+{% macro formNovaCarteira(erros, valores) %}
 
     <form method="post" action="/carteira/nova" class="col-12 col-md-10 offset-md-1">
         <div class="d-flex flex-column justify-content-center align-items-center">
@@ -27,6 +27,14 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form>    
+
+    {% if erros and valores %}
+        <script>
+            const validationErrors = {{ erros|tojson }};
+            const fieldValues = {{ valores|tojson }};
+        </script>
+        <script src="/static/js/formValidation.js"></script>
+    {% endif %}
 
 {% endmacro %}

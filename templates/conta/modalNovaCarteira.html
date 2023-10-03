@@ -1,4 +1,4 @@
-{% macro modalNovaCarteira(id) %}
+{% macro modalNovaCarteira(id, erros, valores) %}
 
 {% from "conta/formNovaCarteira.html" import formNovaCarteira %}
 
@@ -10,10 +10,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        {{ formNovaCarteira() }}
+                        {{ formNovaCarteira(erros=erros, valores=valores) }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 {% endmacro %}

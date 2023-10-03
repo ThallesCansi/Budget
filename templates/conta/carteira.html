@@ -29,23 +29,23 @@
                         <p> {{ 'R${0:0.2f}'.format(saldo_contas[i][1]) }}</p>
                     {% endif %}
                 {% endfor %}
-                <div class="text-end">
-                    <i role="button" class="bi-pencil-square"></i>
-                    <i role="button" class="bi-trash"></i>
+                <div class="d-flex gap-1 justify-content-end">
+                    <form action="/carteira/excluir" method="post">
+                        <button type="submit" name="id" value="{{ c.id}}" class="btn p-0">
+                            <i role="button" class="bi-pencil-square text-bg-info p-1 rounded"></i>
+                        </button>
+                    </form>
+                    <form action="/carteira/excluir" method="post">
+                        <button type="submit" name="id" value="{{ c.id}}" class="btn p-0">
+                            <i role="button" class="bi-trash text-white bg-danger p-1 rounded"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 
-    {{ modalNovaCarteira(id="modalNovaCarteira")}}
-
-{% if erros and valores %}
-    <script>
-        const validationErrors = {{ erros|tojson }};
-        const fieldValues = {{ valores|tojson }};
-    </script>
-    <script src="/static/js/formValidation.js"></script>
-{% endif %}
+    {{ modalNovaCarteira(id="modalNovaCarteira", erros=erros, valores=valores) }}
     
 {% endblock %}

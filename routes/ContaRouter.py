@@ -8,6 +8,7 @@ from repositories.ContaRepo import ContaRepo
 from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import validar_usuario_logado
 from util.templateFilters import formatar_data
+from util.validators import *
 
 router = APIRouter()
 
@@ -68,12 +69,44 @@ async def getTrans(
 
 @router.post("/carteira/nova", response_class=HTMLResponse)
 async def postNovaCarteira(
+    request: Request,
     nome: str = Form(""),
     saldo: float = Form(""),
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
+        nome = nome.strip()
+
+        erros = {}
+
+        is_not_empty(nome, "nome", erros)
+
+        if len(erros) > 0:
+            valores = {}
+            valores["nome"] = nome
+            valores["saldo"] = saldo
+            return templates.TemplateResponse(
+                "/conta/carteira.html",
+                {
+                    "request": request,
+                    "usuario": usuario,
+                    "erros": erros,
+                    "valores": valores,
+                },
+            )
+
         ContaRepo.inserir(Conta(0, usuario.id, nome, saldo))
+        return RedirectResponse("/carteira", status_code=status.HTTP_303_SEE_OTHER)
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+
+@router.post("/carteira/excluir", response_class=HTMLResponse)
+async def postExcluir(
+    id: int = Form(""), usuario: Usuario = Depends(validar_usuario_logado)
+):
+    if usuario:
+        ContaRepo.excluir(id)
         return RedirectResponse("/carteira", status_code=status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
