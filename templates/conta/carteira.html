@@ -24,7 +24,11 @@
                 <h3 class="m-0">Conta</h3>
                 <p>{{ c.nome }}</p>
                 <h3>Saldo</h3>
-                <p> {{ 'R${0:0.2f}'.format(c.saldo) }}</p>
+                {% for i in range(saldo_contas|length) %}
+                    {% if c.id == saldo_contas[i][0] %}
+                        <p> {{ 'R${0:0.2f}'.format(saldo_contas[i][1]) }}</p>
+                    {% endif %}
+                {% endfor %}
                 <div class="text-end">
                     <i role="button" class="bi-pencil-square"></i>
                     <i role="button" class="bi-trash"></i>

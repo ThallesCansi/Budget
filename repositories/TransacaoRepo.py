@@ -138,13 +138,12 @@ class TransacaoRepo:
     @classmethod
     def obterReceita(cls, idUsuario: int) -> str:
         sql = """SELECT
-                    SUM(CASE WHEN t.tipo = 'Receita' AND t.valor > 0 THEN t.valor ELSE 0 END) AS soma_receitas_positivas
-                FROM transacao t
-                WHERE t.idUsuario = ?;
+                (SELECT SUM(CASE WHEN t.tipo = 'Receita' AND t.valor > 0 THEN t.valor ELSE 0 END) FROM transacao t WHERE t.idUsuario = ?) +
+                (SELECT SUM(CASE WHEN c.saldo > 0 THEN c.saldo ELSE 0 END) FROM conta c WHERE c.idUsuario = ?) AS total_acrescimo
                 """
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(sql, (idUsuario,)).fetchone()
+        resultado = cursor.execute(sql, (idUsuario, idUsuario)).fetchone()
         if resultado[0] == None:
             conexao.commit()
             conexao.close()
@@ -157,13 +156,12 @@ class TransacaoRepo:
     @classmethod
     def obterDespesa(cls, idUsuario: int) -> float:
         sql = """SELECT
-                    SUM(CASE WHEN t.tipo = 'Despesa' AND t.valor < 0 THEN t.valor ELSE 0 END) AS soma_receitas_positivas
-                FROM transacao t
-                WHERE t.idUsuario = ?;
+                (SELECT SUM(CASE WHEN t.tipo = 'Despesa' AND t.valor < 0 THEN t.valor ELSE 0 END) FROM transacao t WHERE t.idUsuario = ?) +
+                (SELECT SUM(CASE WHEN c.saldo < 0 THEN c.saldo ELSE 0 END) FROM conta c WHERE c.idUsuario = ?) AS total_acrescimo
                 """
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(sql, (idUsuario,)).fetchone()
+        resultado = cursor.execute(sql, (idUsuario, idUsuario)).fetchone()
         if resultado[0] == None:
             conexao.commit()
             conexao.close()
@@ -175,17 +173,20 @@ class TransacaoRepo:
 
     @classmethod
     def obterSaldo(cls, idUsuario: int) -> float:
-        sql = """SELECT
-                    SUM(t.valor) AS soma_total_valores
-                FROM transacao t
-                INNER JOIN categoria c ON t.idCategoria = c.id
-                INNER JOIN conta co ON t.idConta = co.id
-                LEFT JOIN dependente d ON t.idDependente = d.id
-                WHERE t.idUsuario = ?;
+        sql = """SELECT SUM(saldo_atualizado) AS soma_saldos_atualizados
+                FROM (
+                    SELECT 
+                        c.id AS id_conta,
+                        COALESCE(c.saldo, 0) + COALESCE(SUM(t.valor), 0) AS saldo_atualizado
+                    FROM conta c
+                    LEFT JOIN transacao t ON c.id = t.idConta AND t.idUsuario = ?
+                    WHERE c.idUsuario = ?
+                    GROUP BY c.id, c.saldo
+                ) AS subconsulta;
                 """
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(sql, (idUsuario,)).fetchone()
+        resultado = cursor.execute(sql, (idUsuario, idUsuario)).fetchone()
         if resultado[0] == None:
             conexao.commit()
             conexao.close()

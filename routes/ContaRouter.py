@@ -47,6 +47,8 @@ async def getTrans(
 ):
     if usuario:
         contas = ContaRepo.obterContaPorUsuario(usuario.id)
+        saldo_contas = ContaRepo.obterSaldoContas(usuario.id)
+        print(saldo_contas)
         mensagem = "Carteira"
         usuario = ""
         pagina = "/carteira"
@@ -55,6 +57,7 @@ async def getTrans(
             {
                 "request": request,
                 "contas": contas,
+                "saldo_contas": saldo_contas,
                 "mensagem": mensagem,
                 "usuario": usuario,
                 "pagina": pagina,

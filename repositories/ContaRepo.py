@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 
 from models.Conta import Conta
@@ -103,7 +103,7 @@ class ContaRepo:
         conn.commit()
         conn.close()
         return object
-    
+
     @classmethod
     def obterContaPorUsuario(cls, idUsuario: int) -> list[Conta]:
         sql = "SELECT * FROM conta WHERE idUsuario=?"
@@ -115,8 +115,29 @@ class ContaRepo:
                 objeto = [Conta(*x) for x in resultado]
             else:
                 objeto = []
-        except Exception as e: 
+        except Exception as e:
             objeto = e
         conexao.commit()
         conexao.close()
         return objeto
+
+    @classmethod
+    def obterSaldoContas(cls, idUsuario: int) -> List[Tuple[int, float]]:
+        sql = """SELECT 
+                    c.id AS id_conta,
+                    COALESCE(c.saldo, 0) + COALESCE(SUM(t.valor), 0) AS saldo_atualizado
+                FROM conta c
+                LEFT JOIN transacao t ON c.id = t.idConta AND t.idUsuario = ?
+                WHERE c.idUsuario = ?
+                GROUP BY c.id, c.saldo;
+            """
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        try:
+            cursor.execute(sql, (idUsuario, idUsuario))
+            resultados = cursor.fetchall()
+            saldo_contas = [(row[0], row[1]) for row in resultados]
+        except Exception as e:
+            saldo_contas = []
+        conexao.close()
+        return saldo_contas
