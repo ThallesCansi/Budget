@@ -2,6 +2,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
 from models.Usuario import Usuario
 from repositories.ContaRepo import ContaRepo
+from repositories.DependenteRepo import DependenteRepo
 from repositories.UsuarioRepo import UsuarioRepo
 from repositories.CategoriaRepo import CategoriaRepo
 
@@ -162,20 +163,4 @@ async def getConfig(request: Request, usuario: Usuario = Depends(validar_usuario
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
-@router.get("/dependentes")
-async def getIndex(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
-    if usuario:
-        mensagem = "Dependentes"
-        usuario = ""
-        pagina = "/configuracoes"
-        return templates.TemplateResponse(
-            "/dependentes/dependente.html",
-            {
-                "request": request,
-                "pagina": pagina,
-                "mensagem": mensagem,
-                "usuario": usuario,
-            },
-        )
-    else:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
