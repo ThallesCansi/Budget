@@ -48,7 +48,6 @@ async def getTrans(
     if usuario:
         contas = ContaRepo.obterContaPorUsuario(usuario.id)
         saldo_contas = ContaRepo.obterSaldoContas(usuario.id)
-        print(saldo_contas)
         mensagem = "Carteira"
         usuario = ""
         pagina = "/carteira"

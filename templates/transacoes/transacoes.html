@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block conteudo %}
+{% extends "base.html" %}
+
+{% block conteudo %}
 
 <div class="row">
     <div class="col-xl-9 col-12 col-10">
@@ -44,15 +46,17 @@
                         <td class="text-center text-dark">{{ t.nomeConta }}</td>
                         <td class="text-center text-dark">{{ t.valor }}</td>
                         <td class="text-center text-dark">{{ t.nomeDependente }}</td>
-                        <td class="d-flex justify-content-center align-items-center">
-                            <div class="edit-excl">
-                                <form action="/excluirTransacao" method="post">
-                                    <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/edit.svg"></button>
-                                </form>
-                                <form action="/excluirTransacao" method="post">
-                                    <button class="reset-Button" name="idTransaction" value="{{ t.idTransaction }}" type="submit" onclick="openPopupExcluir()"><img src="/static/img/excluir.svg"></button>
-                                </form>
-                            </div>
+                        <td class="d-flex justify-content-center align-items-center gap-1">
+                            <form action="/transacao/editar" method="post">
+                                <button class="btn p-1 text-bg-info" name="id" value="{{ t.id }}" type="submit">
+                                    <i class="bi-pencil-square"></i>
+                                </button>
+                            </form>
+                            <form action="/transacao/excluir" method="post">
+                                <button class="btn p-1 text-white bg-danger" name="id" value="{{ t.id }}" type="submit">
+                                    <i class="bi-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}
@@ -120,14 +124,11 @@
         </div>
     </div>
 </div>
-    
+
 <script> 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
-
-    
-
 
 {% endblock %}
 

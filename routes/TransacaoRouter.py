@@ -155,3 +155,12 @@ async def postReceita(
         return RedirectResponse("/dashboard", status_code=status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+
+@router.post("/excluir", response_class=HTMLResponse)
+async def postExcluir(request: Request, id: int = Form(""), usuario: Usuario = Depends(validar_usuario_logado)):
+    if usuario:
+        TransacaoRepo.excluir(id)
+        return RedirectResponse("/transacao/listagem", status_code=status.HTTP_303_SEE_OTHER)
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
