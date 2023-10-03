@@ -18,6 +18,24 @@ templates = Jinja2Templates(directory="templates")
 async def startup_event():
     templates.env.filters["date"] = formatar_data
 
+@router.get("/dependentes")
+async def getDep(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
+    if usuario:
+        mensagem = "Dependentes"
+        pagina = "/configuracoes"
+        dependentes = DependenteRepo.obterDependentePorUsuario(usuario.id)
+        return templates.TemplateResponse(
+            "/dependentes/dependente.html",
+            {
+                "request": request,
+                "pagina": pagina,
+                "mensagem": mensagem,
+                "usuario": usuario,
+                "dependentes": dependentes,
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 @router.post(
     "/adicionar",
@@ -34,6 +52,16 @@ async def postAdicionar(
         token = request.cookies.values().mapping["auth_token"]
         user = UsuarioRepo.obterUsuarioPorToken(token)
         DependenteRepo.inserir(Dependente(0, user.id, nome))
-        return RedirectResponse("/dependentes", status_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse("dependentes", status_code=status.HTTP_303_SEE_OTHER)
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+@router.post("/excluir", response_class=HTMLResponse)
+async def postExcluir(
+    id: int = Form(""), usuario: Usuario = Depends(validar_usuario_logado)
+):
+    if usuario:
+        DependenteRepo.excluir(id)
+        return RedirectResponse("dependentes", status_code=status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

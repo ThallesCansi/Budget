@@ -29,6 +29,20 @@ class DependenteRepo:
         conn.commit()
         conn.close()
         return dependente
+    
+    @classmethod
+    def excluir(cls, id: int) -> bool:
+        sql = "DELETE FROM dependente WHERE id=?"
+        conn = Database.criarConexao()
+        cursor = conn.cursor()
+        result = cursor.execute(sql, (id,))
+        if result.rowcount > 0:
+            conn.commit()
+            conn.close()
+            return True
+        else:
+            conn.close()
+            return False
 
     @classmethod
     def obterDependentePorUsuario(cls, idUsuario: int) -> list[Dependente]:
