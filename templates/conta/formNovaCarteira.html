@@ -1,0 +1,32 @@
+{% macro formNovaCarteira() %}
+
+    <form method="post" action="/carteira/nova" class="col-12 col-md-10 offset-md-1">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h6 class="display-6">Adicionar Carteira</h6>
+            <p class="lead">Adicione carteiras à sua conta para gerenciar melhor o seu dinheiro</p>       
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="nome" class="lead form-label">Nome da Carteira</label>
+                    <input type="text" name="nome" id="nome" placeholder="Nome" class="shadow border-0 form-control">
+                    <span class="text-danger d-none small"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="saldo" class="lead form-label">Saldo total</label>
+                    <div class="input-group">
+                        <span class="input-group-text">R$</span>
+                        <input type="number" name="saldo" id="saldo" placeholder="Saldo" class="shadow border-0 form-control">
+                    </div>
+                    <span class="text-danger d-none small"></span>
+                </div>
+                <div class="text-end">
+                    <button class="btn rounded text-white bg-secondary" type="submit">Criar Carteira</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endmacro %}

@@ -1,39 +1,47 @@
-{% extends "base.html" %} {% block conteudo %}
+{% extends "base.html" %} 
 
-<div class="row d-flex align-items-center mt-2">
-    <div class="col-lg-6 col-md-5 col-12 d-flex align-items-center mb-3">
-        <img src="/static/img/cartao.svg" alt="">
-        <h4 class="ms-2">meus cartões</h4>
-    </div>
-    <div class="col-lg-6 col-md-7">
-        <div style="width: 350px;"  class="float-md-end me-2 me-md-4 rounded-pill shadow d-flex p-0 text-center">
-            <div class="rounded-pill bg-secondary text-white fw-bold p-2 px-5 aberta">
-                <span style="font-size: 14px;">Faturas abertas</span>
-            </div>
-            <div style="color: #6C757D; font-size: 14px;" class="rounded-pill p-2 px-4 fw-semibold fechada">
-                <span>Faturas fechadas</span>
-            </div>
-        </div>
-    </div>
-</div>
+{% block conteudo %}
+{% from "conta/modalNovaCarteira.html" import modalNovaCarteira %}
 
-<div class=" mt-5 row g-0 ">
-    <div class="col-xl-4 col-sm-6 col-12 offset-sm-0  offset-xl-0 offset-md-0 mb-3 d-flex justify-content-center">
-        <div style="width: 300px; height: 215px; " class="ms-1 ms-md-3 shadow rounded d-flex align-items-center justify-content-center">
-            <button style="height: 40px;" class="btn col-8 rounded bg-secondary text-white fs-5 fw-semibold d-flex align-items-center justify-content-center" 
-                type="submit"  style=" background-color: #35aa3a;" data-bs-toggle="modal" data-bs-target="#formCartao">
-                Adicionar Cartão
-            </button>
+    <div class="row d-flex align-items-center mt-2">
+        <div class="col-lg-6 col-md-5 col-12 d-flex align-items-center mb-3">
+            <i class="bi bi-cash-coin fs-2"></i>
+            <h2 class="ms-2">Minhas Carteiras</h2>
         </div>
     </div>
-    {% for c in cartao %}
-    <div class="col-xl-4 col-sm-6 col-12  offset-xl-0 offset-md-0  d-flex justify-content-center mb-3">
-        <div style="width: 300px; height: 215px; " class="ms-1 ms-md-3 shadow rounded ">
-            {{c.descricao}}
+
+    <div class="mt-5 row g-0">
+        <div class="col-xl-4 col-sm-6 col-12 offset-sm-0 offset-xl-0 offset-md-0 mb-3 d-flex justify-content-center">
+            <div class="ms-1 ms-md-3 shadow rounded d-flex align-items-center justify-content-center" style="width: 300px; height: 215px;">
+                <button class="btn col-8 rounded bg-secondary text-white fs-5 fw-semibold d-flex align-items-center justify-content-center" type="submit" style="height: 40px; background-color: #35aa3a;" data-bs-toggle="modal" data-bs-target="#modalNovaCarteira">
+                    Adicionar Carteira
+                </button>
+            </div>
         </div>
+        {% for c in contas %}
+        <div class="col-xl-4 col-sm-6 col-12  offset-xl-0 offset-md-0  d-flex justify-content-center mb-3">
+            <div class="ms-1 ms-md-3 p-3 shadow rounded" style="width: 300px; height: 215px;">
+                <h3 class="m-0">Conta</h3>
+                <p>{{ c.nome }}</p>
+                <h3>Saldo</h3>
+                <p> {{ 'R${0:0.2f}'.format(c.saldo) }}</p>
+                <div class="text-end">
+                    <i role="button" class="bi-pencil-square"></i>
+                    <i role="button" class="bi-trash"></i>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% from "conta/formCartao.html" import modalFormCartao %}
-{{ modalFormCartao(id="formCartao")}}
+
+    {{ modalNovaCarteira(id="modalNovaCarteira")}}
+
+{% if erros and valores %}
+    <script>
+        const validationErrors = {{ erros|tojson }};
+        const fieldValues = {{ valores|tojson }};
+    </script>
+    <script src="/static/js/formValidation.js"></script>
+{% endif %}
+    
 {% endblock %}

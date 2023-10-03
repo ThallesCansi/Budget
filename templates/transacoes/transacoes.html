@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-xl-9 col-12 col-10">
-        <div class="mb-3 form-floating col-10 col-md-7 col-sm-8">
+        <div class="mb-3 form-floating col-2 col-md-2 col-sm-2">
             <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                 {% for mes in meses %}
                     <option value="{{ mes }}" {{ "selected" if mes == data_hora.split("/")[1] | int }}>{{ meses[mes].title() }}</option>

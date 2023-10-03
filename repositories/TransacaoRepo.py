@@ -194,9 +194,11 @@ class TransacaoRepo:
             conexao.commit()
             conexao.close()
             return resultado[0]
-    
+
     @classmethod
-    def obterPagina(cls, idUsuario: int, pagina: int, tamanhoPagina: int) -> List[Transacao]:
+    def obterPagina(
+        cls, idUsuario: int, pagina: int, tamanhoPagina: int
+    ) -> List[Transacao]:
         inicio = (pagina - 1) * tamanhoPagina
         sql = """SELECT
                     t.id as id_transacao,
@@ -214,7 +216,7 @@ class TransacaoRepo:
                 LEFT JOIN dependente d ON t.idDependente = d.id
                 WHERE t.idUsuario = ?
                 LIMIT ?, ?"""
-        
+
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(sql, (idUsuario, inicio, tamanhoPagina)).fetchall()

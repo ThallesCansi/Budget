@@ -41,68 +41,37 @@ async def postNovaConta(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
-# ! Não faz muito sentido essa rota get
-@router.get(
-    "/addConta",
-    tags=["Conta"],
-    summary="Consultar contas",
-    response_class=HTMLResponse,
-)
-async def getContas(request: Request):
-    contas = ContaRepo.obterTodos()
-    return templates.TemplateResponse(
-        "configuracoes.html",
-        {
-            "request": request,
-            "contas": contas,
-        },
-    )
-
-
-@router.get(
-    "/conta/{id}",
-    tags=["Conta"],
-    summary="Consultar uma única conta ",
-    response_class=JSONResponse,
-)
-async def getConta(id: int = Path(...)):
-    conta = ContaRepo.obterPorId(id)
-    return {"conta": conta}
-
-
-@router.put(
-    "/atualizarconta",
-    tags=["Conta"],
-    summary="Atualizar conta",
-    response_class=JSONResponse,
-)
-async def putAtualizarConta(
-    id: int = Form(),
-    nome: str = Form(),
-    saldo: float = Form(),
-    meta: str | None = Form(None),
+@router.get("/carteira")
+async def getTrans(
+    request: Request, usuario: Usuario = Depends(validar_usuario_logado)
 ):
-    contaAtualizada = ContaRepo.alterar(Conta(id, Usuario, nome, saldo, meta))
-    return {"contaAtualizada": contaAtualizada}
+    if usuario:
+        contas = ContaRepo.obterContaPorUsuario(usuario.id)
+        mensagem = "Carteira"
+        usuario = ""
+        pagina = "/carteira"
+        return templates.TemplateResponse(
+            "conta/carteira.html",
+            {
+                "request": request,
+                "contas": contas,
+                "mensagem": mensagem,
+                "usuario": usuario,
+                "pagina": pagina,
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
-@router.delete(
-    "/excluirConta",
-    tags=["Conta"],
-    summary="Excluir conta",
-    response_class=HTMLResponse,
-)
-async def deleteExcluirConta(id: int = Form()):
-    conta = ContaRepo.excluir(id)
-    return RedirectResponse("/formConta", status_code=status.HTTP_303_SEE_OTHER)
-
-
-@router.delete(
-    "/excluircontas",
-    tags=["Conta"],
-    summary="Excluir todos as contas",
-    response_class=JSONResponse,
-)
-async def deleteExcluirContas():
-    contas = ContaRepo.limparTabela()
-    return {"contas": contas}
+@router.post("/carteira/nova", response_class=HTMLResponse)
+async def postNovaCarteira(
+    nome: str = Form(""),
+    saldo: float = Form(""),
+    usuario: Usuario = Depends(validar_usuario_logado),
+):
+    if usuario:
+        ContaRepo.inserir(Conta(0, usuario.id, nome, saldo))
+        return RedirectResponse("/carteira", status_code=status.HTTP_303_SEE_OTHER)
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

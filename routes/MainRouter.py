@@ -120,24 +120,6 @@ async def getSair(request: Request, usuario: Usuario = Depends(validar_usuario_l
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
-@router.get("/carteira")
-async def getTrans(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
-    if usuario:
-        mensagem = "Carteira"
-        usuario = ""
-        pagina = "/carteira"
-        return templates.TemplateResponse(
-            "conta/carteira.html",
-            {
-                "request": request,
-                "mensagem": mensagem,
-                "usuario": usuario,
-                "pagina": pagina,
-            },
-        )
-    else:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-
 
 @router.get("/metas")
 async def getTrans(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
