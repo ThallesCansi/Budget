@@ -116,7 +116,7 @@ async def postExcluir(
 
             add_error(
                 "excluir",
-                "Você não pode excluir contas com transações existentes.",
+                "Você não pode excluir contas com transações existentes",
                 erros,
             )
 
