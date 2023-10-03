@@ -10,6 +10,8 @@
         </div>
     </div>
 
+    <span class="text-danger d-none small"></span>
+
     <div class="mt-5 row g-0">
         <div class="col-xl-4 col-sm-6 col-12 offset-sm-0 offset-xl-0 offset-md-0 mb-3 d-flex justify-content-center">
             <div class="ms-1 ms-md-3 shadow rounded d-flex align-items-center justify-content-center" style="width: 300px; height: 215px;">
@@ -47,5 +49,13 @@
     </div>
 
     {{ modalNovaCarteira(id="modalNovaCarteira", erros=erros, valores=valores) }}
+
+    {% if erros and valores %}
+        <script>
+            const validationErrors = {{ erros|tojson }};
+            const fieldValues = {{ valores|tojson }};
+        </script>
+        <script src="/static/js/formValidation.js"></script>
+    {% endif %}
     
 {% endblock %}
