@@ -27,12 +27,9 @@
             <div class="forms-container-login">
                 <div class="signin-signup">
                     {% if not logado: %}
-                    {% if request.query_params["returnUrl"]: %}
-                    <p class="lead">A página que você tentou acessar requer que esteja logado. Faça o login para prosseguir.</p>
-                    {% endif %}
                     <!-- Entrar -->
                     <form method="POST" id="formLogin" class="sign-in-form mt-1 mt-lg-5">
-                        <div class="mb-2 mt-0 mt-sm-3 mb-md-2 mb-lg-5 mt-md-3">
+                        <div class="mb-2 mt-0 mt-sm-3 mb-md-2 mb-lg-2 mt-md-3">
                             <img src="/static/img/nameLogo.svg" alt="Logo do Budget">
                         </div>
                         <h3 class="text-dark">Acesse sua conta</h3>
@@ -60,6 +57,12 @@
                         <div class="row mt-3">
                             <button type="submit" class="btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" style="background-color: #35aa3a">Entrar</button>
                         </div>
+                        {% if request.query_params["returnUrl"]: %}
+                        <div class="d-flex justify-content-center align-content-center text-warning fw-semibold mt-2">
+                            <i class="bi bi-cone-striped lead me-1"></i>
+                            <p class="lead text-danger">Sua sessão expirou. Faça o login para prosseguir.</p>
+                        </div>
+                        {% endif %}
                     
                         {% if erros and valores: %}
                         <script>
@@ -72,7 +75,7 @@
                     {% endif %}
                     <!-- Cadastrar -->
                     <form method="post" action="/novousuario" id="formCadastro" class="sign-up-form mt-0 col-lg-10 col-md-12 col-12">
-                        <div class="d-lg-block mb-md-2 mb-lg-5 mt-md-3">
+                        <div class="d-lg-block mb-md-2 mb-lg-2 mt-md-3">
                             <img src="/static/img/nameLogo.svg" alt="Logo do Budget">
                         </div>
                         <h3 class="text-dark">Cadastre sua conta</h3>
@@ -122,12 +125,18 @@
                         <div class="row mt-3">
                             <button class="mb-3 btn col-md-8 col-lg-12 col-10 offset-lg-0 offset-md-2 offset-1 rounded bg-secondary text-white fs-5 fw-semibold" type="submit" style="background-color: #35aa3a">Cadastrar</button>
                         </div>
-                        {% if erros and valores: %}
+                        {% if errosCad and valoresCad: %}
                         <script>
-                            const validationErrors = {{ erros|tojson }};
-                            const fieldValues = {{ valores|tojson }};
+                            const validationErrors = {{ errosCad|tojson }};
+                            const fieldValues = {{ valoresCad|tojson }};
                         </script>
                         <script src="/static/js/formValidation.js"></script>
+                        <script src="/static/js/usuario/erroCadastro.js"></script>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                document.getElementById('sign-up-btn').click();
+                            });
+                        </script>
                         {% endif %}
                     </form>
                 </div>

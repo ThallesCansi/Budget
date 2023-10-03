@@ -98,6 +98,7 @@
 .nav-item:hover i{
     background-color: #fff !important;
     color: black !important;
+    cursor: pointer !important;
 }
 
 ::placeholder{

@@ -253,6 +253,12 @@ a.termo{
       top: 5%;
       transform: translate(-50%, 0);
     }
+
+    form{
+      max-height: 70vh;
+      max-width: 100vw;
+      overflow: auto;
+    }
   }
   
   @media (max-width: 575px) {
@@ -286,6 +292,12 @@ a.termo{
     .caixa {
     width: 80vw;
     height: 60vh;
+    }
+
+    form{
+      max-height: 75vh;
+      max-width: 100vw;
+      overflow-y: auto;
     }
   }
 
