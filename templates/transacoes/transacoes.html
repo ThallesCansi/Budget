@@ -58,43 +58,43 @@
                     {% endfor %}
                 </tbody>
             </table>
-            {% endif %}
-            {% if totalPaginas > 1 %}
-            <nav>
-                <ul class="pagination pagination-sm">
-                    <li class="page-item">
-                        <a class="page-link {{ 'disabled' if (paginaAtual == 1) }}" href="/transacao/listagem?pa=1&tp={{ tamanhoPagina }}">
-                            <i class="bi bi-arrow-left"></i>
-                        </a>
-                    </li>
-            
-                    <li class="page-item">
-                        <a class="page-link {{ 'disabled' if (paginaAtual == 1) }}" href="/transacao/listagem?pa={{ paginaAtual-1 }}&tp={{ tamanhoPagina }}">
-                            <i class="bi bi-arrow-left-short"></i>
-                        </a>
-                    </li>
-            
-                    {% for i in range(totalPaginas) %}
-                    <li class="page-item">
-                        <a class="page-link {{ 'active' if (paginaAtual == i+1) }}" href="/transacao/listagem?pa={{ i+1 }}&tp={{ tamanhoPagina}}">{{ i+1 }}</a>
-                    </li>
-                    {% endfor %}
-            
-                    <li class="page-item">
-                        <a class="page-link {{ 'disabled' if (paginaAtual == totalPaginas) }}" href="/transacao/listagem?pa={{ paginaAtual+1 }}&tp={{ tamanhoPagina }}">
-                            <i class="bi bi-arrow-right-short"></i>
-                        </a>
-                    </li>
-            
-                    <li class="page-item">
-                        <a class="page-link {{ 'disabled' if (paginaAtual == totalPaginas) }}" href="/transacao/listagem?pa={{ totalPaginas }}&tp={{ tamanhoPagina }}">
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            {% endif %} 
         </div>
+        {% endif %}
+        {% if totalPaginas > 1 %}
+        <nav>
+            <ul class="pagination pagination-sm">
+                <li class="page-item">
+                    <a class="page-link {{ 'disabled' if (paginaAtual == 1) }}" href="/transacao/listagem?pa=1&tp={{ tamanhoPagina }}">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                </li>
+        
+                <li class="page-item">
+                    <a class="page-link {{ 'disabled' if (paginaAtual == 1) }}" href="/transacao/listagem?pa={{ paginaAtual-1 }}&tp={{ tamanhoPagina }}">
+                        <i class="bi bi-arrow-left-short"></i>
+                    </a>
+                </li>
+        
+                {% for i in range(totalPaginas) %}
+                <li class="page-item">
+                    <a class="page-link {{ 'active' if (paginaAtual == i+1) }}" href="/transacao/listagem?pa={{ i+1 }}&tp={{ tamanhoPagina}}">{{ i+1 }}</a>
+                </li>
+                {% endfor %}
+        
+                <li class="page-item">
+                    <a class="page-link {{ 'disabled' if (paginaAtual == totalPaginas) }}" href="/transacao/listagem?pa={{ paginaAtual+1 }}&tp={{ tamanhoPagina }}">
+                        <i class="bi bi-arrow-right-short"></i>
+                    </a>
+                </li>
+        
+                <li class="page-item">
+                    <a class="page-link {{ 'disabled' if (paginaAtual == totalPaginas) }}" href="/transacao/listagem?pa={{ totalPaginas }}&tp={{ tamanhoPagina }}">
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %} 
     </div>
     <div class="gy-3 row col-xl-3 col-lg-12 d-flex flex-xl-column flex-sm-row  flex-column justify-content-center align-items-center ">
         <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-6 d-sm-inline-block ">

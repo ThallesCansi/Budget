@@ -39,7 +39,7 @@ async def getListagem(
 ):
     if usuario:
         transacoes = TransacaoRepo.obterPagina(usuario.id ,pa, tp)
-        totalPaginas = TransacaoRepo.obterQtdePaginas(tp)
+        totalPaginas = TransacaoRepo.obterQtdePaginas(usuario.id ,tp)
         receita = TransacaoRepo.obterReceita(usuario.id)
         despesa = TransacaoRepo.obterDespesa(usuario.id)
         saldo = TransacaoRepo.obterSaldo(usuario.id)

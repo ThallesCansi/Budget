@@ -235,9 +235,9 @@ class TransacaoRepo:
         return objetos
 
     @classmethod
-    def obterQtdePaginas(cls, tamanhoPagina: int) -> int:
-        sql = "SELECT CEIL(CAST((SELECT COUNT(*) FROM transacao) AS FLOAT) / ?) AS qtdePaginas"
+    def obterQtdePaginas(cls, idUsuario: int, tamanhoPagina: int) -> int:
+        sql = "SELECT CEIL(CAST((SELECT COUNT(*) FROM transacao WHERE idUsuario = ?) AS FLOAT) / ?) AS qtdePaginas"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(sql, (tamanhoPagina,)).fetchone()
+        resultado = cursor.execute(sql, (idUsuario, tamanhoPagina)).fetchone()
         return int(resultado[0])
