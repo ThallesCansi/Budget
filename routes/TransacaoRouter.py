@@ -33,10 +33,13 @@ async def getListagem(
     request: Request,
     mensagem="Transações",
     pagina="/transacoes",
+    pa: int = 1,
+    tp: int = 2,
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
-        transacoes = TransacaoRepo.obterTransacaoPorUsuario(usuario.id)
+        transacoes = TransacaoRepo.obterPagina(usuario.id ,pa, tp)
+        totalPaginas = TransacaoRepo.obterQtdePaginas(tp)
         receita = TransacaoRepo.obterReceita(usuario.id)
         despesa = TransacaoRepo.obterDespesa(usuario.id)
         saldo = TransacaoRepo.obterSaldo(usuario.id)
@@ -54,6 +57,9 @@ async def getListagem(
             {
                 "request": request,
                 "transacoes": transacoes,
+                "totalPaginas":totalPaginas,
+                "paginaAtual": pa,
+                "tamanhoPagina": tp,
                 "receita": receita,
                 "despesa": despesa,
                 "saldo": saldo,

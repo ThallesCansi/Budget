@@ -10,7 +10,10 @@
             </select>
             <label for="floatingSelect">Escolha o mês</label>
         </div>
-        <div class="table-responsive-lg">
+        {% if transacoes|length == 0 %}
+        <p>Não há transações cadastradas.</p>
+        {% else %}
+        <div class="table-responsive-md">
             <table id="transacao-table" class="table align-middle ">
                 <caption>Quantidade de Transações:</caption>
                 <thead class="table-secondary" style="height: 50px; vertical-align: middle;" >
@@ -55,6 +58,42 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
+            {% if totalPaginas > 1 %}
+            <nav>
+                <ul class="pagination pagination-sm">
+                    <li class="page-item">
+                        <a class="page-link {{ 'disabled' if (paginaAtual == 1) }}" href="/transacao/listagem?pa=1&tp={{ tamanhoPagina }}">
+                            <i class="bi bi-arrow-left"></i>
+                        </a>
+                    </li>
+            
+                    <li class="page-item">
+                        <a class="page-link {{ 'disabled' if (paginaAtual == 1) }}" href="/transacao/listagem?pa={{ paginaAtual-1 }}&tp={{ tamanhoPagina }}">
+                            <i class="bi bi-arrow-left-short"></i>
+                        </a>
+                    </li>
+            
+                    {% for i in range(totalPaginas) %}
+                    <li class="page-item">
+                        <a class="page-link {{ 'active' if (paginaAtual == i+1) }}" href="/transacao/listagem?pa={{ i+1 }}&tp={{ tamanhoPagina}}">{{ i+1 }}</a>
+                    </li>
+                    {% endfor %}
+            
+                    <li class="page-item">
+                        <a class="page-link {{ 'disabled' if (paginaAtual == totalPaginas) }}" href="/transacao/listagem?pa={{ paginaAtual+1 }}&tp={{ tamanhoPagina }}">
+                            <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </li>
+            
+                    <li class="page-item">
+                        <a class="page-link {{ 'disabled' if (paginaAtual == totalPaginas) }}" href="/transacao/listagem?pa={{ totalPaginas }}&tp={{ tamanhoPagina }}">
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            {% endif %} 
         </div>
     </div>
     <div class="gy-3 row col-xl-3 col-lg-12 d-flex flex-xl-column flex-sm-row  flex-column justify-content-center align-items-center ">
@@ -81,38 +120,13 @@
         </div>
     </div>
 </div>
-    <!-- JavaScript -->
+    
 <script> 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
 
     
-<!-- <div class="row ms-1">
-    <div class="g-3 row d-md-inline d-flex flex-column flex-sm-row justify-content-center align-items-center ">
-        <div class="col-xl-3 col-lg-5 col-md-5 col-sm-4 col-7 d-sm-inline-block ">
-            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 shadow col-sm-0 col-4" style="height: 180px; width: auto !important;">
-                <i class="bi-wallet-fill rounded p-2 text-white shadow" style="background-color: var(--navBar-blue) !important; line-height: 0px;"></i>
-                <p class="fw-semibold" style="color: var(--navBar-blue) !important; font-size: 25px;">{{saldo}}</p>
-                <p style="font-size: 20px;">saldo</p>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-5 col-md-5 col-sm-4 col-7 d-sm-inline-block">
-            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 shadow" style="height: 180px;">
-                <i class="bi-graph-up-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-saving) !important; line-height: 0px;"></i>
-                <p class="fw-semibold" style="color: var(--navBar-saving) !important; font-size: 25px; ">{{receita}}</p>
-                <p style="font-size: 20px;">receita</p>
-            </div>
-        </div>
-        <div class="col-xl-3  col-lg-5 col-md-5 col-sm-4 col-7 d-sm-inline-block">
-            <div class="d-flex flex-column align-items-start gap-1 justify-content-center p-2 border border-dark rounded-3 shadow" style="height: 180px;">
-                <i class="bi-graph-down-arrow rounded p-2 text-white shadow" style="background-color: var(--navBar-expense); line-height: 0px;"></i>
-                <p class="fw-semibold" style="color: var(--navBar-expense) !important; font-size: 25px;">{{despesa}}</p>
-                <p style="font-size: 20px;">despesa</p>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 
 {% endblock %}

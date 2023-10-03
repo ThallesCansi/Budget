@@ -194,3 +194,50 @@ class TransacaoRepo:
             conexao.commit()
             conexao.close()
             return resultado[0]
+    
+    @classmethod
+    def obterPagina(cls, idUsuario: int, pagina: int, tamanhoPagina: int) -> List[Transacao]:
+        inicio = (pagina - 1) * tamanhoPagina
+        sql = """SELECT
+                    t.id as id_transacao,
+                    t.descricao AS descricao_transacao,
+                    t.data,
+                    t.valor,
+                    t.forma_pagamento,
+                    t.tipo,
+                    c.nome AS nome_categoria,
+                    co.nome AS nome_conta,
+                    d.nome AS nome_dependente
+                FROM transacao t
+                INNER JOIN categoria c ON t.idCategoria = c.id
+                INNER JOIN conta co ON t.idConta = co.id
+                LEFT JOIN dependente d ON t.idDependente = d.id
+                WHERE t.idUsuario = ?
+                LIMIT ?, ?"""
+        
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        resultado = cursor.execute(sql, (idUsuario, inicio, tamanhoPagina)).fetchall()
+        objetos = [
+            Transacao(
+                id=x[0],
+                descricao=x[1],
+                data=x[2],
+                valor=x[3],
+                forma_pagamento=x[4],
+                tipo=x[5],
+                nomeCategoria=x[6],
+                nomeConta=x[7],
+                nomeDependente=x[8],
+            )
+            for x in resultado
+        ]
+        return objetos
+
+    @classmethod
+    def obterQtdePaginas(cls, tamanhoPagina: int) -> int:
+        sql = "SELECT CEIL(CAST((SELECT COUNT(*) FROM transacao) AS FLOAT) / ?) AS qtdePaginas"
+        conexao = Database.criarConexao()
+        cursor = conexao.cursor()
+        resultado = cursor.execute(sql, (tamanhoPagina,)).fetchone()
+        return int(resultado[0])
