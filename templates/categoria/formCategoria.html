@@ -16,33 +16,27 @@
                     <div class="row">
                         <div class="col-lg-6 col-12 mt-4">
                             <div class="mb-3">
-                                <label for="name" class="form-label offset-md-1 offset-sm-2 offset-1">
+                                <label for="name" class="form-label">
                                     Nome da Categoria
                                 </label>
-                                <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
+                                <div class="col">
                                     <input type="text" name="nome" id="nome" class="shadow border-0 form-control" placeholder="Exemplo: Estudos">
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="valor" class="form-label offset-md-1 offset-sm-2 offset-1">Valor</label>
-                                <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
-                                    <input type="number" name="valor" id="valor" class="shadow border-0 form-control" placeholder="R$ 0,00">
+                            <div class="col">
+                                Tipo de Categoria
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="tipo" id="Receita" value="Receita">
+                                    <label class="form-check-label" for="Receita">
+                                        Receita
+                                    </label>
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="cor" class="form-label offset-md-1 offset-sm-2 offset-1">Cor:</label>
-                                <div class="select-color shadow col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 text-center py-5">
-                                    <i class="bg-danger rounded-circle" style="padding: 12px 24px 12px 24px"></i>
-                                    <i class="bg-warning rounded-circle mx-3"  style="padding: 12px 24px 12px 24px"></i>
-                                    <i class="bg-success rounded-circle me-3"  style="padding: 12px 24px 12px 24px"></i>
-                                    <i class="bg-primary rounded-circle"  style="padding: 12px 24px 12px 24px"></i>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="tipo" id="Despesa" value="Despesa">
+                                    <label class="form-check-label" for="Despesa">
+                                        Despesa
+                                    </label>
                                 </div>
-                            </div>
-                            <div class="col-md-5 offset-md-1 col-sm-4 offset-sm-4 offset-4 col-4 mb-5">
-                                 <select id="icone" name="icone" class="shadow border-0 form-select">
-                                    <option disabled selected>Ícone</option>
-                                    <option value="defaut">Desejável</option>
-                                </select>
                             </div>
                         </div>
                         <div class="col-lg-6 col-12 mb-3">
@@ -51,7 +45,7 @@
                             </h3>
                             <div style="overflow-y: auto; max-height: 52vh;">
                                 {% for c in categorias %}
-                                    <div  class=" shadow col-md-8 offset-md-2 col-sm-6 offset-sm-3 offset-2 col-8 py-2 mt-3 d-flex justify-content-between">
+                                    <div  class="shadow col-md-8 offset-md-2 col-sm-6 offset-sm-3 offset-2 col-8 py-2 mt-3 d-flex justify-content-between">
                                         <div class="ms-2 mt-1">
                                             <h5 class="fs-5 p-0">{{c.nome}}</h5>
                                         </div>
@@ -71,8 +65,8 @@
                                 {% endfor %}
                             </div>
                         </div> 
-                        <button class="btn col-4 offset-4 rounded bg-secondary text-white fs-5 fw-semibold" type="submit"  style=" background-color: #35aa3a;">
-                                    Adicionar Categoria
+                        <button type="submit" action="/categoria/adicionar" class="btn col-4 offset-4 rounded bg-secondary text-white fs-5 fw-semibold" style="background-color: #35aa3a;">
+                            Adicionar Categoria
                         </button>
                     </div>
                 </form>

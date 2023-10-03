@@ -44,7 +44,9 @@
                                             Escolha a categoria
                                         </option>
                                         {% for c in categorias %}
-                                            <option value="{{ c.id }}">{{ c.nome }}</option>
+                                            {% if c.tipo == "Receita" %}
+                                                <option value="{{ c.id }}">{{ c.nome }}</option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -56,9 +58,9 @@
                                 <label for="idConta" class="form-label offset-md-1 offset-sm-2 offset-1">Conta</label>
                                 <div class="col-md-10 offset-md-1 col-sm-8 offset-sm-2 offset-1 col-10 ">
                                     <select id="idConta" name="idConta" class="shadow border-0 form-select">
-                                        <option disabled selected>Escolha a sua conta</option>
+                                        <option disabled selected hidden>Escolha a sua conta</option>
                                         {% for c in contas %}
-                                            <option value="{{ c.id }}">{{ c.nome }}</option>
+                                                <option value="{{ c.id }}">{{ c.nome }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

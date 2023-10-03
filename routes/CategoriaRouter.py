@@ -28,7 +28,8 @@ async def startup_event():
 )
 async def postNovaCategoria(
     request: Request,
-    nome: str = Form(),
+    nome: str = Form(""),
+    tipo: str = Form(""),
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
@@ -39,6 +40,7 @@ async def postNovaCategoria(
                 0,
                 user.id,
                 nome,
+                tipo,
             )
         )
         return RedirectResponse("/configuracoes", status.HTTP_303_SEE_OTHER)

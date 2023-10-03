@@ -44,7 +44,9 @@
                                             Escolha a categoria
                                         </option>
                                         {% for c in categorias %}
-                                            <option value="{{ c.id }}">{{ c.nome }}</option>
+                                            {% if c.tipo == "Despesa" %}
+                                                <option value="{{ c.id }}">{{ c.nome }}</option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                     <span class="text-danger d-none small"></span>

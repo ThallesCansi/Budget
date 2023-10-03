@@ -30,13 +30,13 @@ async def postNovaConta(
     request: Request,
     nome: str = Form(""),
     saldo: float = Form(""),
-    meta: str = Form(None),
+    descricao: str = Form(None),
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
         token = request.cookies.values().mapping["auth_token"]
         user = UsuarioRepo.obterUsuarioPorToken(token)
-        ContaRepo.inserir(Conta(0, user.id, nome, saldo, meta))
+        ContaRepo.inserir(Conta(0, user.id, nome, saldo, descricao))
         return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

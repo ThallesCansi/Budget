@@ -7,4 +7,4 @@ class Conta:
     idUsuario: int
     nome: str
     saldo: float
-    meta: str | None = None
+    descricao: str | None = None
