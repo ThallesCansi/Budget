@@ -252,8 +252,11 @@
     </div>
     <script src="/static/js/larguraCabecalho.js"></script>
 
+    
     {% from "components/modalConfirmar.html" import modalConfirmar %}
     {{ modalConfirmar(link="/sair", id="modalConfirmar") }}
+    {% block script %}
+    {% endblock %}
 </body>
 
 </html>
