@@ -85,14 +85,14 @@
         </div>
     </div>
 </div>
-    <div class="fixed-bottom">
-        <div class="position-absolute bottom-0 end-0 me-md-5 mb-sm-5 me-sm-5 me-1 mb-4 w-auto" id="#add" >
+    <div class="fixed-bottom mb-sm-5 mb-md-0 ">
+        <div class="position-absolute bottom-0 end-0  me-md-5 mb-sm-5 me-sm-5 me-1 mb-4 w-auto" id="#add" >
             <div id="tipoRouD" class="flex-column gap-1" style="display: none;">
                 <i class="bi-graph-up-arrow fs-1 text-white p-4 rounded ponteiro" style="background-color: var(--navBar-saving);" data-bs-toggle="modal" data-bs-target="#formReceita"></i>
                 <i class="bi-graph-down-arrow fs-1 text-white p-4 rounded ponteiro" style="background-color: var(--navBar-expense);" data-bs-toggle="modal" data-bs-target="#formDespesa"></i>
                 <i class="bi-arrow-left-right fs-1 text-white p-4 mb-4 rounded ponteiro" style="background-color: gray;" data-bs-toggle="modal" data-bs-target="#formTransferencia"></i>
             </div>
-            <i class="bi-plus-lg fs-1 bg-secondary text-white p-4 rounded ponteiro" onclick="openPopupButton()"></i>
+            <i class="bi-plus-lg fs-1 bg-secondary text-white p-4 rounded ponteiro " onclick="openPopupButton()"></i>
         </div>
     </div>
 {% from "transacoes/formReceita.html" import modalFormReceita %}
