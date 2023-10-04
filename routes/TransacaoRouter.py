@@ -119,7 +119,6 @@ async def postReceita(
             valor == float(-valor)
 
         if len(erros) > 0:
-            print(erros)
             valores = {}
             valores["descricao"] = descricao
             valores["valor"] = valor

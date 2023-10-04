@@ -18,8 +18,8 @@
     <hr />
 </a>
 
-<a class="row col-xl-5 col-md-6 col-10 offset-1 ms-3 mb-3 text-decoration-none text-dark menu-configuracoes" 
-    style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#formConta">
+<a href="/carteira" class="row col-xl-5 col-md-6 col-10 offset-1 ms-3 mb-3 text-decoration-none text-dark menu-configuracoes" 
+    style="cursor: pointer;">
     <i class="bi bi-person-vcard fs-2 col-1"></i>
     <div class="col-10 ms-3 mb-3">
         <h5 class="mb-0">Minhas Contas</h5>
@@ -27,11 +27,8 @@
     </div>
     <hr />
 </a>
-{% from "conta/formConta.html" import modalFormConta %}
-{{ modalFormConta(id="formConta", contas=contas)}}
 
-{% from "main/modalExcluir.html" import modalExcluir %}
-{{ modalExcluir(id="alertaExcluirConta") }}
+
 <a class="row col-xl-5 col-md-6 col-10 offset-1 ms-3 mb-3 text-decoration-none text-dark menu-configuracoes" 
 style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#formCategoria">
     <i class="bi bi-app fs-2 col-1"></i>

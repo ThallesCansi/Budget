@@ -46,3 +46,14 @@ async def postNovaCategoria(
         return RedirectResponse("/configuracoes", status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+@router.post("/categoria/excluir", response_class=HTMLResponse)
+async def postExcluir(
+    id: int = Form(""),
+    usuario: Usuario = Depends(validar_usuario_logado),
+):
+    if usuario:
+        CategoriaRepo.excluir(id)
+        return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

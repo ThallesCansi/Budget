@@ -1,16 +1,16 @@
-{% macro modalExcluir(id, elementoId, action, cancelar) %}
+{% macro excluirConta(id, elementoId, action, cancelar) %}
 <div class="modal fade" id="{{ id }}"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"  aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="width: 401; height: 291;">
         <div class="modal-content">
             <div class="modal-body container-fluid d-flex flex-column justify-content-center align-items-center">
                 <img src="/static/img/alerta.svg" class="mb-2" alt="Ícone de alerta">
-                <h5 >Deseja confirmar a exclusão?</h5>
+                <h5 class="text-center">Isso apagará todas as transações dessa carteira! Deseja confirmar a exclusão?</h5>
                 <form action="{{ action }}" method="post">
                     <button name="id" value="{{ elementoId }}" class="btn rounded bg-secondary text-white fs-5 fw-semibold mt-3 px-2" type="submit" style=" background-color: #35aa3a;">
                         Confirmar
                     </button>
                 </form>
-                <a href="{{cancelar}}" class="text-danger text-decoration-none cancelar" data-bs-dismiss="modal" aria-label="Close">
+                <a href="{{ cancelar }}" class="text-danger text-decoration-none cancelar" data-bs-dismiss="modal" aria-label="Close">
                     Cancelar
                 </a>
             </div>
