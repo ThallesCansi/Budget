@@ -12,6 +12,7 @@ class CategoriaRepo:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 idUsuario INTEGER NOT NULL,
                 nome TEXT NOT NULL,
+                tipo TEXT NOT NULL,
                 CONSTRAINT fkUsuarioCategoria FOREIGN KEY(idUsuario) REFERENCES usuario(id)
             )"""
         conexao = Database.criarConexao()
@@ -23,10 +24,10 @@ class CategoriaRepo:
 
     @classmethod
     def inserir(cls, categoria: Categoria) -> Categoria:
-        sql = "INSERT INTO categoria (nome, idUsuario) values (?, ?)"
+        sql = "INSERT INTO categoria (nome, idUsuario, tipo) values (?, ?, ?)"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
-        resultado = cursor.execute(sql, (categoria.nome, categoria.idUsuario))
+        resultado = cursor.execute(sql, (categoria.nome, categoria.idUsuario, categoria.tipo))
         if resultado.rowcount > 0:
             categoria.id = resultado.lastrowid
         conexao.commit()
@@ -35,13 +36,14 @@ class CategoriaRepo:
 
     @classmethod
     def alterar(cls, categoria: Categoria) -> Categoria:
-        sql = "UPDATE categoria SET nome=? WHERE id=?"
+        sql = "UPDATE categoria SET nome=?, tipo=? WHERE id=?"
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
         resultado = cursor.execute(
             sql,
             (
                 categoria.nome,
+                categoria.tipo,
                 categoria.id,
             ),
         )

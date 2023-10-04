@@ -4,6 +4,9 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
+from models.Categoria import Categoria
+from models.Conta import Conta
+from models.Dependente import Dependente
 
 from models.Usuario import Usuario
 from repositories.CategoriaRepo import CategoriaRepo
@@ -11,7 +14,12 @@ from repositories.ContaRepo import ContaRepo
 from repositories.DependenteRepo import DependenteRepo
 from repositories.TransacaoRepo import TransacaoRepo
 from repositories.UsuarioRepo import UsuarioRepo
-from util.seguranca import gerar_token, obter_hash_senha, validar_usuario_logado
+from util.seguranca import (
+    gerar_token,
+    obter_hash_senha,
+    validar_usuario_logado,
+    verificar_senha,
+)
 from util.templateFilters import capitalizar_nome_proprio, formatar_data
 from util.validators import *
 
@@ -56,7 +64,9 @@ async def postNovoUsuario(
     is_not_empty(email, "email", errosCad)
     if is_email(email, "email", errosCad):
         if UsuarioRepo.emailExiste(email):
-            add_error("email", "Já existe um aluno cadastrado com este e-mail.", errosCad)
+            add_error(
+                "email", "Já existe um aluno cadastrado com este e-mail.", errosCad
+            )
 
     is_not_empty(senha, "senha", errosCad)
     is_password(senha, "senha", errosCad)
@@ -71,7 +81,6 @@ async def postNovoUsuario(
         valoresCad["nome"] = nome
         valoresCad["email"] = email.lower()
 
-    
         return templates.TemplateResponse(
             "usuario/entrar.html",
             {
@@ -94,6 +103,66 @@ async def postNovoUsuario(
     UsuarioRepo.alterarToken(email, token)
     response = RedirectResponse("/dashboard", status.HTTP_302_FOUND)
     response.set_cookie(key="auth_token", value=token, max_age=1800, httponly=True)
+
+    despesa = [
+        "Aluguel",
+        "Hipoteca",
+        "Condomínio",
+        "Energia elétrica",
+        "Água",
+        "Gás",
+        "Internet",
+        "Telefone fixo",
+        "Plano de saúde",
+        "Seguro do carro",
+        "Mensalidade da academia",
+        "Educação dos filhos",
+        "Supermercado",
+        "Transporte público",
+        "Combustível",
+        "Manutenção do carro",
+        "Assinatura de streaming",
+        "Refeições fora de casa",
+        "Roupas",
+        "Lazer",
+        "Presentes",
+        "Impostos",
+        "Despesas médicas",
+        "Despesas educacionais",
+        "Despesas com animais de estimação",
+    ]
+
+    receita = [
+        "Salário",
+        "Freelancer",
+        "Aluguel de propriedades",
+        "Rendimentos de investimentos",
+        "Vendas de produtos",
+        "Consultoria",
+        "Bônus",
+        "Comissões",
+        "Aluguel de quartos",
+        "Trabalho temporário",
+        "Dividendos",
+        "Vendas online",
+        "Renda passiva",
+        "Pensão",
+        "Prêmios",
+    ]
+
+
+    usuario = UsuarioRepo.obterUsuarioPorToken(token)
+
+    for i in range(len(despesa)):
+        CategoriaRepo.inserir(Categoria(0, usuario.id, despesa[i], "Despesa"))
+    
+    for i in range(len(receita)):
+        CategoriaRepo.inserir(Categoria(0, usuario.id, receita[i], "Receita"))
+
+    ContaRepo.inserir(Conta(0, usuario.id, "Carteira", 0, "Esta é a sua carteira física de dinheiro."))
+
+    DependenteRepo.inserir(Dependente(0, usuario.id, usuario.nome.split()[0]))
+
     return response
 
 
@@ -192,3 +261,92 @@ async def getPerfil(
         )
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+
+@router.get("/alterarSenha", response_class=HTMLResponse)
+async def getAlterarSenha(
+    request: Request,
+    usuario: Usuario = Depends(validar_usuario_logado),
+    mensagem="Alterar senha",
+    pagina="/configuracoes",
+):
+    if usuario:
+        return templates.TemplateResponse(
+            "usuario/alterarSenha.html",
+            {
+                "request": request,
+                "usuario": usuario,
+                "mensagem": mensagem,
+                "pagina": pagina,
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+
+@router.post("/alterarSenha", response_class=HTMLResponse)
+async def postAlterarSenha(
+    request: Request,
+    mensagem="Senha alterada",
+    pagina="/configuracoes",
+    usuario: Usuario = Depends(validar_usuario_logado),
+    senhaAtual: str = Form(""),
+    novaSenha: str = Form(""),
+    confNovaSenha: str = Form(""),
+):
+    # normalização dos dados
+    senhaAtual = senhaAtual.strip()
+    novaSenha = novaSenha.strip()
+    confNovaSenha = confNovaSenha.strip()
+
+    # verificação de erros
+    erros = {}
+    # validação do campo senhaAtual
+    is_not_empty(senhaAtual, "senhaAtual", erros)
+    is_password(senhaAtual, "senhaAtual", erros)
+    # validação do campo novaSenha
+    is_not_empty(novaSenha, "novaSenha", erros)
+    is_password(novaSenha, "novaSenha", erros)
+    # validação do campo confNovaSenha
+    is_not_empty(confNovaSenha, "confNovaSenha", erros)
+    is_matching_fields(confNovaSenha, "confNovaSenha", novaSenha, "Nova Senha", erros)
+
+    # só verifica a senha no banco de dados se não houverem erros de validação
+    if len(erros) == 0:
+        hash_senha_bd = UsuarioRepo.obterSenhaDeEmail(usuario.email)
+        if hash_senha_bd:
+            if not verificar_senha(senhaAtual, hash_senha_bd):
+                add_error("senhaAtual", "Senha atual está incorreta.", erros)
+
+    # se tem erro, mostra o formulário novamente
+    if len(erros) > 0:
+        valores = {}
+        valores["senhaAtual"] = senhaAtual
+        valores["novaSenha"] = novaSenha
+        valores["confNovaSenha"] = confNovaSenha
+        return templates.TemplateResponse(
+            "usuario/alterarSenha.html",
+            {
+                "request": request,
+                "usuario": usuario,
+                "erros": erros,
+                "valores": valores,
+                "mensagem": mensagem,
+                "pagina": pagina,
+            },
+        )
+
+    # se passou pelas validações, altera a senha no banco de dados
+    hash_nova_senha = obter_hash_senha(novaSenha)
+    UsuarioRepo.alterarSenha(usuario.id, hash_nova_senha)
+
+    # mostra página de sucesso
+    return templates.TemplateResponse(
+        "usuario/alterouSenha.html",
+        {
+            "request": request,
+            "usuario": usuario,
+            "mensagem": mensagem,
+            "pagina": pagina,
+        },
+    )

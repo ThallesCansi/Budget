@@ -13,7 +13,7 @@ class ContaRepo:
                 idUsuario INTEGER,
                 nome TEXT NOT NULL,
                 saldo DECIMAL NOT NULL,
-                meta TEXT,
+                descricao TEXT,
                 FOREIGN KEY(idUsuario) REFERENCES usuario(id)
             )"""
         conn = Database.criarConexao()
@@ -26,13 +26,13 @@ class ContaRepo:
     @classmethod
     def inserir(cls, conta: Conta) -> Conta:
         sql = """
-                INSERT INTO conta (idUsuario, nome, saldo, meta)
+                INSERT INTO conta (idUsuario, nome, saldo, descricao)
                 VALUES (?, ?, ?, ?)
               """
         conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(
-            sql, (conta.idUsuario, conta.nome, conta.saldo, conta.meta)
+            sql, (conta.idUsuario, conta.nome, conta.saldo, conta.descricao)
         )
         if result.rowcount > 0:
             conta.id = result.lastrowid
@@ -42,10 +42,10 @@ class ContaRepo:
 
     @classmethod
     def alterar(cls, conta: Conta) -> Conta:
-        sql = "UPDATE conta SET nome=?, saldo=?, meta=? WHERE id=?"
+        sql = "UPDATE conta SET nome=?, saldo=?, descricao=? WHERE id=?"
         conn = Database.criarConexao()
         cursor = conn.cursor()
-        result = cursor.execute(sql, (conta.nome, conta.saldo, conta.meta, conta.id))
+        result = cursor.execute(sql, (conta.nome, conta.saldo, conta.descricao, conta.id))
         if result.rowcount > 0:
             conn.commit()
             conn.close()
@@ -100,7 +100,7 @@ class ContaRepo:
 
     @classmethod
     def obterTodos(cls) -> List[Conta]:
-        sql = "SELECT id, idUsuario, nome, saldo, meta FROM conta"
+        sql = "SELECT id, idUsuario, nome, saldo, descricao FROM conta"
         conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql).fetchall()
@@ -111,7 +111,7 @@ class ContaRepo:
 
     @classmethod
     def obterPorId(cls, id: int) -> Conta:
-        sql = "SELECT id, idUsuario, nome, saldo, meta FROM conta WHERE id=?"
+        sql = "SELECT id, idUsuario, nome, saldo, descricao FROM conta WHERE id=?"
         conn = Database.criarConexao()
         cursor = conn.cursor()
         result = cursor.execute(sql, (id,)).fetchone()

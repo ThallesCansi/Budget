@@ -30,13 +30,13 @@ async def postNovaConta(
     request: Request,
     nome: str = Form(""),
     saldo: float = Form(""),
-    meta: str = Form(None),
+    descricao: str = Form(None),
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
         token = request.cookies.values().mapping["auth_token"]
         user = UsuarioRepo.obterUsuarioPorToken(token)
-        ContaRepo.inserir(Conta(0, user.id, nome, saldo, meta))
+        ContaRepo.inserir(Conta(0, user.id, nome, saldo, descricao))
         return RedirectResponse("/configuracoes", status_code=status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
@@ -103,31 +103,11 @@ async def postNovaCarteira(
 
 @router.post("/carteira/excluir", response_class=HTMLResponse)
 async def postExcluir(
-    request: Request,
     id: int = Form(""),
     usuario: Usuario = Depends(validar_usuario_logado),
 ):
     if usuario:
-        if ContaRepo.verificarTransacoesConta(id):
-            ContaRepo.excluirContaTransacoes(id)
-            return RedirectResponse("/carteira", status_code=status.HTTP_303_SEE_OTHER)
-        else:
-            erros = {}
-
-            add_error(
-                "excluir",
-                "Você não pode excluir contas com transações existentes",
-                erros,
-            )
-
-            return templates.TemplateResponse(
-                "conta/carteira.html",
-                {
-                    "request": request,
-                    "usuario": usuario,
-                    "erros": erros,
-                },
-            )
-
+        ContaRepo.excluirContaTransacoes(id)
+        return RedirectResponse("/carteira", status_code=status.HTTP_303_SEE_OTHER)
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

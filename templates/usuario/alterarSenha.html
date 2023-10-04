@@ -1,0 +1,45 @@
+<!-- /templates/main/login.html -->
+{% extends "base.html" %}
+
+{% block conteudo %}
+<form method="post" id="alterarSenha">
+    <div class="mb-3">
+        <label class="form-label offset-1" for="senhaAtual">Senha Atual</label>
+        <div class="col-10 offset-1 ">
+            <input type="password" name="senhaAtual" id="senhaAtual" class="shadow border-0 form-control" 
+                placeholder="Digite sua senha atual" style="height: 50px;">
+            <span class="text-danger d-none small"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label  offset-1" for="novaSenha">Nova Senha</label>
+        <div class="col-10 offset-1">
+            <input type="password" name="novaSenha" id="novaSenha" class="shadow border-0 form-control" 
+                placeholder="Digite sua nova senha" style="height: 50px;">
+            <span class="text-danger d-none small"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label offset-1" for="confNovaSenha">Confirme Sua Nova Senha</label>
+        <div class="col-10 offset-1">
+            <input type="password" name="confNovaSenha" id="confNovaSenha" class="shadow border-0 form-control" 
+                placeholder="Digite novamente sua nova senha" style="height: 50px;">
+            <span class="text-danger d-none small"></span>
+        </div>
+    </div>
+
+    <button class="btn col-4 offset-4 rounded bg-secondary text-white fs-5 fw-semibold" type="submit"  style=" background-color: #35aa3a;">
+        Alterar
+    </button>
+</form>
+
+{% if erros and valores: %}
+<script>
+    const validationErrors = {{ erros|tojson }};
+    const fieldValues = {{ valores|tojson }};
+</script>
+<script src="/static/js/formValidation.js"></script>
+{% endif %}
+{% endblock %}
