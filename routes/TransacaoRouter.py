@@ -9,7 +9,7 @@ from models.Usuario import Usuario
 from repositories.TransacaoRepo import TransacaoRepo
 from repositories.UsuarioRepo import UsuarioRepo
 from util.seguranca import validar_usuario_logado
-from util.templateFilters import formatar_data
+from util.templateFilters import formatar_data, formatar_dinheiro
 from util.validators import *
 from babel.numbers import format_currency
 
@@ -21,6 +21,7 @@ templates = Jinja2Templates(directory="templates")
 @router.on_event("startup")
 async def startup_event():
     templates.env.filters["date"] = formatar_data
+    templates.env.filters["currency"] = formatar_dinheiro
 
 
 @router.get(

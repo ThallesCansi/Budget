@@ -15,8 +15,8 @@
         {% if transacoes|length == 0 %}
         <p>Não há transações cadastradas.</p>
         {% else %}
-        <div class="table-responsive-md">
-            <table id="transacao-table" class="table align-middle ">
+        <div class="table-responsive">
+            <table id="transacao-table" class="table align-middle table-hover">
                 <caption>Quantidade de Transações:</caption>
                 <thead class="table-secondary" style="height: 50px; vertical-align: middle;" >
                     <tr class="text-center">
@@ -30,7 +30,7 @@
                         <th scope="col" class="text-white">Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-group-divider">
                     {% for t in transacoes %}
                     <tr {% if t.tipo == 'Receita' %} class="table-success" {% else %} class="table-danger" {% endif %}>
                         <td>
@@ -40,21 +40,23 @@
                             <i class="d-flex justify-content-center align-items-centerbi bi-exclamation-circle-fill text-danger"></i>
                             {% endif %}
                         </td>
-                        <td class="text-center text-dark">{{ t.data }}</td>
+                        <td class="text-center text-dark">{{ t.data|date }}</td>
                         <td class="text-center text-dark">{{ t.nomeCategoria }}</td>
-                        <td class="text-center text-dark">{{ t.descricao }}</td>
+                        <td class="text-center text-dark w-75">{{ t.descricao }}</td>
                         <td class="text-center text-dark">{{ t.nomeConta }}</td>
-                        <td class="text-center text-dark">{{ t.valor }}</td>
+                        <td class="text-center text-dark w-75">{{ t.valor|currency }}</td>
                         <td class="text-center text-dark">{{ t.nomeDependente }}</td>
-                        <td class="d-flex justify-content-center align-items-center gap-1">
-                            <form action="/transacao/editar" method="post">
-                                <button class="btn p-1 text-bg-info" name="id" value="{{ t.id }}" type="submit">
-                                    <i class="bi-pencil-square"></i>
+                        <td class="text-center">
+                            <div class="d-flex gap-1">
+                                <form action="/transacao/editar" method="post">
+                                    <button class="btn p-1 text-bg-info" name="id" value="{{ t.id }}" type="submit">
+                                        <i class="bi-pencil-square"></i>
+                                    </button>
+                                </form>
+                                <button class="btn p-1 text-white bg-danger" type="submit" data-bs-toggle="modal" data-bs-target="#modalExcluir_{{ t.id }}">
+                                    <i class="bi-trash"></i>
                                 </button>
-                            </form>
-                            <button class="btn p-1 text-white bg-danger" type="submit" data-bs-toggle="modal" data-bs-target="#modalExcluir_{{ t.id }}">
-                                <i class="bi-trash"></i>
-                            </button>
+                            </div>
                         </td>
                     </tr>
                     {% from "main/modalExcluir.html" import modalExcluir %}
