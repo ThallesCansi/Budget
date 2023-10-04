@@ -172,6 +172,7 @@ async def getAjuda(request: Request, usuario: Usuario = Depends(validar_usuario_
                 "request": request,
                 "mensagem": mensagem,
                 "usuario": usuario,
+                "pagina": "/configuracoes"
             },
         )
     else:
