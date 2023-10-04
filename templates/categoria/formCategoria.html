@@ -2,7 +2,7 @@
 <div class="modal fade " id="{{ id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered ">
         <div class="modal-content">
-            <div class="modal-header d-md-none">
+            <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body container-fluid">
@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-12 mt-4">
                             <div class="mb-3">
-                                <label for="name" class="form-label">
+                                <label for="nome" class="form-label">
                                     Nome da Categoria
                                 </label>
                                 <div class="col">
@@ -55,11 +55,11 @@
                                                     <i class="bi bi-pencil-square"></i>
                                                 </button>                        
                                             </div>
-                                            <div>
-                                                <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#alertaExcluirConta">
+                                            <form action="/categoria/excluir" method="post">
+                                                <button class="btn p-0" name="id" value="{{ c.id }}" type="submit">
                                                     <i class="bi bi-trash"></i>
-                                                </button>                        
-                                            </div>
+                                                </button>
+                                            </form>                        
                                         </div>
                                     </div>
                                 {% endfor %}

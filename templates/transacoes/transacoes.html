@@ -52,13 +52,13 @@
                                     <i class="bi-pencil-square"></i>
                                 </button>
                             </form>
-                            <form action="/transacao/excluir" method="post">
-                                <button class="btn p-1 text-white bg-danger" name="id" value="{{ t.id }}" type="submit">
-                                    <i class="bi-trash"></i>
-                                </button>
-                            </form>
+                            <button class="btn p-1 text-white bg-danger" type="submit" data-bs-toggle="modal" data-bs-target="#modalExcluir_{{ t.id }}">
+                                <i class="bi-trash"></i>
+                            </button>
                         </td>
                     </tr>
+                    {% from "main/modalExcluir.html" import modalExcluir %}
+                    {{ modalExcluir(id="modalExcluir_" ~ t.id, elementoId= t.id, action="/transacao/excluir", cancelar="/transacao/listagem")}}
                     {% endfor %}
                 </tbody>
             </table>

@@ -1,4 +1,6 @@
 {% extends "base.html" %} {% block conteudo %}
+
+<!-- Botão de Voltar -->
 <h1>
     <a href="/configuracoes">
         <i class="bi bi-arrow-left text-secondary"></i>
@@ -6,7 +8,7 @@
 </h1>
 <div class="row mb-3 d-flex ">
     {% for d in dependentes %}
-    <div class="col-md-5 col-sm-8 col-11">
+    <div class="col-md-5 col-sm-8 col-11 mb-3">
         <div class="card d-flex flex-row">
             <img src="https://img.freepik.com/icones-gratis/garoto_318-500912.jpg?w=360" class="card-img-start img-thumbnail" alt="..." style="width: 5rem; height: auto;">
             <div class="card-body row">
@@ -17,22 +19,27 @@
                     </ul>
                 </div>
                 <div class="col-3 d-flex gap-2">
-                    <div>
-                        <button class="btn p-0" type="button">
-                            <i class="bi bi-pencil-square"  style="color: #98a6af !important;"></i>
-                        </button>                     
-                    </div>
-                    <div>
-                        <button class="btn p-0" type="button" value="{{d.id}}" data-bs-toggle="modal" data-bs-target="#modalExcluir">
-                            <i class="bi bi-trash"  style="color: #98a6af !important;"></i>
-                        </button>                     
-                    </div>
+                    {% if d.nome == usuario.nome.split()[0] %}
+                        <div></div>
+                        <div></div>
+                    {% else %}
+                        <div>
+                            <button class="btn p-0" type="button">
+                                <i class="bi bi-pencil-square"  style="color: #98a6af !important;"></i>
+                            </button>                     
+                        </div>
+                        <div>
+                            <button class="btn p-0" type="button"  data-bs-toggle="modal" data-bs-target="#modalExcluir_{{ d.id }}">
+                                <i class="bi bi-trash"  style="color: #98a6af !important;"></i>
+                            </button>                     
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
     {% from "main/modalExcluir.html" import modalExcluir %}
-    {{ modalExcluir(id="modalExcluir", elementoId= d.id, action="/dependente/excluir")}}
+    {{ modalExcluir(id="modalExcluir_" ~ d.id, elementoId= d.id, action="/dependente/excluir", cancelar="/dependente/dependentes")}}
     {% endfor %}
 </div>
 

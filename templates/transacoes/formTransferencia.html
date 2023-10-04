@@ -1,0 +1,63 @@
+{% macro modalFormTransferencia(id, contas) %}
+<div class="modal fade " id="{{ id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="col-12" method="post" action=""> 
+                        <h1 class="display-6 text-center fw-semibold" style=" color: #FEA519;">
+                            Transferência entre contas
+                        </h1>
+                        <div class="row mb-3 mt-5">
+                            <div class="col-sm-10 offset-sm-1 col-12 mb-3">
+                                <label for="valor" class="form-label offset-sm-1">Valor</label>
+                                <div class="col-sm-10 offset-sm-1 col-12">
+                                    <input type="number" name="valor" id="valor" class="shadow border-0 form-control" placeholder="R$ 0,00" >
+                                </div>
+                                <span class="text-danger d-none small"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-10 offset-sm-1 col-12 mb-3">
+                                <label for="idConta" class="form-label offset-sm-1">Conta de Origem</label>
+                                <div class="col-sm-10 offset-sm-1 col-12 ">
+                                    <select id="idConta" name="idConta" class="shadow border-0 form-select">
+                                        <option disabled selected hidden>Escolha a sua conta</option>
+                                        {% for c in contas %}
+                                                <option value="{{ c.id }}">{{ c.nome }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <span class="text-danger d-none small"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-10 offset-sm-1 col-12 mb-3">
+                                <label for="idConta" class="form-label offset-sm-1">Conta de Destino</label>
+                                <div class="col-sm-10 offset-sm-1 col-12">
+                                    <select id="idConta" name="idConta" class="shadow border-0 form-select">
+                                        <option disabled selected hidden>Escolha a sua conta</option>
+                                        {% for c in contas %}
+                                                <option value="{{ c.id }}">{{ c.nome }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <span class="text-danger d-none small"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn col-4 offset-4 rounded-pill" type="submit" style=" background-color: #FEA519;">
+                                <i class="bi bi-check2 text-white fs-4"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endmacro %}

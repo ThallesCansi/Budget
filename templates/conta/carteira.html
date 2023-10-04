@@ -32,19 +32,17 @@
                     {% endif %}
                 {% endfor %}
                 <div class="d-flex gap-1 justify-content-end">
-                    <form action="/carteira/excluir" method="post">
-                        <button type="submit" name="id" value="{{ c.id}}" class="btn p-0">
-                            <i role="button" class="bi-pencil-square text-bg-info p-1 rounded"></i>
-                        </button>
-                    </form>
-                    <form action="/carteira/excluir" method="post">
-                        <button type="submit" name="id" value="{{ c.id}}" class="btn p-0">
-                            <i role="button" class="bi-trash text-white bg-danger p-1 rounded"></i>
-                        </button>
-                    </form>
+                    <button type="submit" class="btn p-0">
+                        <i role="button" class="bi-pencil-square text-bg-info p-1 rounded"></i>
+                    </button>
+                    <button type="submit"  class="btn p-0" data-bs-toggle="modal" data-bs-target="#excluirConta_{{ c.id }}">
+                        <i role="button" class="bi-trash text-white bg-danger p-1 rounded"></i>
+                    </button>
                 </div>
             </div>
         </div>
+        {% from "conta/excluirConta.html" import excluirConta %}
+        {{ excluirConta(id="excluirConta_" ~ c.id , elementoId= c.id, action="/carteira/excluir", cancelar="/carteira")}}
         {% endfor %}
     </div>
 

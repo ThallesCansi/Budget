@@ -65,7 +65,7 @@ async def postNovoUsuario(
     if is_email(email, "email", errosCad):
         if UsuarioRepo.emailExiste(email):
             add_error(
-                "email", "Já existe um aluno cadastrado com este e-mail.", errosCad
+                "email", "Já existe um usuário cadastrado com este e-mail.", errosCad
             )
 
     is_not_empty(senha, "senha", errosCad)
