@@ -60,7 +60,7 @@
                         </td>
                     </tr>
                     {% from "main/modalExcluir.html" import modalExcluir %}
-                    {{ modalExcluir(id="modalExcluir_" ~ t.id, elementoId= t.id, action="/transacao/excluir", cancelar="/transacao/listagem")}}
+                    {{ modalExcluir(id="modalExcluir_" ~ t.id, nome=t.descricao, elementoId= t.id, action="/transacao/excluir", cancelar="/transacao/listagem")}}
                     {% endfor %}
                 </tbody>
             </table>

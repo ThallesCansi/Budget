@@ -118,3 +118,7 @@ a.cancelar:hover{
 .fechada:hover{
     cursor: pointer;
 }
+
+.ponteiro:hover{
+    cursor: pointer;
+}

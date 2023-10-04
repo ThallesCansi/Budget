@@ -112,7 +112,8 @@ class TransacaoRepo:
                 INNER JOIN categoria c ON t.idCategoria = c.id
                 INNER JOIN conta co ON t.idConta = co.id
                 LEFT JOIN dependente d ON t.idDependente = d.id
-                WHERE t.idUsuario = ?;
+                WHERE t.idUsuario = ?
+                ORDER BY t.id DESC;
                 """
         conexao = Database.criarConexao()
         cursor = conexao.cursor()
@@ -216,6 +217,7 @@ class TransacaoRepo:
                 INNER JOIN conta co ON t.idConta = co.id
                 LEFT JOIN dependente d ON t.idDependente = d.id
                 WHERE t.idUsuario = ?
+                ORDER BY t.id DESC
                 LIMIT ?, ?"""
 
         conexao = Database.criarConexao()

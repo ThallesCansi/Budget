@@ -39,7 +39,7 @@
         </div>
     </div>
     {% from "main/modalExcluir.html" import modalExcluir %}
-    {{ modalExcluir(id="modalExcluir_" ~ d.id, elementoId= d.id, action="/dependente/excluir", cancelar="/dependente/dependentes")}}
+    {{ modalExcluir(id="modalExcluir_" ~ d.id, nome = d.nome, elementoId= d.id, action="/dependente/excluir", cancelar="/dependente/dependentes")}}
     {% endfor %}
 </div>
 

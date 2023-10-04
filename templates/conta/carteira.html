@@ -42,7 +42,7 @@
             </div>
         </div>
         {% from "conta/excluirConta.html" import excluirConta %}
-        {{ excluirConta(id="excluirConta_" ~ c.id , elementoId= c.id, action="/carteira/excluir", cancelar="/carteira")}}
+        {{ excluirConta(id="excluirConta_" ~ c.id , nome = c.nome, elementoId= c.id, action="/carteira/excluir", cancelar="/carteira")}}
         {% endfor %}
     </div>
 
