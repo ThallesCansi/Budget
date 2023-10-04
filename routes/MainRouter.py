@@ -162,5 +162,18 @@ async def getConfig(request: Request, usuario: Usuario = Depends(validar_usuario
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-
+@router.get("/configuracoes/ajuda")
+async def getAjuda(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
+    if usuario:
+        mensagem = "Ajuda"
+        return templates.TemplateResponse(
+            "main/ajuda.html",
+            {
+                "request": request,
+                "mensagem": mensagem,
+                "usuario": usuario,
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
