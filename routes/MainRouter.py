@@ -176,4 +176,5 @@ async def getAjuda(request: Request, usuario: Usuario = Depends(validar_usuario_
         )
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
 
