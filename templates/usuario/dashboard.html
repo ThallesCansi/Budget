@@ -59,7 +59,7 @@
             <p class="fs-8">receitas e despesas</p>
             {% for t in transacoes %}
                 {% if t.tipo == 'Despesa' %}
-                <a class="text-decoration-none" href="/transacoes">
+                <a class="text-decoration-none" href="/transacoes/listagem">
                     <div class="px-2 bg-white rounded-3 shadow d-flex justify-content-between col-lg-10 col-12 my-3">
                         <div>
                             <p class="fw-bold" style="color:#d76060">{{t.tipo}}</p>
