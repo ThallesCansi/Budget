@@ -1,9 +1,7 @@
 uvicorn 
 fastapi 
-jinja2 
+Jinja2 
 python-multipart
 pillow
 bcrypt
-sendgrid
-python-dotenv
-htmlmin
+babel
