@@ -1,0 +1,9 @@
+uvicorn 
+fastapi 
+jinja2 
+python-multipart
+pillow
+bcrypt
+sendgrid
+python-dotenv
+htmlmin
