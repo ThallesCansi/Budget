@@ -81,7 +81,7 @@ async def postEntrar(
                 if UsuarioRepo.alterarToken(emailLogin, token):
                     response = RedirectResponse(returnUrl, status.HTTP_302_FOUND)
                     response.set_cookie(
-                        key="auth_token", value=token, max_age=1800, httponly=True
+                        key="auth_token", value=token, max_age=3600, httponly=True
                     )
                     return response
                 else:
@@ -177,5 +177,19 @@ async def getAjuda(request: Request, usuario: Usuario = Depends(validar_usuario_
         )
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-    
 
+@router.get("/relatorios/relatorio")
+async def getRelatorio(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
+    if usuario:
+        mensagem = "Relatório"
+        return templates.TemplateResponse(
+            "relatorios/relatorio.html",
+            {
+                "request": request,
+                "mensagem": mensagem,
+                "usuario": usuario,
+                "pagina": "/relatorio"
+            },
+        )
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<!-- Botão de Voltar -->
+<h1>
+    <a href="/transacao/listagem">
+        <i class="bi bi-arrow-left text-secondary"></i>
+    </a>
+</h1>
+
+<div class="col-lg-6 col-md-7">
+    <div style="width: 200px;" class=" float-md-end me-2 me-md-4 rounded-pill shadow d-flex p-0 text-center">
+        <div class="rounded-pill bg-secondary text-white fw-bold p-2 px-5 aberta">
+            <i class="bi bi-bar-chart-fill"></i>
+        </div>
+        <div style="color: #6C757D; "class="rounded-pill p-2 px-4 fw-semibold fechada">
+            <i class="bi bi-pie-chart-fill"></i>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
