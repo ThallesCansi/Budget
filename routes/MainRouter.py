@@ -126,7 +126,6 @@ async def getSair(request: Request, usuario: Usuario = Depends(validar_usuario_l
 async def getTrans(request: Request, usuario: Usuario = Depends(validar_usuario_logado)):
     if usuario:
         mensagem = "Metas"
-        usuario = ""
         pagina = "/metas"
         return templates.TemplateResponse(
             "metas/metas.html",

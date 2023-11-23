@@ -50,7 +50,6 @@ async def getTrans(
         contas = ContaRepo.obterContaPorUsuario(usuario.id)
         saldo_contas = ContaRepo.obterSaldoContas(usuario.id)
         mensagem = "Carteira"
-        usuario = ""
         pagina = "/carteira"
         return templates.TemplateResponse(
             "conta/carteira.html",

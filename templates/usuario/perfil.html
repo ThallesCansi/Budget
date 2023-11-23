@@ -13,28 +13,28 @@
     <div class="gap-2 d-flex flex-column">
         <div class="row">
             <div class="perfil d-flex align-items-center bg-light px-3 py-3 ms-3 rounded shadow justify-content-between w-75">
-                <div class="col-9">
+                <div class="col-6">
                     <div class="d-flex align-items-center gap-3">
                         <img src="/static/img/usuario/{{ '%04d'|format(usuario.id) }}.jpg" 
-     onerror="this.onerror=null;this.src='/static/img/avatar-circle-120x120.png';" 
-     class="img-fluid ms-1 w-50" 
-     alt="foto perfil" style="width: 50px !important;"/>
+                                onerror="this.onerror=null;this.src='/static/img/avatar-circle-120x120.png';" 
+                                class="img-fluid ms-1 w-50" 
+                                alt="foto perfil" style="width: 50px !important;"/>
                         <h3 class="text-dark">Editar Foto</h3>
-                        <form action="/usuario/imagem" method="post" enctype="multipart/form-data">
-                            <input class="form-control" type="file" id="arquivoImagem" name="arquivoImagem" onchange="previewImage(event)" accept="image/jpeg">
-                            <span class="text-danger d-none small"></span>
-                            <div class="col-3">
-                                <img id="preview" src="" class="border border-2 rounded rounded-3 p-2 w-100 d-none" />
-                            </div>
-                            <button type="submit">
-                                <div class="col-3">
-                                    <div class="text-end me-3">
-                                        <i class="bi-arrow-right text-secondary fs-3"></i>
-                                    </div>
-                            </button>
-                        </form>
                     </div>
                 </div>
+                <form action="/usuario/imagem" method="post" enctype="multipart/form-data">
+                    <input class="form-control" type="file" id="arquivoImagem" name="arquivoImagem" onchange="previewImage(event)" accept="image/jpeg">
+                    <span class="text-danger d-none small"></span>
+                    <div class="col-3">
+                        <img id="preview" src="" class="border border-2 rounded rounded-3 p-2 w-100 d-none" />
+                    </div>
+                    <button class="btn btn-primary" type="submit">
+                        <div class="col-3">
+                            <div class="text-end me-3">
+                                <i class="bi-arrow-right text-secondary fs-3"></i>
+                            </div>
+                    </button>
+                </form>
             </div>
         </div>
     
