@@ -143,7 +143,10 @@
                                 <hr class="dropdown-divider"/>
                             </div>
                             <a href="/usuario/perfil">
-                            <img  class="img-fluid ms-1 w-50 " src="/static/img/avatar-circle-120x120.png" alt="foto perfil"/>
+                            <img src="/static/img/usuario/{{ '%04d'|format(usuario.id) }}.jpg" 
+                            onerror="this.onerror=null;this.src='/static/img/avatar-circle-120x120.png';" 
+                            class="img-fluid ms-1 w-50" 
+                            alt="foto perfil"/>
                             </a>
                         </div>
                     </header>

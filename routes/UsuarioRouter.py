@@ -1,12 +1,23 @@
+from io import BytesIO
 from babel.dates import format_datetime, get_month_names
 from babel.numbers import format_currency
 from datetime import datetime
-from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
+from fastapi import (
+    APIRouter,
+    Depends,
+    File,
+    Form,
+    HTTPException,
+    Request,
+    UploadFile,
+    status,
+)
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from models.Categoria import Categoria
 from models.Conta import Conta
 from models.Dependente import Dependente
+from PIL import Image
 
 from models.Usuario import Usuario
 from repositories.CategoriaRepo import CategoriaRepo
@@ -14,6 +25,7 @@ from repositories.ContaRepo import ContaRepo
 from repositories.DependenteRepo import DependenteRepo
 from repositories.TransacaoRepo import TransacaoRepo
 from repositories.UsuarioRepo import UsuarioRepo
+from util.imageUtil import transformar_em_circulo
 from util.seguranca import (
     gerar_token,
     obter_hash_senha,
@@ -150,16 +162,17 @@ async def postNovoUsuario(
         "Prêmios",
     ]
 
-
     usuario = UsuarioRepo.obterUsuarioPorToken(token)
 
     for i in range(len(despesa)):
         CategoriaRepo.inserir(Categoria(0, usuario.id, despesa[i], "Despesa"))
-    
+
     for i in range(len(receita)):
         CategoriaRepo.inserir(Categoria(0, usuario.id, receita[i], "Receita"))
 
-    ContaRepo.inserir(Conta(0, usuario.id, "Carteira", 0, "Esta é a sua carteira física de dinheiro."))
+    ContaRepo.inserir(
+        Conta(0, usuario.id, "Carteira", 0, "Esta é a sua carteira física de dinheiro.")
+    )
 
     DependenteRepo.inserir(Dependente(0, usuario.id, usuario.nome.split()[0]))
 
@@ -349,4 +362,36 @@ async def postAlterarSenha(
             "mensagem": mensagem,
             "pagina": pagina,
         },
+    )
+
+
+@router.post("/usuario/imagem")
+async def postImagem(
+    request: Request,
+    usuario: Usuario = Depends(validar_usuario_logado),
+    arquivoImagem: UploadFile = File(...),
+):
+    erros = {}
+
+    conteudo_arquivo = await arquivoImagem.read()
+    imagem = Image.open(BytesIO(conteudo_arquivo))
+    if not imagem:
+        add_error("arquivoImagem", "Nenhuma imagem foi enviada.", erros)
+
+    if len(erros) > 0:
+        return templates.TemplateResponse(
+            "usuario/perfil.html",
+            {
+                "request": request,
+                "usuario": usuario,
+                "erros": erros,
+            },
+        )
+
+    imagem_quadrada = transformar_em_circulo(imagem)
+    imagem_quadrada.save(f"static/img/usuario/{usuario.id:04d}.jpg", "JPEG")
+
+    return templates.TemplateResponse(
+        "usuario/perfil.html",
+        {"request": request, "usuario": usuario},
     )

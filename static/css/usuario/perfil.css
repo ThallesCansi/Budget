@@ -3,6 +3,5 @@
 }
 
 .perfil {
-    cursor: pointer !important;
     transition: transform 0.2s ease !important;
 }
