@@ -1,0 +1,25 @@
+name: 🐛 Bug
+description: Algo não funciona como deveria
+labels: ["type:fix"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: O que aconteceu?
+      description: Descreva o problema e o que você esperava.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Passos para reproduzir
+      placeholder: "1. Abra…\n2. Toque em…\n3. Veja…"
+  - type: dropdown
+    id: device
+    attributes:
+      label: Dispositivo
+      options: ["Celular (Android)", "Celular (iPhone)", "Computador", "Tablet"]
+  - type: input
+    id: version
+    attributes:
+      label: Versão / navegador

@@ -1,0 +1,247 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Budget design tokens — derived from the original project (static/css/estilo.css and
+ * meu_bootstrap.css): primary blue #2b478b, green #56ab91, their 100–800 scales and the
+ * income/expense/balance colors used by the dashboard cards.
+ */
+@theme {
+  --color-blue-accent-100: #bfc7dc;
+  --color-blue-accent-200: #95a3c5;
+  --color-blue-accent-300: #6a7ead;
+  --color-blue-accent-400: #405996;
+  --color-blue-accent-500: #263f7d;
+  --color-blue-accent-600: #1e3161;
+  --color-blue-accent-700: #152345;
+  --color-blue-accent-800: #0c1529;
+
+  --color-green-accent-100: #cce5de;
+  --color-green-accent-200: #aad5c8;
+  --color-green-accent-300: #88c4b2;
+  --color-green-accent-400: #66b39c;
+  --color-green-accent-500: #4d9982;
+  --color-green-accent-600: #3c7765;
+  --color-green-accent-700: #2b5548;
+  --color-green-accent-800: #19332b;
+
+  --color-brand-blue: #2b478b;
+  --color-brand-green: #56ab91;
+
+  --shadow-card: 0 1px 2px rgb(33 37 41 / 0.05), 0 6px 20px rgb(33 37 41 / 0.07);
+  --shadow-elevated: 0 8px 16px rgb(33 37 41 / 0.17);
+  --shadow-glow: 0 10px 30px -6px rgb(43 71 139 / 0.55);
+
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-income: var(--income);
+  --color-expense: var(--expense);
+  --color-balance: var(--balance);
+  --color-transfer: var(--transfer);
+  --color-warning: var(--warning);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: #f4f7fa;
+  --foreground: #212529;
+  --card: #ffffff;
+  --card-foreground: #212529;
+  --popover: #ffffff;
+  --popover-foreground: #212529;
+  --primary: #2b478b;
+  --primary-foreground: #ffffff;
+  --secondary: #56ab91;
+  --secondary-foreground: #ffffff;
+  --muted: #e9eef3;
+  --muted-foreground: #6c757d;
+  --accent: #e6ecf1;
+  --accent-foreground: #152345;
+  --destructive: #d76060;
+  --border: #dee2e6;
+  --input: #ced4da;
+  --ring: #405996;
+
+  --income: #35aa3a;
+  --expense: #d76060;
+  --balance: #4d72cc;
+  --transfer: #6c757d;
+  --warning: #fea519;
+
+  --chart-1: #2b478b;
+  --chart-2: #56ab91;
+  --chart-3: #42b5e7;
+  --chart-4: #fea519;
+  --chart-5: #fa4deb;
+
+  --sidebar: #2b478b;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #56ab91;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ffffff;
+  --sidebar-accent-foreground: #212529;
+  --sidebar-border: rgb(255 255 255 / 0.12);
+  --sidebar-ring: #95a3c5;
+}
+
+.dark {
+  --background: #0c1529;
+  --foreground: #e9ecef;
+  --card: #132042;
+  --card-foreground: #e9ecef;
+  --popover: #152345;
+  --popover-foreground: #e9ecef;
+  --primary: #4d72cc;
+  --primary-foreground: #ffffff;
+  --secondary: #66b39c;
+  --secondary-foreground: #0c1529;
+  --muted: #1e3161;
+  --muted-foreground: #95a3c5;
+  --accent: #1e3161;
+  --accent-foreground: #e9ecef;
+  --destructive: #e27474;
+  --border: rgb(255 255 255 / 0.08);
+  --input: rgb(255 255 255 / 0.14);
+  --ring: #6a7ead;
+
+  --income: #4cc153;
+  --expense: #e27474;
+  --balance: #7b9ae0;
+  --transfer: #adb5bd;
+  --warning: #fdb944;
+
+  --chart-1: #7b9ae0;
+  --chart-2: #66b39c;
+  --chart-3: #42b5e7;
+  --chart-4: #fea519;
+  --chart-5: #fa4deb;
+
+  --sidebar: #101c38;
+  --sidebar-foreground: #e9ecef;
+  --sidebar-primary: #66b39c;
+  --sidebar-primary-foreground: #0c1529;
+  --sidebar-accent: #e9ecef;
+  --sidebar-accent-foreground: #0c1529;
+  --sidebar-border: rgb(255 255 255 / 0.08);
+  --sidebar-ring: #6a7ead;
+}
+
+@utility bg-brand-gradient {
+  background-image: linear-gradient(90deg, #2b478b 0%, #55ab91 100%);
+}
+
+@utility bg-brand-gradient-vertical {
+  background-image: linear-gradient(180deg, #55ab91 0%, #2b478b 100%);
+}
+
+@utility text-brand-gradient {
+  background-image: linear-gradient(90deg, #2b478b 0%, #55ab91 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+@utility skeleton-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    var(--muted) 0%,
+    color-mix(in oklab, var(--muted), var(--card) 60%) 50%,
+    var(--muted) 100%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    overscroll-behavior-y: none;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  /* Tabular figures keep amounts aligned and stop them jittering while animating. */
+  [data-money] {
+    font-variant-numeric: tabular-nums;
+    transition: filter 0.25s ease;
+  }
+  /* Privacy mode: blur every amount on screen. */
+  html[data-privacy="on"] [data-money] {
+    filter: blur(7px);
+    user-select: none;
+  }
+}

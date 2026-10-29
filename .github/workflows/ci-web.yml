@@ -1,0 +1,30 @@
+name: CI · Web
+
+on:
+  pull_request:
+    paths: ["apps/web/**", "packages/**", "pnpm-lock.yaml", "biome.json", ".github/workflows/ci-web.yml"]
+  push:
+    branches: [main]
+    paths: ["apps/web/**", "packages/**", "pnpm-lock.yaml", "biome.json", ".github/workflows/ci-web.yml"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ci-placeholder
+      NEXT_PUBLIC_API_URL: https://api.example.com
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm biome ci .
+      - run: pnpm turbo run typecheck test build --filter=@budget/web...

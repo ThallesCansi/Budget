@@ -1,0 +1,15 @@
+{
+  "name": "@budget/api",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Turborepo bridge for the Python API (all tasks run through uv).",
+  "scripts": {
+    "dev": "uv run fastapi dev app/main.py --port 8000",
+    "lint": "uv run ruff check . && uv run ruff format --check .",
+    "typecheck": "uv run mypy app",
+    "test": "uv run pytest",
+    "openapi": "uv run python -m scripts.export_openapi ../../packages/api-client/openapi.json",
+    "db:local": "uv run python scripts/devdb.py",
+    "db:migrate": "uv run alembic upgrade head"
+  }
+}

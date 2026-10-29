@@ -1,0 +1,24 @@
+name: API client in sync
+
+on:
+  pull_request:
+    paths: ["apps/api/app/**", "packages/api-client/**"]
+
+jobs:
+  codegen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - uses: astral-sh/setup-uv@v7
+      - run: pnpm install --frozen-lockfile
+      - run: (cd apps/api && uv sync --locked)
+      - run: pnpm --filter @budget/api-client codegen
+      - name: Fail if the generated client changed
+        run: |
+          git diff --exit-code -- packages/api-client || {
+            echo "::error::Rode 'pnpm codegen' e faça commit do client gerado."; exit 1; }

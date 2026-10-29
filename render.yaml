@@ -1,0 +1,30 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: budget-api
+    runtime: python
+    region: virginia
+    plan: free
+    rootDir: apps/api
+    buildCommand: pip install uv && uv sync --locked --no-dev
+    # Free instances have no pre-deploy step, so migrations run at boot (they are idempotent).
+    startCommand: uv run --no-dev alembic upgrade head && uv run --no-dev uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips "*"
+    healthCheckPath: /health
+    autoDeploy: true
+    buildFilter:
+      paths: ["apps/api/**"]
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: CRON_SECRET
+        generateValue: true
+      - key: SENTRY_DSN
+        sync: false
