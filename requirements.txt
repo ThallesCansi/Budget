@@ -1,7 +1,0 @@
-uvicorn 
-fastapi 
-Jinja2 
-python-multipart
-pillow
-bcrypt
-babel
