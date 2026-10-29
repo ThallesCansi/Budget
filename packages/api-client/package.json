@@ -1,0 +1,21 @@
+{
+  "name": "@budget/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "codegen": "pnpm --filter @budget/api openapi && openapi-typescript openapi.json -o src/schema.d.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.17.0"
+  },
+  "devDependencies": {
+    "@budget/tsconfig": "workspace:*",
+    "openapi-typescript": "^7.13.0",
+    "typescript": "^5.9.0"
+  }
+}
